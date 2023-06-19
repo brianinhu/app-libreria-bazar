@@ -6,6 +6,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import libreria.modelo.bean.Cliente;
+import libreria.modelo.dao.ClienteDAO;
 
 @WebServlet(name = "SvCliente", urlPatterns = {"/SvCliente", "/viewLogin", "/login", "/logout", "/viewSignup", "/signup"})
 public class SvCliente extends HttpServlet {
@@ -23,8 +25,15 @@ public class SvCliente extends HttpServlet {
             case "/login":
                 loginSession(request, response);
                 break;
-            default:
-                throw new AssertionError();
+            case "/viewSignup":
+                request.getRequestDispatcher("WEB-INF/signup.jsp").forward(request, response);
+                break;
+            case "/signup":
+                signup(request, response);
+                break;
+            case "/logout":
+                logoutSession(request, response);
+                break;
         }
     }
 
@@ -67,8 +76,42 @@ public class SvCliente extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    private void loginSession(HttpServletRequest request, HttpServletResponse response) {
-        
+    private void loginSession(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String email = request.getParameter("txtemail");
+        String contraseña = request.getParameter("txtcontrasena");
+        Cliente cliente = new Cliente();
+        cliente.setEmail(email);
+        cliente.setContraseña(contraseña);
+        cliente = new ClienteDAO().read(cliente);
+        if (cliente != null) {
+            request.getSession().setAttribute("customer", cliente);
+            request.getRequestDispatcher("WEB-INF/main.jsp").forward(request, response);
+        } else {
+            request.setAttribute("msg", "El inicio de sesión de la cuenta fue incorrecto. Vuelva a intentarlo");
+            request.getRequestDispatcher("WEB-INF/login.jsp").forward(request, response);
+        }
+
+    }
+
+    private void signup(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String nombre = request.getParameter("txtnombre");
+        String apaterno = request.getParameter("txtapaterno");
+        String amaterno = request.getParameter("txtamaterno");
+        String telefono = request.getParameter("txttelefono");
+        String email = request.getParameter("txtemail");
+        String contraseña = request.getParameter("txtcontrasena");
+        int idgenero = Integer.parseInt(request.getParameter("txtidgenero"));
+
+        Cliente cliente = new Cliente(0, nombre, apaterno, amaterno, telefono, email, contraseña, idgenero);
+        new ClienteDAO().create(cliente);
+        request.setAttribute("flag", true);
+        request.getSession().setAttribute("customer", cliente);
+        request.getRequestDispatcher("WEB-INF/main.jsp").forward(request, response);
+    }
+
+    private void logoutSession(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        request.getSession().invalidate();
+        response.sendRedirect("index.jsp");
     }
 
 }

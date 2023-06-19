@@ -12,6 +12,9 @@
         <title>JSP Page</title>
     </head>
     <body>
+        <%
+        String mensajeError = (String) request.getAttribute("msg");
+        %>
         <header>
             
         </header>
@@ -22,10 +25,12 @@
             <form action="login" method="post">
                 <p>INICIO DE SESIÓN</p>
                 <p>Email</p>
-                <input type="email" name="txtemail">
+                <input type="email" name="txtemail" required>
                 <p>Contraseña</p>
-                <input type="password" name="txtcontraseña">
+                <input type="password" name="txtcontrasena" required>
                 <p><input type="submit" value="Ingresar"></p>
+                <span><%=mensajeError!=null?mensajeError:""%></span>
+                <p>No tienes una cuenta? <a href="viewSignup">Regístrate aquí</a></p>
             </form>
         </section>
         <footer>

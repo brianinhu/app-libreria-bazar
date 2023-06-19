@@ -13,7 +13,7 @@
     </head>
     <body>
         <header>
-
+            LIBRERIA
         </header>
         <nav>
             <a href="viewLogin">Iniciar sesión</a>
@@ -24,5 +24,6 @@
         <footer>
 
         </footer>
+
     </body>
 </html>
