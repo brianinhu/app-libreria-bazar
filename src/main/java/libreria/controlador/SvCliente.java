@@ -20,13 +20,13 @@ public class SvCliente extends HttpServlet {
 
         switch (path) {
             case "/viewLogin":
-                request.getRequestDispatcher("WEB-INF/login.jsp").forward(request, response);
+                request.getRequestDispatcher("web/login.jsp").forward(request, response);
                 break;
             case "/login":
                 loginSession(request, response);
                 break;
             case "/viewSignup":
-                request.getRequestDispatcher("WEB-INF/signup.jsp").forward(request, response);
+                request.getRequestDispatcher("web/signup.jsp").forward(request, response);
                 break;
             case "/signup":
                 signup(request, response);
@@ -85,10 +85,10 @@ public class SvCliente extends HttpServlet {
         cliente = new ClienteDAO().read(cliente);
         if (cliente != null) {
             request.getSession().setAttribute("customer", cliente);
-            request.getRequestDispatcher("WEB-INF/main.jsp").forward(request, response);
+            request.getRequestDispatcher("WEB-INF/customer/main.jsp").forward(request, response);
         } else {
             request.setAttribute("msg", "El inicio de sesión de la cuenta fue incorrecto. Vuelva a intentarlo");
-            request.getRequestDispatcher("WEB-INF/login.jsp").forward(request, response);
+            request.getRequestDispatcher("web/login.jsp").forward(request, response);
         }
 
     }
@@ -106,7 +106,7 @@ public class SvCliente extends HttpServlet {
         new ClienteDAO().create(cliente);
         request.setAttribute("flag", true);
         request.getSession().setAttribute("customer", cliente);
-        request.getRequestDispatcher("WEB-INF/main.jsp").forward(request, response);
+        request.getRequestDispatcher("WEB-INF/customer/main.jsp").forward(request, response);
     }
 
     private void logoutSession(HttpServletRequest request, HttpServletResponse response) throws IOException {

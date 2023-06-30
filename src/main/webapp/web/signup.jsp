@@ -13,10 +13,11 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
+        <link rel="stylesheet" href="CSS/style.css"/>
     </head>
     <body>
         <header>
-
+            LIBRERÍA
         </header>
         <nav>
 
@@ -24,10 +25,11 @@
         <section>
             <form action="signup" method="post">
                 <p>Regístrese</p>
+                <input type="hidden" id="txtidcliente" name="txtidcliente">
                 <p>Nombre*</p>
-                <input type="text" name="txtnombre" required>
+                <input type="text" id="txtnombre" name="txtnombre" required>
                 <p>Apellido paterno*</p>
-                <input type="text" name="txtapaterno" required> 
+                <input type="text" id="txtapaterno" name="txtapaterno" required> 
                 <p>Apellido materno</p>
                 <input type="text" name="txtamaterno">
                 <p>Genero</p>
@@ -46,11 +48,12 @@
                 <input type="email" name="txtemail" required>
                 <p>Contraseña*</p>
                 <input type="password" name="txtcontrasena" required>
-                <p><input type="submit" value="Registrar cuenta"></p>
+                <p><button id="btn-registrar">Registrar</button></p>
             </form>
         </section>
         <footer>
 
         </footer>
+        <script src="JS/script.js"></script>
     </body>
 </html>

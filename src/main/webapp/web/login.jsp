@@ -13,13 +13,13 @@
     </head>
     <body>
         <%
-        String mensajeError = (String) request.getAttribute("msg");
+            String mensajeError = (String) request.getAttribute("msg");
         %>
         <header>
-            
+
         </header>
         <nav>
-            
+
         </nav>
         <section>
             <form action="login" method="post">
@@ -29,12 +29,12 @@
                 <p>Contraseña</p>
                 <input type="password" name="txtcontrasena" required>
                 <p><input type="submit" value="Ingresar"></p>
-                <span><%=mensajeError!=null?mensajeError:""%></span>
+                <span><%=mensajeError != null ? mensajeError : ""%></span>
                 <p>No tienes una cuenta? <a href="viewSignup">Regístrate aquí</a></p>
             </form>
         </section>
         <footer>
-            
+
         </footer>
     </body>
 </html>
