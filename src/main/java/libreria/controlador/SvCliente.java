@@ -20,13 +20,13 @@ public class SvCliente extends HttpServlet {
 
         switch (path) {
             case "/viewLogin":
-                request.getRequestDispatcher("web/login.jsp").forward(request, response);
+                request.getRequestDispatcher("loginC.jsp").forward(request, response);
                 break;
             case "/login":
                 loginSession(request, response);
                 break;
             case "/viewSignup":
-                request.getRequestDispatcher("web/signup.jsp").forward(request, response);
+                request.getRequestDispatcher("signupC.jsp").forward(request, response);
                 break;
             case "/signup":
                 signup(request, response);
@@ -85,15 +85,16 @@ public class SvCliente extends HttpServlet {
         cliente = new ClienteDAO().read(cliente);
         if (cliente != null) {
             request.getSession().setAttribute("customer", cliente);
-            request.getRequestDispatcher("WEB-INF/customer/main.jsp").forward(request, response);
+            request.getRequestDispatcher("WEB-INF/customer/mainC.jsp").forward(request, response);
         } else {
             request.setAttribute("msg", "El inicio de sesión de la cuenta fue incorrecto. Vuelva a intentarlo");
-            request.getRequestDispatcher("web/login.jsp").forward(request, response);
+            request.getRequestDispatcher("loginC.jsp").forward(request, response);
         }
 
     }
 
     private void signup(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String idcliente = request.getParameter("txtidcliente");
         String nombre = request.getParameter("txtnombre");
         String apaterno = request.getParameter("txtapaterno");
         String amaterno = request.getParameter("txtamaterno");
@@ -102,11 +103,10 @@ public class SvCliente extends HttpServlet {
         String contraseña = request.getParameter("txtcontrasena");
         int idgenero = Integer.parseInt(request.getParameter("txtidgenero"));
 
-        Cliente cliente = new Cliente(0, nombre, apaterno, amaterno, telefono, email, contraseña, idgenero);
+        Cliente cliente = new Cliente(idcliente, nombre, apaterno, amaterno, telefono, email, contraseña, idgenero);
         new ClienteDAO().create(cliente);
-        request.setAttribute("flag", true);
         request.getSession().setAttribute("customer", cliente);
-        request.getRequestDispatcher("WEB-INF/customer/main.jsp").forward(request, response);
+        request.getRequestDispatcher("WEB-INF/customer/mainC.jsp").forward(request, response);
     }
 
     private void logoutSession(HttpServletRequest request, HttpServletResponse response) throws IOException {

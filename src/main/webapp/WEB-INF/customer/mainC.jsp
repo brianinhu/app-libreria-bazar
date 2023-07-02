@@ -11,17 +11,8 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
+        <link rel="stylesheet" type="text/css" href="CSS/styleC.css"/>
     </head>
-    <%
-        Boolean flag = (Boolean) request.getAttribute("flag");
-        if (flag != null && flag.booleanValue()) {
-    %>
-    <script>
-        alert("Su registro ha sido realizado correctamente");
-    </script>
-    <%
-        }
-    %>
     <body>
         <%
             Cliente c = (Cliente) request.getSession().getAttribute("customer");
@@ -31,7 +22,7 @@
             LIBRERIA
         </header>
         <nav>
-            <span>Bienvenido, <%=c.getNombre()%> <%=c.getApaterno()%> <%=c.getAmaterno()%></span><span><a href="logout">Cerrar sesión</a></span>
+            <span>Bienvenido, <%=c.getNombre()%> <%=c.getApaterno()%></span><span><a href="logout">Cerrar sesión</a></span>
         </nav>
         <section>
 

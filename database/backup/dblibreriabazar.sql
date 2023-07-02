@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 8.0.31, for Win64 (x86_64)
 --
--- Host: localhost    Database: dblibreriabazar
+-- Host: localhost    Database: dblibreriabazar2
 -- ------------------------------------------------------
 -- Server version	8.0.31
 
@@ -35,7 +35,7 @@ CREATE TABLE `administrador` (
   KEY `idpersonal` (`idpersonal`),
   CONSTRAINT `administrador_ibfk_1` FOREIGN KEY (`idrol`) REFERENCES `rol` (`idrol`),
   CONSTRAINT `administrador_ibfk_2` FOREIGN KEY (`idpersonal`) REFERENCES `personal` (`idpersonal`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -44,6 +44,7 @@ CREATE TABLE `administrador` (
 
 LOCK TABLES `administrador` WRITE;
 /*!40000 ALTER TABLE `administrador` DISABLE KEYS */;
+INSERT INTO `administrador` VALUES (1,'binca','binca','1',1,1),(2,'jcaman','jcaman','1',2,2),(3,'nrimache','nrimache','1',3,3);
 /*!40000 ALTER TABLE `administrador` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -128,6 +129,30 @@ INSERT INTO `genero` VALUES (1,'Masculino'),(2,'Femenino'),(3,'No especificado')
 UNLOCK TABLES;
 
 --
+-- Table structure for table `marca`
+--
+
+DROP TABLE IF EXISTS `marca`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `marca` (
+  `idmarca` int NOT NULL AUTO_INCREMENT,
+  `marca` varchar(60) NOT NULL,
+  PRIMARY KEY (`idmarca`)
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `marca`
+--
+
+LOCK TABLES `marca` WRITE;
+/*!40000 ALTER TABLE `marca` DISABLE KEYS */;
+INSERT INTO `marca` VALUES (1,'Faber-Castell'),(2,'Artesco'),(3,'Layconsa'),(4,'3M'),(5,'Pilot'),(6,'Pelican'),(7,'Justus'),(8,'Staedtler'),(9,'Stabilo'),(10,'Surco');
+/*!40000 ALTER TABLE `marca` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `pedido`
 --
 
@@ -200,7 +225,7 @@ CREATE TABLE `personal` (
   `edad` int DEFAULT NULL,
   `profesion` varchar(60) NOT NULL,
   PRIMARY KEY (`idpersonal`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -209,6 +234,7 @@ CREATE TABLE `personal` (
 
 LOCK TABLES `personal` WRITE;
 /*!40000 ALTER TABLE `personal` DISABLE KEYS */;
+INSERT INTO `personal` VALUES (1,'Brian','Inca','Huamani','925424987',20,'Ingeniero de Sistemas'),(2,'Josue','Caman','Aguirre','934419031',18,'Ingeniero de Software'),(3,'Nick','Rimache','Oropeza','955922381',25,'Ingeniero Informatico');
 /*!40000 ALTER TABLE `personal` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -223,13 +249,16 @@ CREATE TABLE `producto` (
   `SKU` varchar(10) NOT NULL,
   `nombre` varchar(120) NOT NULL,
   `descripcion` text,
-  `marca` varchar(30) DEFAULT NULL,
+  `idmarca` int DEFAULT NULL,
   `precio` float NOT NULL,
+  `stock` int NOT NULL,
   `imagen` longblob,
   `idcategoria` int DEFAULT NULL,
   PRIMARY KEY (`SKU`),
   KEY `idcategoria` (`idcategoria`),
-  CONSTRAINT `producto_ibfk_1` FOREIGN KEY (`idcategoria`) REFERENCES `categoria` (`idcategoria`)
+  KEY `idmarca` (`idmarca`),
+  CONSTRAINT `producto_ibfk_1` FOREIGN KEY (`idcategoria`) REFERENCES `categoria` (`idcategoria`),
+  CONSTRAINT `producto_ibfk_2` FOREIGN KEY (`idmarca`) REFERENCES `marca` (`idmarca`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -275,4 +304,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-06-30  5:47:44
+-- Dump completed on 2023-07-01 21:42:10

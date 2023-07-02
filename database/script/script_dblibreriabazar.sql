@@ -15,6 +15,11 @@ create table categoria (
 	idcategoria int primary key auto_increment,
     categoria varchar(60) not null
 );
+-- Crear la tabla marca 
+create table marca (
+	idmarca int primary key auto_increment,
+    marca varchar(60) not null
+);
 -- Crear la tabla cliente 
 create table cliente (
 	idcliente varchar(8) primary key,
@@ -32,11 +37,13 @@ create table producto (
 	SKU varchar(10) primary key,
     nombre varchar(120) not null,
     descripcion text,
-    marca varchar(30),
+    idmarca int,
     precio float not null,
+    stock int not null,
     imagen longblob,
     idcategoria int,
-    foreign key (idcategoria) references categoria(idcategoria)
+    foreign key (idcategoria) references categoria(idcategoria),
+    foreign key (idmarca) references marca(idmarca)
 );
 -- Crear la tabla pedido 
 create table pedido (
@@ -102,3 +109,25 @@ insert into categoria(categoria) values
 ('Manualidades'),
 ('Escolar'),
 ('Oficina');
+-- Insertar registros a la tabla marca
+insert into marca(marca) values 
+('Faber-Castell'),
+('Artesco'),
+('Layconsa'),
+('3M'),
+('Pilot'),
+('Pelican'),
+('Justus'),
+('Staedtler'),
+('Stabilo'),
+('Surco');
+-- Insertar datos a la tabla personal
+INSERT INTO personal (nombre, apaterno, amaterno, telefono, edad, profesion) 
+VALUES ('Brian', 'Inca', 'Huamani', '925424987', '20', 'Ingeniero de Sistemas'),
+	   ('Josue', 'Caman', 'Aguirre', '934419031', '18', 'Ingeniero de Software'),
+	   ('Nick', 'Rimache', 'Oropeza', '955922381', '25', 'Ingeniero Informático');
+-- Insertar datos a la tabla administrador
+INSERT INTO administrador (user, password, estado, idrol, idpersonal) 
+VALUES ('binca', 'binca', '1', 1, 1),
+	   ('jcaman', 'jcaman', '1', 2, 2),
+	   ('nrimache', 'nrimache', '1', 3, 3);

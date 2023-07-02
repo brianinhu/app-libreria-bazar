@@ -11,7 +11,7 @@ public class Conexion {
     protected Connection cn;
     protected final String URL = "jdbc:mysql://localhost/dblibreriabazar";
     protected final String USER = "root";
-    protected final String PASS = "12345";
+    protected final String PASS = "12345"; /*Contraseña de su gestor MYSQL*/
     protected PreparedStatement ps;
     protected ResultSet rs;
 

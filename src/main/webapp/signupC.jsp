@@ -13,7 +13,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
-        <link rel="stylesheet" href="CSS/style.css"/>
+        <link rel="stylesheet" href="CSS/styleC.css"/>
     </head>
     <body>
         <header>
@@ -48,12 +48,12 @@
                 <input type="email" name="txtemail" required>
                 <p>Contraseña*</p>
                 <input type="password" name="txtcontrasena" required>
-                <p><button id="btn-registrar">Registrar</button></p>
+                <p><button id="btn-registrar" type="submit">Registrar</button></p>
             </form>
         </section>
         <footer>
 
         </footer>
-        <script src="JS/script.js"></script>
+        <script type="text/javascript" src="JS/scriptC.js"></script>
     </body>
 </html>
