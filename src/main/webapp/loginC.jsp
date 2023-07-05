@@ -23,7 +23,7 @@
 
         </nav>
         <section>
-            <form action="login" method="post">
+            <form action="loginC" method="post">
                 <p>INICIO DE SESIÓN</p>
                 <p>Email</p>
                 <input type="email" name="txtemail" required>

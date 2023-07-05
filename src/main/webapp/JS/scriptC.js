@@ -17,4 +17,3 @@ btnregistrar.addEventListener("click", () => {
     var idcliente = document.getElementById("txtidcliente");
     idcliente.value = codigo;
 });
-

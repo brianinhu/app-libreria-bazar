@@ -38,7 +38,24 @@ public class CategoriaDAO extends Conexion implements InterfaceCRUD<Categoria> {
 
     @Override
     public Categoria read(Categoria e) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        String sentence = "select * from categoria where idcategoria = ?";
+        Categoria categoria = null;
+        try {
+            cn = getConnection();
+            ps = cn.prepareStatement(sentence);
+            ps.setInt(1, e.getIdcategoria());
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                categoria = new Categoria(rs.getInt(1), rs.getString(2));
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error al leer una categoria. \nDetalles: " + ex.getMessage());
+        } finally {
+            close(cn);
+            close(ps);
+            close(rs);
+        }
+        return categoria;
     }
 
     @Override

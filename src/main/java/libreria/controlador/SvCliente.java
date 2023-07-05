@@ -1,16 +1,25 @@
 package libreria.controlador;
 
 import java.io.IOException;
+import java.text.DecimalFormat;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import libreria.modelo.bean.Carrito;
 import libreria.modelo.bean.Cliente;
+import libreria.modelo.bean.Producto;
 import libreria.modelo.dao.ClienteDAO;
+import libreria.modelo.dao.ProductoDAO;
 
-@WebServlet(name = "SvCliente", urlPatterns = {"/SvCliente", "/viewLogin", "/login", "/logout", "/viewSignup", "/signup"})
+@WebServlet(name = "SvCliente", urlPatterns = {"/SvCliente", "/viewLoginC", "/loginC", "/logoutC", "/viewSignupC", "/signupC", "/viewCart", "/viewMainC", "/addtoCart", "/deletetoCart", "/updatetoCart"})
 public class SvCliente extends HttpServlet {
+
+    protected ArrayList<Carrito> listCart = new ArrayList<>();
+    protected int quantity = 1;
+    protected DecimalFormat formato = new DecimalFormat("#.##");
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -19,20 +28,46 @@ public class SvCliente extends HttpServlet {
         String path = request.getServletPath();
 
         switch (path) {
-            case "/viewLogin":
+            case "/viewLoginC":
                 request.getRequestDispatcher("loginC.jsp").forward(request, response);
                 break;
-            case "/login":
+            case "/loginC":
                 loginSession(request, response);
                 break;
-            case "/viewSignup":
+            case "/viewSignupC":
                 request.getRequestDispatcher("signupC.jsp").forward(request, response);
                 break;
-            case "/signup":
-                signup(request, response);
+            case "/signupC":
+                signupC(request, response);
                 break;
-            case "/logout":
+            case "/logoutC":
                 logoutSession(request, response);
+                break;
+            case "/viewCart":
+                float fullPay = 0;
+                String stringFormat;
+                for (int i = 0; i < listCart.size(); i++) {
+                    fullPay = fullPay + listCart.get(i).getSubtotal();
+                }
+                stringFormat = formato.format(fullPay);
+                fullPay = Float.parseFloat(stringFormat);
+                request.setAttribute("fullPay", fullPay);
+                request.setAttribute("quantityProductToCart", listCart.size());
+                request.setAttribute("cart", listCart);
+                request.getRequestDispatcher("WEB-INF/customer/cartC.jsp").forward(request, response);
+                break;
+            case "/viewMainC":
+                request.setAttribute("quantityProductToCart", listCart.size());
+                request.getRequestDispatcher("WEB-INF/customer/mainC.jsp").forward(request, response);
+                break;
+            case "/addtoCart":
+                addtoCart(request, response);
+                break;
+            case "/deletetoCart":
+                deletetoCart(request, response);
+                break;
+            case "/updatetoCart":
+                updatetoCart(request, response);
                 break;
         }
     }
@@ -85,6 +120,7 @@ public class SvCliente extends HttpServlet {
         cliente = new ClienteDAO().read(cliente);
         if (cliente != null) {
             request.getSession().setAttribute("customer", cliente);
+            request.setAttribute("quantityProductToCart", listCart.size());
             request.getRequestDispatcher("WEB-INF/customer/mainC.jsp").forward(request, response);
         } else {
             request.setAttribute("msg", "El inicio de sesión de la cuenta fue incorrecto. Vuelva a intentarlo");
@@ -93,7 +129,7 @@ public class SvCliente extends HttpServlet {
 
     }
 
-    private void signup(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    private void signupC(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String idcliente = request.getParameter("txtidcliente");
         String nombre = request.getParameter("txtnombre");
         String apaterno = request.getParameter("txtapaterno");
@@ -112,6 +148,64 @@ public class SvCliente extends HttpServlet {
     private void logoutSession(HttpServletRequest request, HttpServletResponse response) throws IOException {
         request.getSession().invalidate();
         response.sendRedirect("index.jsp");
+    }
+
+    private void addtoCart(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        boolean flag = false;
+        String SKU = request.getParameter("SKU");
+        if (!listCart.isEmpty()) {
+            for (int i = 0; i < listCart.size(); i++) {
+                if (listCart.get(i).getSKU().equals(SKU)) {
+                    listCart.get(i).setCantidad(listCart.get(i).getCantidad() + 1);
+                    listCart.get(i).setSubtotal(listCart.get(i).getCantidad() * listCart.get(i).getPrecio());
+                    flag = true;
+                }
+            }
+            if (flag == false) {
+                Producto p = new Producto();
+                p.setSKU(SKU);
+                p = new ProductoDAO().read(p);
+                Carrito cart = new Carrito(p.getImagen(), p.getSKU(), p.getNombre(), p.getPrecio(), quantity, quantity * p.getPrecio());
+                listCart.add(cart);
+            }
+        } else {
+            Producto p = new Producto();
+            p.setSKU(SKU);
+            p = new ProductoDAO().read(p);
+            Carrito cart = new Carrito(p.getImagen(), p.getSKU(), p.getNombre(), p.getPrecio(), quantity, quantity * p.getPrecio());
+            listCart.add(cart);
+        }
+        request.setAttribute("quantityProductToCart", listCart.size());
+        request.getRequestDispatcher("WEB-INF/customer/mainC.jsp").forward(request, response);
+    }
+
+    private void deletetoCart(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String SKU = request.getParameter("SKU");
+        for (int i = 0; i < listCart.size(); i++) {
+            if (listCart.get(i).getSKU().equals(SKU)) {
+                listCart.remove(i);
+                break;
+            }
+        }
+        request.setAttribute("cart", listCart);
+        request.setAttribute("quantityProductToCart", listCart.size());
+        response.sendRedirect("viewCart");
+    }
+
+    private void updatetoCart(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        String SKU = request.getParameter("SKU");
+        int newQuantity = Integer.parseInt(request.getParameter("newQuantity"));
+        float subTotalFormat;
+        String numeroFormateado;
+        for (int i = 0; i < listCart.size(); i++) {
+            if (listCart.get(i).getSKU().equals(SKU)) {
+                listCart.get(i).setCantidad(newQuantity);
+                numeroFormateado = formato.format(listCart.get(i).getCantidad() * listCart.get(i).getPrecio());
+                subTotalFormat = Float.parseFloat(numeroFormateado);
+                listCart.get(i).setSubtotal(subTotalFormat);
+            }
+        }
+        response.sendRedirect("viewCart");
     }
 
 }

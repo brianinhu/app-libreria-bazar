@@ -7,6 +7,8 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.http.HttpServletResponse;
 import libreria.conexion.Conexion;
 import libreria.helper.InterfaceCRUD;
@@ -63,17 +65,65 @@ public class ProductoDAO extends Conexion implements InterfaceCRUD<Producto> {
 
     @Override
     public Producto read(Producto e) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        Producto producto = null;
+        String sentence = "select * from producto where SKU = ?";
+        try {
+            cn = getConnection();
+            ps = cn.prepareStatement(sentence);
+            ps.setString(1, e.getSKU());
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                producto = new Producto(rs.getString(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getFloat(5), rs.getInt(6), rs.getBinaryStream(7), rs.getInt(8));
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error al leer un producto. \nDetalles: " + ex.getMessage());
+        } finally {
+            close(cn);
+            close(ps);
+            close(rs);
+        }
+        return producto;
     }
 
     @Override
     public void update(Producto e) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        String sentence = "update producto set nombre = ?, descripcion = ?, idmarca = ?, precio = ?, stock = ?, imagen = ?, idcategoria = ? where SKU = ?";
+        try {
+            cn = getConnection();
+            ps = cn.prepareStatement(sentence);
+            ps.setString(1, e.getNombre());
+            ps.setString(2, e.getDescripcion());
+            ps.setInt(3, e.getIdmarca());
+            ps.setFloat(4, e.getPrecio());
+            ps.setInt(5, e.getStock());
+            ps.setBlob(6, e.getImagen());
+            ps.setInt(7, e.getIdcategoria());
+            ps.setString(8, e.getSKU());
+            ps.executeUpdate();
+        } catch (SQLException ex) {
+            System.out.println("Error al actualizar el producto. \nDetalles: " + ex.getMessage());
+        } finally {
+            close(cn);
+            close(ps);
+            close(rs);
+        }
     }
 
     @Override
     public void delete(Producto e) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        String sentence = "delete from producto where SKU = ?";
+        try {
+            cn = getConnection();
+            ps = cn.prepareStatement(sentence);
+            ps.setString(1, e.getSKU());
+            ps.executeUpdate();
+        } catch (SQLException ex) {
+            System.out.println("Error al eliminar un producto. \nDetalles: " + ex.getMessage());
+        } finally {
+            close(cn);
+            close(ps);
+            close(rs);
+        }
     }
 
     public void readImage(String SKU, HttpServletResponse response) {

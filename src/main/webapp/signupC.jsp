@@ -23,7 +23,7 @@
 
         </nav>
         <section>
-            <form action="signup" method="post">
+            <form action="signupC" method="post">
                 <p>Regístrese</p>
                 <input type="hidden" id="txtidcliente" name="txtidcliente">
                 <p>Nombre*</p>

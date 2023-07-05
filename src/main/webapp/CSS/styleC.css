@@ -8,3 +8,56 @@ header {
     padding: 2rem;
     text-align: center;
 }
+
+#nav1 {
+    display: flex;
+    justify-content: space-evenly;
+    text-align: center;
+}
+
+#nav2 {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+}
+
+#div-img {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+}
+
+.cart-icon {
+    position: relative;
+    display: inline-block;
+}
+
+.cart-count {
+    position: absolute;
+    top: -5px;
+    right: -8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 16px;
+    height: 16px;
+    background-color: gold;
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+    border-radius: 50%;
+}
+
+.table tr {
+    text-align: center;
+}
+
+.table td {
+    text-align: center;
+    vertical-align: middle;
+}
+
+.input-group {
+    width: 150px !important;
+    display: inline-flex !important;
+}

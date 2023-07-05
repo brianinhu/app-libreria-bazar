@@ -19,6 +19,9 @@
         <link rel="stylesheet" type="text/css" href="CSS/styleA.css"/>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" 
               integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+        <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.0/dist/jquery.min.js"></script>
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     </head>
     <body>
         <%
@@ -61,40 +64,6 @@
                         </ul>
                     </div>
                     <div class="col-10 p-0">
-                        <form class="container" action="createProducto" method="post" enctype="multipart/form-data">
-                            <h3>Registro de productos</h3>
-                            <input type="hidden" name="txtSKU" id="txtSKU">
-                            <p>Nombre</p>
-                            <input type="text" name="txtnombre">
-                            <p>Descripcion</p>
-                            <input type="text" name="txtdescripcion">
-                            <p>Marca</p>
-                            <select name="cbxMarca">
-                                <%
-                                    ArrayList<Marca> listaMarcas = new MarcaDAO().tolist();
-                                    for (Marca m : listaMarcas) {
-                                %>
-                                <option value="<%=m.getIdmarca()%>"><%=m.getMarca()%></option>
-                                <%}%>
-                            </select>
-                            <p>Precio</p>
-                            <input type="text" name="txtprecio">
-                            <p>Stock</p>
-                            <input type="text" name="txtstock">
-                            <p>Imagen</p>
-                            <input type="file" name="fileImagen">
-                            <p>Categoria</p>
-                            <select name="cbxCategoria">
-                                <%
-                                    ArrayList<Categoria> listaCategorias = new CategoriaDAO().tolist();
-                                    for (Categoria c : listaCategorias) {
-                                %>
-                                <option value="<%=c.getIdcategoria()%>"><%=c.getCategoria()%></option>
-                                <%}%>
-                            </select>
-                            <p></p>
-                            <button id="btn-agregar" type="submit">Agregar</button>
-                        </form>
                         <div>
                             <h3>Lista de productos</h3>
                             <table class="table">
@@ -107,6 +76,13 @@
                                     <th>Stock</th>
                                     <th>Imagen</th>
                                     <th>Categoria</th>
+                                    <th colspan="2">
+                                        <div class="d-grid col-6 mx-auto">
+                                            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#staticBackdrop1">
+                                                <i class="bi bi-bag-plus-fill"></i>
+                                            </button>
+                                        </div>
+                                    </th>
                                 </tr>
                                 <%
                                     ArrayList<Producto> listaProductos = new ProductoDAO().tolist();
@@ -116,11 +92,32 @@
                                     <td><%=producto.getSKU()%></td>
                                     <td><%=producto.getNombre()%></td>
                                     <td><%=producto.getDescripcion()%></td>
-                                    <td><%=producto.getIdmarca()%></td>
+                                    <%
+                                        Marca marca = new Marca(producto.getIdmarca(), "");
+                                        marca = new MarcaDAO().read(marca);
+                                    %>
+                                    <td><%=marca.getMarca()%></td>
                                     <td><%=producto.getPrecio()%></td>
                                     <td><%=producto.getStock()%></td>
-                                    <td><img src="readImage?SKUProducto=<%=producto.getSKU()%>" alt="img" width="240" height="300"/></td>
-                                    <td><%=producto.getIdcategoria()%></td>
+                                    <td><img src="readImage?SKUProducto=<%=producto.getSKU()%>" alt="img" width="100"/></td>
+                                        <%
+                                            Categoria categoria = new Categoria(producto.getIdcategoria(), "");
+                                            categoria = new CategoriaDAO().read(categoria);
+                                        %>
+                                    <td><%=categoria.getCategoria()%></td>
+                                    <td>
+                                        <div class="d-grid">
+                                            <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#staticBackdrop2" 
+                                                    onclick="abrirModal('<%=producto.getSKU()%>', '<%=producto.getNombre()%>', '<%=producto.getDescripcion()%>', '<%=producto.getIdmarca()%>', '<%=producto.getPrecio()%>', '<%=producto.getStock()%>', '<%=producto.getIdcategoria()%>')">
+                                                <i class="bi bi-pencil-square"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="d-grid">
+                                            <a href="#" onclick="deleteProduct('<%=producto.getSKU()%>')" type="button" class="btn btn-danger"><i class="bi bi-trash3-fill"></i></a>
+                                        </div>
+                                    </td>
                                 </tr>
                                 <%}%>
                             </table>
@@ -128,10 +125,115 @@
                     </div>
                 </div>
             </div>
-        </section>
-        <footer>
 
-        </footer>
-        <script type="text/javascript" src="JS/scriptA.js"></script>
-    </body>
+            <!-- Modal añadir producto -->
+            <div class="modal fade" id="staticBackdrop1" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog w-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="staticBackdropLabel">Registro de producto</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <form action="createProducto" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
+                            <div class="modal-body">
+                                <input type="hidden" name="txtSKUCreate" id="txtSKUCreate">
+                                <p>Nombre</p>
+                                <input type="text" name="txtnombre">
+                                <p>Descripcion</p>
+                                <input type="text" name="txtdescripcion">
+                                <p>Marca</p>
+                                <select name="cbxMarca">
+                                    <%
+                                        ArrayList<Marca> listaMarcas = new MarcaDAO().tolist();
+                                        for (Marca m : listaMarcas) {
+                                    %>
+                                    <option value="<%=m.getIdmarca()%>"><%=m.getMarca()%></option>
+                                    <%}%>
+                                </select>
+                                <p>Precio</p>
+                                <input type="text" name="txtprecio">
+                                <p>Stock</p>
+                                <input type="text" name="txtstock">
+                                <p>Imagen</p>
+                                <input type="file" name="fileImagen">
+                                <p>Categoria</p>
+                                <select name="cbxCategoria">
+                                    <%
+                                        ArrayList<Categoria> listaCategorias = new CategoriaDAO().tolist();
+                                        for (Categoria c : listaCategorias) {
+                                    %>
+                                    <option value="<%=c.getIdcategoria()%>"><%=c.getCategoria()%></option>
+                                    <%}%>
+                                </select>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="submit" id="btn-agregar" class="btn btn-primary">Agregar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <!-- Modal añadir producto -->
+
+            <!-- Modal editar producto -->
+            <div class="modal fade" id="staticBackdrop2" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog w-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="staticBackdropLabel">Actualización de datos del producto</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <form action="updateProducto" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
+                            <div class="modal-body">
+                                <p>SKU</p>
+                                <input type="text" name="txtSKUUpdate" id="txtSKUUpdate" readonly>
+                                <p>Nombre</p>
+                                <input type="text" name="txtnombre" id="txtnombre">
+                                <p>Descripcion</p>
+                                <input type="text" name="txtdescripcion" id="txtdescripcion">
+                                <p>Marca</p>
+                                <select name="cbxMarca" id="cbxMarca">
+                                    <%
+                                        ArrayList<Marca> listaMarcas2 = new MarcaDAO().tolist();
+                                        for (Marca m : listaMarcas2) {
+                                    %>
+                                    <option value="<%=m.getIdmarca()%>"><%=m.getMarca()%></option>
+                                    <%}%>
+                                </select>
+                                <p>Precio</p>
+                                <input type="text" name="txtprecio" id="txtprecio">
+                                <p>Stock</p>
+                                <input type="text" name="txtstock" id="txtstock">
+                                <p>Imagen</p>
+                                <input type="file" name="fileImagen">
+                                <p>Categoria</p>
+                                <select name="cbxCategoria" id="cbxCategoria">
+                                    <%
+                                        ArrayList<Categoria> listaCategorias2 = new CategoriaDAO().tolist();
+                                        for (Categoria c : listaCategorias2) {
+                                    %>
+                                    <option value="<%=c.getIdcategoria()%>"><%=c.getCategoria()%></option>
+                                    <%}%>
+                                </select>
+                                <div id="div-imagen">
+                                    <img id="imagen" src="" alt="img" width="300"/>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-primary">Guardar cambios</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Modal editar producto -->
+    </section>
+    <footer>
+
+    </footer>
+    <script type="text/javascript" src="JS/scriptA.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" 
+    integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+</body>
 </html>

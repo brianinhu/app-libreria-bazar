@@ -29,3 +29,23 @@ header {
 #ul1 li {
     padding: 1rem;
 }
+
+.table {
+    text-align: center;
+}
+
+.table td {
+    vertical-align: middle;
+}
+
+
+.w-dialog {
+    max-width: 850px !important; 
+    width: 100%;
+}
+
+#div-imagen {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+}

@@ -15,7 +15,7 @@ import libreria.modelo.dao.AdministradorDAO;
 import libreria.modelo.dao.ProductoDAO;
 
 @MultipartConfig
-@WebServlet(name = "SvAdministrador", urlPatterns = {"/SvAdministrador", "/loginA", "/logoutA", "/viewProductoAG", "/createProducto", "/readImage"})
+@WebServlet(name = "SvAdministrador", urlPatterns = {"/SvAdministrador", "/loginA", "/logoutA", "/viewProductoAG", "/createProducto", "/readImage", "/deleteProducto", "/updateProducto"})
 public class SvAdministrador extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -40,8 +40,13 @@ public class SvAdministrador extends HttpServlet {
             case "/readImage":
                 readImage(request, response);
                 break;
+            case "/deleteProducto":
+                deleteProducto(request, response);
+                break;
+            case "/updateProducto":
+                updateProducto(request, response);
+                break;
         }
-
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -122,7 +127,7 @@ public class SvAdministrador extends HttpServlet {
     }
 
     private void createProducto(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        String SKU = request.getParameter("txtSKU");
+        String SKU = request.getParameter("txtSKUCreate");
         String nombre = request.getParameter("txtnombre");
         String descripcion = request.getParameter("txtdescripcion");
         int idmarca = Integer.parseInt(request.getParameter("cbxMarca"));
@@ -139,6 +144,29 @@ public class SvAdministrador extends HttpServlet {
     private void readImage(HttpServletRequest request, HttpServletResponse response) {
         String SKU = request.getParameter("SKUProducto");
         new ProductoDAO().readImage(SKU, response);
+    }
+
+    private void deleteProducto(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        String SKU = request.getParameter("SKU");
+        Producto producto = new Producto();
+        producto.setSKU(SKU);
+        new ProductoDAO().delete(producto);
+        request.getRequestDispatcher("WEB-INF/administratorAG/productoAG.jsp").forward(request, response);
+    }
+
+    private void updateProducto(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        String SKU = request.getParameter("txtSKUUpdate");
+        String nombre = request.getParameter("txtnombre");
+        String descripcion = request.getParameter("txtdescripcion");
+        int idmarca = Integer.parseInt(request.getParameter("cbxMarca"));
+        float precio = Float.parseFloat(request.getParameter("txtprecio"));
+        int stock = Integer.parseInt(request.getParameter("txtstock"));
+        int idcategoria = Integer.parseInt(request.getParameter("cbxCategoria"));
+        Part part = request.getPart("fileImagen");
+        InputStream inputStream = part.getInputStream();
+        Producto p = new Producto(SKU, nombre, descripcion, idmarca, precio, stock, inputStream, idcategoria);
+        new ProductoDAO().update(p);
+        request.getRequestDispatcher("WEB-INF/administratorAG/productoAG.jsp").forward(request, response);
     }
 
 }

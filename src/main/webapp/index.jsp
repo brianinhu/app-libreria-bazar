@@ -17,7 +17,7 @@
             LIBRERIA
         </header>
         <nav>
-            <a href="viewLogin">Iniciar sesión</a>
+            <a href="viewLoginC">Iniciar sesión</a>
         </nav>
         <section>
 

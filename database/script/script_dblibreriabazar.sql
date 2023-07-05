@@ -57,7 +57,7 @@ create table pedido (
 create table pedido_detalle (
 	idpedido_detalle int primary key auto_increment,
     cantidad int not null,
-    subtotal int not null,
+    subtotal float not null,
     codigo varchar(7),
     SKU varchar(10),
     foreign key (codigo) references pedido(codigo),
