@@ -7,9 +7,6 @@ $(document).ready(function () {
         var newQuantity = parseFloat(input.val());
         var SKU = input.closest("tr").find("#txtSKU").val();
         // Realizar acciones adicionales aquí
-        console.log("Botón de incremento clicado");
-        console.log(SKU);
-        console.log(newQuantity);
         window.location.href = "updatetoCart?SKU=" + SKU + "&newQuantity=" + newQuantity;
     });
 
@@ -24,9 +21,6 @@ $(document).ready(function () {
         var newQuantity = parseFloat(input.val());
         var SKU = input.closest("tr").find("#txtSKU").val();
         // Realizar acciones adicionales aquí
-        console.log("Botón de decremento clicado");
-        console.log(SKU);
-        console.log(newQuantity);
         window.location.href = "updatetoCart?SKU=" + SKU + "&newQuantity=" + newQuantity;
     });
 
@@ -77,5 +71,6 @@ btnfinalizarCompra.addEventListener("click", () => {
     console.log(codigo_P);
     console.log(totalPay);
     console.log(idcliente);
-    /*****Tabla Pedido*****/
+
+    window.location.href = "buytoCart?codigo=" + codigo_P + "&fecha=" + formattedDate + "&total=" + totalPay + "&idcliente=" + idcliente;
 });

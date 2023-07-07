@@ -9,7 +9,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class PedidoDetalle {
 
-    private int idpedido_detalle;
     private int cantidad;
     private float subtotal;
     private String codigo;

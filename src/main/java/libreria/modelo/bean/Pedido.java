@@ -1,6 +1,7 @@
 package libreria.modelo.bean;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,4 +15,5 @@ public class Pedido {
     private Date fecha;
     private float total;
     private String idcliente;
+    private ArrayList<Carrito> listCartBuy;
 }
