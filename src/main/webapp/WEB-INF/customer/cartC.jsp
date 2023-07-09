@@ -85,8 +85,6 @@
                             <div class="card-footer d-grid gap-2">
                                 <a href="viewMainC" class="btn btn-success">Seguir comprando</a>
                                 <a href="viewBuySummary" class="btn btn-warning">Finalizar compra</a>
-                                <input type="hidden" value="${fullPay}" id="totalPay">
-                                <input type="hidden" value="<%=c.getIdcliente()%>" id="idcliente">
                             </div>
                         </div>
                     </div>

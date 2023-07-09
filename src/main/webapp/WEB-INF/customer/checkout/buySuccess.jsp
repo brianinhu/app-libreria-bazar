@@ -12,6 +12,7 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Hello World!</h1>
+        <h1>COMPRA REALIZADA CON ÉXITO</h1>
+        <a href="viewMainC">Volver a la tienda</a>
     </body>
 </html>

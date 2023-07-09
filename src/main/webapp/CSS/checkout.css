@@ -1,0 +1,31 @@
+body {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+section {
+    width: 1200px;
+    height: 600px;
+}
+
+.nav-link {
+    margin: 0;
+    width: 100%;
+}
+
+#myTab {
+    padding: 0;
+}
+
+.classtienda {
+    padding: 1rem !important;
+    border-radius: 15px !important;
+    width: 200px !important;
+    font-weight: bold !important;
+}
+
+#divizq, #divder {
+    padding: 1rem;
+}

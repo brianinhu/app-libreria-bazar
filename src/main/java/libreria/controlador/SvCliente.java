@@ -19,8 +19,8 @@ import libreria.modelo.dao.ProductoDAO;
 
 @WebServlet(name = "SvCliente", urlPatterns
         = {"/SvCliente", "/viewLoginC", "/loginC", "/logoutC", "/viewSignupC", "/signupC",
-            "/viewCart", "/viewMainC", "/addtoCart", "/deletetoCart", "/updatetoCart", "/buytoCart",
-            "/viewBuySummary"})
+            "/viewCart", "/viewMainC", "/addtoCart", "/deletetoCart", "/updatetoCart",
+            "/viewBuySummary", "/buyComplete", "/checkBuyComplete"})
 public class SvCliente extends HttpServlet {
 
     protected ArrayList<Carrito> listCart = new ArrayList<>();
@@ -49,22 +49,11 @@ public class SvCliente extends HttpServlet {
             case "/logoutC":
                 logoutSession(request, response);
                 break;
-            case "/viewCart":
-                float fullPay = 0;
-                String stringFormat;
-                for (int i = 0; i < listCart.size(); i++) {
-                    fullPay = fullPay + listCart.get(i).getSubtotal();
-                }
-                stringFormat = formato.format(fullPay);
-                fullPay = Float.parseFloat(stringFormat);
-                request.setAttribute("fullPay", fullPay);
-                request.setAttribute("quantityProductToCart", listCart.size());
-                request.setAttribute("cart", listCart);
-                request.getRequestDispatcher("WEB-INF/customer/cartC.jsp").forward(request, response);
-                break;
             case "/viewMainC":
-                request.setAttribute("quantityProductToCart", listCart.size());
-                request.getRequestDispatcher("WEB-INF/customer/mainC.jsp").forward(request, response);
+                viewMainC(request, response);
+                break;
+            case "/viewCart":
+                viewCart(request, response);
                 break;
             case "/addtoCart":
                 addtoCart(request, response);
@@ -75,10 +64,15 @@ public class SvCliente extends HttpServlet {
             case "/updatetoCart":
                 updatetoCart(request, response);
                 break;
-            case "/buytoCart":
-                buytoCart(request, response);
             case "/viewBuySummary":
                 viewBuySummary(request, response);
+                break;
+            case "/buyComplete":
+                buyComplete(request, response);
+                break;
+            case "/checkBuyComplete":
+                checkBuyComplete(request, response);
+                break;
         }
     }
 
@@ -160,6 +154,25 @@ public class SvCliente extends HttpServlet {
         response.sendRedirect("index.jsp");
     }
 
+    private void viewMainC(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setAttribute("quantityProductToCart", listCart.size());
+        request.getRequestDispatcher("WEB-INF/customer/mainC.jsp").forward(request, response);
+    }
+
+    private void viewCart(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        float fullPay = 0;
+        String stringFormat;
+        for (int i = 0; i < listCart.size(); i++) {
+            fullPay = fullPay + listCart.get(i).getSubtotal();
+        }
+        stringFormat = formato.format(fullPay);
+        fullPay = Float.parseFloat(stringFormat);
+        request.setAttribute("fullPay", fullPay);
+        request.setAttribute("quantityProductToCart", listCart.size());
+        request.setAttribute("cart", listCart);
+        request.getRequestDispatcher("WEB-INF/customer/cartC.jsp").forward(request, response);
+    }
+
     private void addtoCart(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         boolean flag = false;
         String SKU = request.getParameter("SKU");
@@ -167,7 +180,9 @@ public class SvCliente extends HttpServlet {
             for (int i = 0; i < listCart.size(); i++) {
                 if (listCart.get(i).getSKU().equals(SKU)) {
                     listCart.get(i).setCantidad(listCart.get(i).getCantidad() + 1);
-                    listCart.get(i).setSubtotal(listCart.get(i).getCantidad() * listCart.get(i).getPrecio());
+                    String numeroFormateado = formato.format(listCart.get(i).getCantidad() * listCart.get(i).getPrecio());
+                    float subTotalFormat = Float.parseFloat(numeroFormateado);
+                    listCart.get(i).setSubtotal(subTotalFormat);
                     flag = true;
                 }
             }
@@ -175,7 +190,9 @@ public class SvCliente extends HttpServlet {
                 Producto p = new Producto();
                 p.setSKU(SKU);
                 p = new ProductoDAO().read(p);
-                Carrito cart = new Carrito(p.getImagen(), p.getSKU(), p.getNombre(), p.getPrecio(), quantity, quantity * p.getPrecio());
+                String numeroFormateado = formato.format(quantity * p.getPrecio());
+                float subTotalFormat = Float.parseFloat(numeroFormateado);
+                Carrito cart = new Carrito(p.getImagen(), p.getSKU(), p.getNombre(), p.getPrecio(), quantity, subTotalFormat);
                 listCart.add(cart);
             }
         } else {
@@ -218,19 +235,6 @@ public class SvCliente extends HttpServlet {
         response.sendRedirect("viewCart");
     }
 
-    private void buytoCart(HttpServletRequest request, HttpServletResponse response) {
-        String codigo = request.getParameter("codigo");
-        Date fecha = Date.valueOf(request.getParameter("fecha"));
-        float total = Float.parseFloat(request.getParameter("total"));
-        String idcliente = request.getParameter("idcliente");
-        ArrayList<Carrito> listCartBuy = listCart;
-        Pedido pedido = new Pedido(codigo, fecha, total, idcliente, listCartBuy);
-        new PedidoDAO().create(pedido);
-        if (new PedidoDAO().read(pedido) != null) {
-
-        }
-    }
-
     private void viewBuySummary(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         float fullPay = 0;
         String stringFormat;
@@ -243,5 +247,34 @@ public class SvCliente extends HttpServlet {
         request.setAttribute("quantityProductToCart", listCart.size());
         request.setAttribute("cart", listCart);
         request.getRequestDispatcher("WEB-INF/customer/checkout/buySummary.jsp").forward(request, response);
+    }
+
+    private void buyComplete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String codigo = request.getParameter("codigo");
+        Date fecha = Date.valueOf(request.getParameter("fecha"));
+        float total = Float.parseFloat(request.getParameter("total"));
+        String idcliente = request.getParameter("idcliente");
+        int iddistrito = Integer.parseInt(request.getParameter("iddistrito"));
+        int idtienda = Integer.parseInt(request.getParameter("idtienda"));
+        int identrega = Integer.parseInt(request.getParameter("identrega"));
+        int idpago = Integer.parseInt(request.getParameter("idpago"));
+        String direccion = request.getParameter("direccion");
+        ArrayList<Carrito> listCartBuy = listCart;
+        if (listCart.isEmpty() || identrega == 0 || idpago == 0) {
+        } else {
+            Pedido pedido = new Pedido(codigo, fecha, total, idcliente, iddistrito, idtienda, identrega, idpago, direccion, listCartBuy);
+            new PedidoDAO().create(pedido);
+        }
+    }
+
+    private void checkBuyComplete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String codigo = request.getParameter("codigo");
+        Pedido pedido = new Pedido();
+        pedido.setCodigo(codigo);
+        if (new PedidoDAO().read(pedido) != null) {
+            request.getRequestDispatcher("WEB-INF/customer/checkout/buySuccess.jsp").forward(request, response);
+        } else {
+            request.getRequestDispatcher("WEB-INF/customer/checkout/buyError.jsp").forward(request, response);
+        }
     }
 }

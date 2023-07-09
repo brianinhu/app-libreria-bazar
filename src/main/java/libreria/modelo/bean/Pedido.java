@@ -15,5 +15,10 @@ public class Pedido {
     private Date fecha;
     private float total;
     private String idcliente;
+    private int iddistrito;
+    private int idtienda;
+    private int identrega;
+    private int idpago;
+    private String direccion;
     private ArrayList<Carrito> listCartBuy;
 }

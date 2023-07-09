@@ -4,6 +4,15 @@
     Author     : Brian
 --%>
 
+<%@page import="libreria.modelo.bean.Carrito"%>
+<%@page import="libreria.modelo.bean.Pago"%>
+<%@page import="libreria.modelo.dao.PagoDAO"%>
+<%@page import="libreria.modelo.dao.DistritoDAO"%>
+<%@page import="libreria.modelo.bean.Distrito"%>
+<%@page import="libreria.modelo.dao.TiendaDAO"%>
+<%@page import="libreria.modelo.bean.Tienda"%>
+<%@page import="libreria.modelo.bean.Entrega"%>
+<%@page import="libreria.modelo.dao.EntregaDAO"%>
 <%@page import="libreria.modelo.dao.ProductoDAO"%>
 <%@page import="libreria.modelo.bean.Producto"%>
 <%@page import="java.util.ArrayList"%>
@@ -14,7 +23,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
-        <link rel="stylesheet" type="text/css" href="CSS/styleC.css"/>
+        <link rel="stylesheet" type="text/css" href="CSS/checkout.css"/>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" 
               integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
@@ -26,76 +35,155 @@
         <section>
             <div class="container">
                 <div class="row">
-                    <div class="col-6 text-center">
-                        <div class="card"> 
-                            <div class="card-header">Datos personales</div>
-                            <label>Puede completar los datos faltantes si desea</label>
-                            <div class="card-body">
-                                <div class="form-floating mb-3">
-                                    <input type="text" class="form-control" id="floatingInput1" placeholder="name@example.com" value="<%=c.getNombre()%>" readonly>
-                                    <label for="floatingInput1">Nombre</label>
-                                </div>
-                                <div class="form-floating mb-3">
-                                    <input type="text" class="form-control" id="floatingInput2" placeholder="name@example.com" value="<%=c.getApaterno()%>" readonly>
-                                    <label for="floatingInput2">Apellido paterno</label>
-                                </div>
-                                <div class="form-floating mb-3">
-                                    <input type="text" class="form-control" id="floatingInput3" placeholder="name@example.com" value="<%=c.getAmaterno() != null ? c.getAmaterno() : ""%>">
-                                    <label for="floatingInput3">Apellido materno</label>
-                                </div>
-                                <div class="form-floating mb-3">
-                                    <input type="email" class="form-control" id="floatingInput4" placeholder="name@example.com" value="<%=c.getEmail()%>" readonly>
-                                    <label for="floatingInput4">Email</label>
-                                </div>
-                                <div class="form-floating mb-3">
-                                    <input type="text" class="form-control" id="floatingInput5" placeholder="name@example.com" value="<%=c.getTelefono() != null ? c.getTelefono() : ""%>">
-                                    <label for="floatingInput5">Teléfono</label>
-                                </div>
+                    <div class="col-6" id="divizq">
+                        <ul class="nav nav-tabs justify-content-center container" id="myTab" role="tablist">
+                            <li class="nav-item col-4"  role="presentation">
+                                <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button" role="tab">Datos</button>
+                            </li>
+                            <li class="nav-item col-4" role="presentation">
+                                <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane" type="button" role="tab">Entrega</button>
+                            </li>
+                            <li class="nav-item col-4" role="presentation">
+                                <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact-tab-pane" type="button" role="tab">Pago</button>
+                            </li>
+                        </ul>
+                        <div class="tab-content" id="myTabContent">
+
+                            <!-- DATOS PERSONALES -->
+                            <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
+                                <label>DATOS PERSONALES</label>
+
+                                <table class="table">
+                                    <tr>
+                                        <td>Email:</td>
+                                        <td><%=c.getEmail()%></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Nombre:</td>
+                                        <td><%=c.getNombre()%></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Apellido paterno:</td>
+                                        <td><%=c.getApaterno()%></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Apellido materno:</td>
+                                        <td><%=c.getAmaterno() != null ? c.getAmaterno() : "-"%></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Teléfono:</td>
+                                        <td><%=c.getTelefono() != null ? c.getTelefono() : "-"%></td>
+                                    </tr>
+                                </table>
                             </div>
-                        </div>
-                        <div class="card"> 
-                            <div class="card-header">Entrega</div>
-                            <label>Puede completar los datos faltantes si desea</label>
-                            <div class="card-body">
-                                <p>Envio a domicilio</p>
-                                <p>Recojo en tienda</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-6 text-center">
-                        <div class="card">
-                            <div class="card-header">Resumen de compra</div>
-                            <div class="card-body">
-                                <p>Aplicar descuento</p>
-                                <input type="texte" name="name">
-                                <p>Resumen de compra</p>
-                                <div class="overflow-auto" style="max-height: 300px;">
-                                    <div class="card mb-3" style="max-width: 540px;">
-                                        <div class="row g-0">
-                                            <div class="col-md-3">
-                                                <img src="..." class="img-fluid rounded-start" alt="...">
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="card-body">
-                                                    <p class="m-0 text-start">Nombre: <span></span></p>
-                                                    <p class="m-0 text-start">SKU: <span></span></p>
-                                                    <p class="m-0 text-start">Precio: <span></span></p>
-                                                    <p class="m-0 text-start">Cantidad: <span></span></p>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <div class="card-body w-100 h-100 d-flex justify-content-center align-items-center">
-                                                    <span>PRECIO</span>
-                                                </div>
-                                            </div>
-                                        </div>
+                            <!-- DATOS PERSONALES -->
+
+                            <!-- TIPO DE ENTREGA -->
+                            <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
+                                <p>Seleccione:</p>
+                                <div class="row justify-content-center">
+                                    <button id="btn-tienda" class="btn col-6 me-2 classtienda">
+                                        <i class="bi bi-shop"></i>
+                                        Recojo en tienda
+                                    </button>
+                                    <button id="btn-delivery" class="btn col-6 ms-2 classtienda">
+                                        <i class="bi bi-truck"></i>
+                                        Delivery
+                                    </button>
+                                </div>
+                                <div id="div-direccion" style="display: none;">
+                                    <p>Seleccione su distrito:</p>
+                                    <select id="cbxDistrito" name="cbxDistrito">
+                                        <option value="" selected></option>
+                                        <%
+                                            ArrayList<Distrito> listaDistrito = new DistritoDAO().tolist();
+                                            for (Distrito d : listaDistrito) {
+                                        %>
+                                        <option value="<%=d.getIddistrito()%>"><%=d.getDistrito()%></option>
+                                        <%}%>
+                                    </select>
+
+                                    <p>Escriba su dirección:</p>
+                                    <div class="form-floating mb-3">
+                                        <input type="text" class="form-control" id="txtdireccion" placeholder="name@example.com">
+                                        <label for="txtdireccion">Dirección</label>
                                     </div>
                                 </div>
+                                <div id="div-tienda" style="display: none;">
+                                    <p>Seleccione tienda:</p>
+                                    <select id="cbxTienda" name="cbxTienda">
+                                        <option value="" selected></option>
+                                        <%
+                                            ArrayList<Tienda> listaTienda = new TiendaDAO().tolist();
+                                            for (Tienda t : listaTienda) {
+                                        %>
+                                        <option value="<%=t.getIdtienda()%>"><%=t.getTienda()%></option>
+                                        <%}%>
+                                    </select>
+                                </div>
                             </div>
+                            <!-- TIPO DE ENTREGA --> 
+
+                            <!-- MEDIO DE PAGO -->               
+                            <div class="tab-pane fade" id="contact-tab-pane" role="tabpanel" aria-labelledby="contact-tab" tabindex="0">
+                                <p>Seleccione medio de pago</p>
+                                <select id="cbxPago" name="cbxPago">
+                                    <option value="" selected></option>
+                                    <%
+                                        ArrayList<Pago> listaPago = new PagoDAO().tolist();
+                                        for (Pago p : listaPago) {
+                                    %>
+                                    <option value="<%=p.getIdpago()%>"><%=p.getPago()%></option>
+                                    <%}%>
+                                </select>
+                            </div>
+                            <!-- MEDIO DE PAGO -->
+
+                        </div>
+                    </div>
+                    <div class="col-6" id="divder">
+                        <p>Resumen de compra</p>
+                        <p>${quantityProductToCart} productos</p>
+                        <div class="overflow-auto" style="max-height: 300px;">
+                            <div class="card mb-3" style="max-width: 540px;">
+                                <div class="row g-0">
+                                    <%
+                                        ArrayList<Carrito> listaCarrito = (ArrayList<Carrito>) request.getAttribute("cart");
+                                        for (Carrito pc : listaCarrito) {
+                                    %>
+                                    <div class="col-md-3">
+                                        <img src="readImage?SKUProducto=<%=pc.getSKU()%>" class="img-fluid rounded-start" alt="img" width="100">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="card-body">
+                                            <p class="m-0 text-start">Nombre: <span><%=pc.getNombre()%></span></p>
+                                            <p class="m-0 text-start">SKU: <span><%=pc.getSKU()%></span></p>
+                                            <p class="m-0 text-start">Precio: <span><%=pc.getPrecio()%></span></p>
+                                            <p class="m-0 text-start">Cantidad: <span></span><%=pc.getCantidad()%></p>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="card-body w-100 h-100 d-flex justify-content-center align-items-center">
+                                            <span>S/. <%=pc.getSubtotal()%></span>
+                                        </div>
+                                    </div>
+                                    <%}%>
+                                </div>
+                            </div>
+                        </div>
+                        <p>TOTAL: <span>S/. ${fullPay}</span></p>
+                        <div class="d-grid">
+                            <input type="hidden" value="${fullPay}" id="totalPay">
+                            <input type="hidden" value="<%=c.getIdcliente()%>" id="idcliente">
+                            <button class="btn btn-success btn-lg" id="btn-generarcompra">GENERAR COMPRA</button>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
+        <script src="JS/checkout.js" type="text/javascript"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" 
+        integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.0/dist/jquery.min.js"></script>
     </body>
 </html>

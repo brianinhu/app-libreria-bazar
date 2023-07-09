@@ -2,13 +2,12 @@ package libreria.modelo.dao;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
+import java.io.Closeable;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.http.HttpServletResponse;
 import libreria.conexion.Conexion;
 import libreria.helper.InterfaceCRUD;
@@ -133,6 +132,8 @@ public class ProductoDAO extends Conexion implements InterfaceCRUD<Producto> {
         BufferedInputStream bufferedInputStream = null;
         BufferedOutputStream bufferedOutputStream = null;
         try {
+            response.setContentType("image/png");
+            
             outputStream = response.getOutputStream();
 
             cn = getConnection();
@@ -147,20 +148,32 @@ public class ProductoDAO extends Conexion implements InterfaceCRUD<Producto> {
             bufferedInputStream = new BufferedInputStream(inputStream);
             bufferedOutputStream = new BufferedOutputStream(outputStream);
 
-            int i = 0;
-            while ((i = bufferedInputStream.read()) != -1) {
-                bufferedOutputStream.write(i);
+            byte[] buffer = new byte[8192];
+            int bytesRead;
+
+            while ((bytesRead = bufferedInputStream.read(buffer)) != -1) {
+                bufferedOutputStream.write(buffer, 0, bytesRead);
             }
-            inputStream.close();
-            outputStream.close();
-            bufferedInputStream.close();
-            bufferedOutputStream.close();
         } catch (SQLException | IOException ex) {
             System.out.println("Error al cargar la imagen del producto. \nDetalles: " + ex.getMessage());
         } finally {
+            closeSilently(bufferedOutputStream);
+            closeSilently(bufferedInputStream);
+            closeSilently(outputStream);
+            closeSilently(inputStream);
             close(cn);
             close(ps);
             close(rs);
+        }
+    }
+
+    private void closeSilently(Closeable closeable) {
+        try {
+            if (closeable != null) {
+                closeable.close();
+            }
+        } catch (IOException ex) {
+
         }
     }
 }

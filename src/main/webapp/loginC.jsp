@@ -31,7 +31,7 @@
                 <input type="password" name="txtcontrasena" required>
                 <p><input type="submit" value="Ingresar"></p>
                 <span><%=mensajeError != null ? mensajeError : ""%></span>
-                <p>No tienes una cuenta? <a href="viewSignup">Regístrate aquí</a></p>
+                <p>No tienes una cuenta? <a href="viewSignupC">Regístrate aquí</a></p>
             </form>
         </section>
         <footer>

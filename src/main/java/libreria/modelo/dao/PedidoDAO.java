@@ -1,9 +1,8 @@
 package libreria.modelo.dao;
 
 import java.sql.SQLException;
+import java.sql.Types;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import libreria.conexion.Conexion;
 import libreria.helper.InterfaceCRUD;
 import libreria.modelo.bean.Carrito;
@@ -19,7 +18,7 @@ public class PedidoDAO extends Conexion implements InterfaceCRUD<Pedido> {
 
     @Override
     public void create(Pedido e) {
-        String sentence = "insert into pedido(codigo, fecha, total, idcliente) values (?,?,?,?)";
+        String sentence = "insert into pedido(codigo, fecha, total, idcliente, iddistrito, idtienda, identrega, idpago, direccion) values (?,?,?,?,?,?,?,?,?)";
         try {
             cn = getConnection();
             ps = cn.prepareStatement(sentence);
@@ -27,6 +26,23 @@ public class PedidoDAO extends Conexion implements InterfaceCRUD<Pedido> {
             ps.setDate(2, e.getFecha());
             ps.setFloat(3, e.getTotal());
             ps.setString(4, e.getIdcliente());
+            if (e.getIddistrito() == 0) {
+                ps.setNull(5, Types.INTEGER);
+            } else {
+                ps.setInt(5, e.getIddistrito());
+            }
+            if (e.getIdtienda() == 0) {
+                ps.setNull(6, Types.INTEGER);
+            } else {
+                ps.setInt(6, e.getIdtienda());
+            }
+            ps.setInt(7, e.getIdentrega());
+            ps.setInt(8, e.getIdpago());
+            if (e.getDireccion().isBlank()) {
+                ps.setNull(9, Types.VARCHAR);
+            } else {
+                ps.setString(9, e.getDireccion());
+            }
             ps.executeUpdate();
 
             String codigo = e.getCodigo();
@@ -53,7 +69,7 @@ public class PedidoDAO extends Conexion implements InterfaceCRUD<Pedido> {
             ps.setString(1, e.getCodigo());
             rs = ps.executeQuery();
             if (rs.next()) {
-                pedido = new Pedido(rs.getString(1), rs.getDate(2), rs.getFloat(3), rs.getString(4), null);
+                pedido = new Pedido(rs.getString(1), rs.getDate(2), rs.getFloat(3), rs.getString(4), rs.getInt(5), rs.getInt(6), rs.getInt(7), rs.getInt(8), rs.getString(9), null);
             }
         } catch (SQLException ex) {
             System.out.println("Error al leer un pedido. \nDetalles: " + ex.getMessage());
