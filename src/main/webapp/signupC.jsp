@@ -12,6 +12,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        
         <title>JSP Page</title>
         <link rel="stylesheet" href="CSS/styleC.css"/>
     </head>
@@ -23,7 +24,7 @@
 
         </nav>
         <section>
-            <form action="signupC" method="post">
+            <form action="signupC" method="post" accept-charset="UTF-8">
                 <p>Regístrese</p>
                 <input type="hidden" id="txtidcliente" name="txtidcliente">
                 <p>Nombre*</p>

@@ -31,78 +31,132 @@
                             <div class="slider">
                                 <div class="slide-track">
                                     <div class="slide">
-                                        <img src="IMG/LOGO GENERICO BLACK.png" alt="" width="50">
+                                        <img src="images/marcas/b3-marcas-1.png" alt="">
                                     </div>
                                     <div class="slide">
-                                        <img src="IMG/LOGO GENERICO BLACK.png" alt="" width="50">
+                                        <img src="images/marcas/b3-marcas-2.png" alt="">
                                     </div>
                                     <div class="slide">
-                                        <img src="IMG/LOGO GENERICO BLACK.png" alt="" width="50">
+                                        <img src="images/marcas/b3-marcas-3.png" alt="">
                                     </div>
                                     <div class="slide">
-                                        <img src="IMG/LOGO GENERICO BLACK.png" alt="" width="50">
+                                        <img src="images/marcas/b3-marcas-4.png" alt="">
                                     </div>
                                     <div class="slide">
-                                        <img src="IMG/LOGO GENERICO BLACK.png" alt="" width="50">
+                                        <img src="images/marcas/b3-marcas-5.png" alt="">
                                     </div>
                                     <div class="slide">
-                                        <img src="IMG/LOGO GENERICO BLACK.png" alt="" width="50">
+                                        <img src="images/marcas/b3-marcas-6.png" alt="">
                                     </div>
                                     <div class="slide">
-                                        <img src="IMG/LOGO GENERICO BLACK.png" alt="" width="50">
+                                        <img src="images/marcas/b3-marcas-7.png" alt="">
                                     </div>
                                     <div class="slide">
-                                        <img src="IMG/LOGO GENERICO BLACK.png" alt="" width="50">
-                                    </div>
-                                    
-                                    <div class="slide">
-                                        <img src="IMG/LOGO GENERICO BLACK.png" alt="" width="50">
+                                        <img src="images/marcas/b3-marcas-8.png" alt="">
                                     </div>
                                     <div class="slide">
-                                        <img src="IMG/LOGO GENERICO BLACK.png" alt="" width="50">
+                                        <img src="images/marcas/b3-marcas-9.png" alt="">
                                     </div>
                                     <div class="slide">
-                                        <img src="IMG/LOGO GENERICO BLACK.png" alt="" width="50">
+                                        <img src="images/marcas/b3-marcas-10.png" alt="">
                                     </div>
                                     <div class="slide">
-                                        <img src="IMG/LOGO GENERICO BLACK.png" alt="" width="50">
+                                        <img src="images/marcas/b3-marcas-11.png" alt="">
                                     </div>
                                     <div class="slide">
-                                        <img src="IMG/LOGO GENERICO BLACK.png" alt="" width="50">
+                                        <img src="images/marcas/b3-marcas-12.png" alt="">
                                     </div>
                                     <div class="slide">
-                                        <img src="IMG/LOGO GENERICO BLACK.png" alt="" width="50">
+                                        <img src="images/marcas/b3-marcas-13.png" alt="">
                                     </div>
                                     <div class="slide">
-                                        <img src="IMG/LOGO GENERICO BLACK.png" alt="" width="50">
+                                        <img src="images/marcas/b3-marcas-14.png" alt="">
+                                    </div>
+
+                                    <div class="slide">
+                                        <img src="images/marcas/b3-marcas-1.png" alt="">
                                     </div>
                                     <div class="slide">
-                                        <img src="IMG/LOGO GENERICO BLACK.png" alt="" width="50">
-                                    </div>
-                                    
-                                    <div class="slide">
-                                        <img src="IMG/LOGO GENERICO BLACK.png" alt="" width="50">
+                                        <img src="images/marcas/b3-marcas-2.png" alt="">
                                     </div>
                                     <div class="slide">
-                                        <img src="IMG/LOGO GENERICO BLACK.png" alt="" width="50">
+                                        <img src="images/marcas/b3-marcas-3.png" alt="">
                                     </div>
                                     <div class="slide">
-                                        <img src="IMG/LOGO GENERICO BLACK.png" alt="" width="50">
+                                        <img src="images/marcas/b3-marcas-4.png" alt="">
                                     </div>
                                     <div class="slide">
-                                        <img src="IMG/LOGO GENERICO BLACK.png" alt="" width="50">
+                                        <img src="images/marcas/b3-marcas-5.png" alt="">
                                     </div>
                                     <div class="slide">
-                                        <img src="IMG/LOGO GENERICO BLACK.png" alt="" width="50">
+                                        <img src="images/marcas/b3-marcas-6.png" alt="">
                                     </div>
                                     <div class="slide">
-                                        <img src="IMG/LOGO GENERICO BLACK.png" alt="" width="50">
+                                        <img src="images/marcas/b3-marcas-7.png" alt="">
                                     </div>
                                     <div class="slide">
-                                        <img src="IMG/LOGO GENERICO BLACK.png" alt="" width="50">
+                                        <img src="images/marcas/b3-marcas-8.png" alt="">
                                     </div>
                                     <div class="slide">
-                                        <img src="IMG/LOGO GENERICO BLACK.png" alt="" width="50">
+                                        <img src="images/marcas/b3-marcas-9.png" alt="">
+                                    </div>
+                                    <div class="slide">
+                                        <img src="images/marcas/b3-marcas-10.png" alt="">
+                                    </div>
+                                    <div class="slide">
+                                        <img src="images/marcas/b3-marcas-11.png" alt="">
+                                    </div>
+                                    <div class="slide">
+                                        <img src="images/marcas/b3-marcas-12.png" alt="">
+                                    </div>
+                                    <div class="slide">
+                                        <img src="images/marcas/b3-marcas-13.png" alt="">
+                                    </div>
+                                    <div class="slide">
+                                        <img src="images/marcas/b3-marcas-14.png" alt="">
+                                    </div>
+
+                                    <div class="slide">
+                                        <img src="images/marcas/b3-marcas-1.png" alt="">
+                                    </div>
+                                    <div class="slide">
+                                        <img src="images/marcas/b3-marcas-2.png" alt="">
+                                    </div>
+                                    <div class="slide">
+                                        <img src="images/marcas/b3-marcas-3.png" alt="">
+                                    </div>
+                                    <div class="slide">
+                                        <img src="images/marcas/b3-marcas-4.png" alt="">
+                                    </div>
+                                    <div class="slide">
+                                        <img src="images/marcas/b3-marcas-5.png" alt="">
+                                    </div>
+                                    <div class="slide">
+                                        <img src="images/marcas/b3-marcas-6.png" alt="">
+                                    </div>
+                                    <div class="slide">
+                                        <img src="images/marcas/b3-marcas-7.png" alt="">
+                                    </div>
+                                    <div class="slide">
+                                        <img src="images/marcas/b3-marcas-8.png" alt="">
+                                    </div>
+                                    <div class="slide">
+                                        <img src="images/marcas/b3-marcas-9.png" alt="">
+                                    </div>
+                                    <div class="slide">
+                                        <img src="images/marcas/b3-marcas-10.png" alt="">
+                                    </div>
+                                    <div class="slide">
+                                        <img src="images/marcas/b3-marcas-11.png" alt="">
+                                    </div>
+                                    <div class="slide">
+                                        <img src="images/marcas/b3-marcas-12.png" alt="">
+                                    </div>
+                                    <div class="slide">
+                                        <img src="images/marcas/b3-marcas-13.png" alt="">
+                                    </div>
+                                    <div class="slide">
+                                        <img src="images/marcas/b3-marcas-14.png" alt="">
                                     </div>
                                 </div>
                             </div>
@@ -116,7 +170,7 @@
                     <div class="row">
                         <div id="col1" class="col-12">
                             <a href="#" class="logo">
-                                <img src="IMG/LOGO GENERICO WHITE.png"
+                                <img src="images/tech-office/logo-white-transp.png"
                                      alt="logo-generico">
                             </a>
                             <form class="d-flex" role="search">
@@ -130,7 +184,7 @@
                                     <i class="bi bi-cart-fill"></i>
                                     <span>Carrito</span>
                                 </a>
-                                <a href="#" class="nav-link">
+                                <a href="viewLoginC" class="nav-link">
                                     <i class="bi bi-person-circle"></i>
                                     <span>Iniciar sesión</span>
                                 </a>
@@ -153,7 +207,7 @@
                     </div>
                     <span></span>
                     <div id="col3">
-                        <a href="#row3">VER TODO</a>
+                        <a href="#row3">LO MÁS VENDIDO</a>
                     </div>
                 </div>
             </div>
@@ -172,13 +226,13 @@
                                 </div>
                                 <div class="carousel-inner">
                                     <div class="carousel-item active" data-bs-interval="2000">
-                                        <img src="IMG/pexels-francesco-ungaro-2325446.jpg" class="d-block w-100" alt="">
+                                        <img src="images/banners/banner-1.png" class="d-block w-100" alt="">
                                     </div>
                                     <div class="carousel-item" data-bs-interval="2000">
-                                        <img src="IMG/pexels-james-wheeler-417074.jpg" class="d-block w-100" alt="">
+                                        <img src="images/banners/banner-2.png" class="d-block w-100" alt="">
                                     </div>
                                     <div class="carousel-item" data-bs-interval="2000">
-                                        <img src="IMG/pexels-pixabay-326055.jpg" class="d-block w-100" alt="">
+                                        <img src="images/banners/banner-3.png" class="d-block w-100" alt="">
                                     </div>
                                 </div>
                             </div>
@@ -189,62 +243,411 @@
 
             <article>
                 <div class="slide-container">
-                    <div id="div-font-ctg">
-                        <i class="bi bi-arrow-left-circle-fill prev-button"></i><span>CATEGORÍAS</span><i class="bi bi-arrow-right-circle-fill next-button"></i>
+                    <div class="pre-slide-inner">
+                        <span>CATEGORÍAS</span>
+                        <div class="div-button">
+                            <div class="prev-button"><</div>
+                            <div class="next-button">></div>
+                        </div>
                     </div>
                     <div class="slide-inner">
-                        <a class="category" href="">
-                            <img class="img-ctg" src="IMG/linux.png" alt="alt" width="100"/>
-                            <label>Categoria 1</label>
+                        <a class="slide-item" href="">
+                            <img src="images/categorias/1.png" alt="">
+                            <span>Bolígrafos y lápices</span>
                         </a>
-                        <a class="category" href="">
-                            <img class="img-ctg" src="IMG/linux.png" alt="alt" width="100"/>
-                            <label>Categoria 2</label>
+                        <a class="slide-item" href="">
+                            <img src="images/categorias/2.png" alt="">
+                            <span>Papel y sobres</span>
                         </a>
-                        <a class="category" href="">
-                            <img class="img-ctg" src="IMG/linux.png" alt="alt" width="100"/>
-                            <label>Categoria 3</label>
+                        <a class="slide-item" href="">
+                            <img src="images/categorias/3.png" alt="">
+                            <span>Cuadernos y libretas</span>
                         </a>
-                        <a class="category" href="">
-                            <img src="IMG/linux.png" alt="alt" width="100"/>
-                            <label>Categoria 4</label>
+                        <a class="slide-item" href="">
+                            <img src="images/categorias/4.png" alt="">
+                            <span>Manualidades</span>
                         </a>
-                        <a class="category" href="">
-                            <img src="IMG/linux.png" alt="alt" width="100"/>
-                            <label>Categoria 5</label>
+                        <a class="slide-item" href="">
+                            <img src="images/categorias/5.png" alt="">
+                            <span>Dibujo y Arte</span>
                         </a>
-                        <a class="category" href="">
-                            <img src="IMG/linux.png" alt="alt" width="100"/>
-                            <label>Categoria 6</label>
+                        <a class="slide-item" href="">
+                            <img src="images/categorias/6.png" alt="">
+                            <span>Escolar</span>
                         </a>
-                        <a class="category" href="">
-                            <img src="IMG/linux.png" alt="alt" width="100"/>
-                            <label>Categoria 7</label>
+                        <a class="slide-item" href="">
+                            <img src="images/categorias/7.png" alt="">
+                            <span>Oficina</span>
                         </a>
-                        <a class="category" href="">
-                            <img src="IMG/linux.png" alt="alt" width="100"/>
-                            <label>Categoria 8</label>
+                        <a class="slide-item" href="">
+                            <img src="images/categorias/8.png" alt="">
+                            <span>Libros</span>
                         </a>
                     </div>
                 </div>
             </article>
 
             <article>
+                <div class="title-3">
+                    <span>LO MÁS VENDIDO</span>
+                </div>
                 <div class="container-fluid">
-                    <div id="row3" class="row">
-                        <div id="col1" class="col-12">
-                            <p>Sección 3: Ver todo</p>
+                    <div class="row g-4 row-cols-2 row-cols-lg-4 row-cols-md-3">
+                        <div class="col">
+                            <div class="card card-product">
+                                <div class="card-body">
+                                    <div class="text-center position-relative ">
+                                        <div class=" position-absolute top-0 start-0">
+                                            <span class="badge bg-danger">Sale</span>
+                                        </div>
+                                        <a href="#!">
+                                            <img src="images/linux.png" class="mb-3 img-fluid">
+                                        </a>
+                                    </div>
+                                    <div class="text-small mb-1">
+                                        <a href="#!" class="text-decoration-none text-muted">
+                                            <small>Marca</small>
+                                        </a>
+                                    </div>
+                                    <h2 class="fs-6">
+                                        <a href="./pages/shop-single.html" class="text-inherit text-decoration-none">Nombre</a>
+                                    </h2>
+                                    <div>
+                                        Descripcion
+                                    </div>
+                                    <div class="d-flex justify-content-between align-items-center mt-3">
+                                        <div>
+                                            <span class="text-dark">$000</span>
+                                        </div>
+                                        <div>
+                                            <a href="#!" class="btn btn-primary btn-sm">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+                                                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                                     stroke-linejoin="round" class="feather feather-plus">
+                                                <line x1="12" y1="5" x2="12" y2="19"></line>
+                                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                                                </svg> Agregar
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="card card-product">
+                                <div class="card-body">
+                                    <div class="text-center position-relative ">
+                                        <div class=" position-absolute top-0 start-0">
+                                            <span class="badge bg-danger">Sale</span>
+                                        </div>
+                                        <a href="#!">
+                                            <img src="images/linux.png" class="mb-3 img-fluid">
+                                        </a>
+                                    </div>
+                                    <div class="text-small mb-1">
+                                        <a href="#!" class="text-decoration-none text-muted">
+                                            <small>Marca</small>
+                                        </a>
+                                    </div>
+                                    <h2 class="fs-6">
+                                        <a href="./pages/shop-single.html" class="text-inherit text-decoration-none">Nombre</a>
+                                    </h2>
+                                    <div>
+                                        Descripcion
+                                    </div>
+                                    <div class="d-flex justify-content-between align-items-center mt-3">
+                                        <div>
+                                            <span class="text-dark">$000</span>
+                                        </div>
+                                        <div>
+                                            <a href="#!" class="btn btn-primary btn-sm">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+                                                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                                     stroke-linejoin="round" class="feather feather-plus">
+                                                <line x1="12" y1="5" x2="12" y2="19"></line>
+                                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                                                </svg> Agregar
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="card card-product">
+                                <div class="card-body">
+                                    <div class="text-center position-relative ">
+                                        <div class=" position-absolute top-0 start-0">
+                                            <span class="badge bg-danger">Sale</span>
+                                        </div>
+                                        <a href="#!">
+                                            <img src="images/linux.png" class="mb-3 img-fluid">
+                                        </a>
+                                    </div>
+                                    <div class="text-small mb-1">
+                                        <a href="#!" class="text-decoration-none text-muted">
+                                            <small>Marca</small>
+                                        </a>
+                                    </div>
+                                    <h2 class="fs-6">
+                                        <a href="./pages/shop-single.html" class="text-inherit text-decoration-none">Nombre</a>
+                                    </h2>
+                                    <div>
+                                        Descripcion
+                                    </div>
+                                    <div class="d-flex justify-content-between align-items-center mt-3">
+                                        <div>
+                                            <span class="text-dark">$000</span>
+                                        </div>
+                                        <div>
+                                            <a href="#!" class="btn btn-primary btn-sm">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+                                                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                                     stroke-linejoin="round" class="feather feather-plus">
+                                                <line x1="12" y1="5" x2="12" y2="19"></line>
+                                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                                                </svg> Agregar
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="card card-product">
+                                <div class="card-body">
+                                    <div class="text-center position-relative ">
+                                        <div class=" position-absolute top-0 start-0">
+                                            <span class="badge bg-danger">Sale</span>
+                                        </div>
+                                        <a href="#!">
+                                            <img src="images/linux.png" class="mb-3 img-fluid">
+                                        </a>
+                                    </div>
+                                    <div class="text-small mb-1">
+                                        <a href="#!" class="text-decoration-none text-muted">
+                                            <small>Marca</small>
+                                        </a>
+                                    </div>
+                                    <h2 class="fs-6">
+                                        <a href="./pages/shop-single.html" class="text-inherit text-decoration-none">Nombre</a>
+                                    </h2>
+                                    <div>
+                                        Descripcion
+                                    </div>
+                                    <div class="d-flex justify-content-between align-items-center mt-3">
+                                        <div>
+                                            <span class="text-dark">$000</span>
+                                        </div>
+                                        <div>
+                                            <a href="#!" class="btn btn-primary btn-sm">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+                                                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                                     stroke-linejoin="round" class="feather feather-plus">
+                                                <line x1="12" y1="5" x2="12" y2="19"></line>
+                                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                                                </svg> Agregar
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="card card-product">
+                                <div class="card-body">
+                                    <div class="text-center position-relative ">
+                                        <div class=" position-absolute top-0 start-0">
+                                            <span class="badge bg-danger">Sale</span>
+                                        </div>
+                                        <a href="#!">
+                                            <img src="images/linux.png" class="mb-3 img-fluid">
+                                        </a>
+                                    </div>
+                                    <div class="text-small mb-1">
+                                        <a href="#!" class="text-decoration-none text-muted">
+                                            <small>Marca</small>
+                                        </a>
+                                    </div>
+                                    <h2 class="fs-6">
+                                        <a href="./pages/shop-single.html" class="text-inherit text-decoration-none">Nombre</a>
+                                    </h2>
+                                    <div>
+                                        Descripcion
+                                    </div>
+                                    <div class="d-flex justify-content-between align-items-center mt-3">
+                                        <div>
+                                            <span class="text-dark">$000</span>
+                                        </div>
+                                        <div>
+                                            <a href="#!" class="btn btn-primary btn-sm">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+                                                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                                     stroke-linejoin="round" class="feather feather-plus">
+                                                <line x1="12" y1="5" x2="12" y2="19"></line>
+                                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                                                </svg> Agregar
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="card card-product">
+                                <div class="card-body">
+                                    <div class="text-center position-relative ">
+                                        <div class=" position-absolute top-0 start-0">
+                                            <span class="badge bg-danger">Sale</span>
+                                        </div>
+                                        <a href="#!">
+                                            <img src="images/linux.png" class="mb-3 img-fluid">
+                                        </a>
+                                    </div>
+                                    <div class="text-small mb-1">
+                                        <a href="#!" class="text-decoration-none text-muted">
+                                            <small>Marca</small>
+                                        </a>
+                                    </div>
+                                    <h2 class="fs-6">
+                                        <a href="./pages/shop-single.html" class="text-inherit text-decoration-none">Nombre</a>
+                                    </h2>
+                                    <div>
+                                        Descripcion
+                                    </div>
+                                    <div class="d-flex justify-content-between align-items-center mt-3">
+                                        <div>
+                                            <span class="text-dark">$000</span>
+                                        </div>
+                                        <div>
+                                            <a href="#!" class="btn btn-primary btn-sm">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+                                                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                                     stroke-linejoin="round" class="feather feather-plus">
+                                                <line x1="12" y1="5" x2="12" y2="19"></line>
+                                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                                                </svg> Agregar
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="card card-product">
+                                <div class="card-body">
+                                    <div class="text-center position-relative ">
+                                        <div class=" position-absolute top-0 start-0">
+                                            <span class="badge bg-danger">Sale</span>
+                                        </div>
+                                        <a href="#!">
+                                            <img src="images/linux.png" class="mb-3 img-fluid">
+                                        </a>
+                                    </div>
+                                    <div class="text-small mb-1">
+                                        <a href="#!" class="text-decoration-none text-muted">
+                                            <small>Marca</small>
+                                        </a>
+                                    </div>
+                                    <h2 class="fs-6">
+                                        <a href="./pages/shop-single.html" class="text-inherit text-decoration-none">Nombre</a>
+                                    </h2>
+                                    <div>
+                                        Descripcion
+                                    </div>
+                                    <div class="d-flex justify-content-between align-items-center mt-3">
+                                        <div>
+                                            <span class="text-dark">$000</span>
+                                        </div>
+                                        <div>
+                                            <a href="#!" class="btn btn-primary btn-sm">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+                                                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                                     stroke-linejoin="round" class="feather feather-plus">
+                                                <line x1="12" y1="5" x2="12" y2="19"></line>
+                                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                                                </svg> Agregar
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="card card-product">
+                                <div class="card-body">
+                                    <div class="text-center position-relative ">
+                                        <div class=" position-absolute top-0 start-0">
+                                            <span class="badge bg-danger">Sale</span>
+                                        </div>
+                                        <a href="#!">
+                                            <img src="images/linux.png" class="mb-3 img-fluid">
+                                        </a>
+                                    </div>
+                                    <div class="text-small mb-1">
+                                        <a href="#!" class="text-decoration-none text-muted">
+                                            <small>Marca</small>
+                                        </a>
+                                    </div>
+                                    <h2 class="fs-6">
+                                        <a href="./pages/shop-single.html" class="text-inherit text-decoration-none">Nombre</a>
+                                    </h2>
+                                    <div>
+                                        Descripcion
+                                    </div>
+                                    <div class="d-flex justify-content-between align-items-center mt-3">
+                                        <div>
+                                            <span class="text-dark">$000</span>
+                                        </div>
+                                        <div>
+                                            <a href="#!" class="btn btn-primary btn-sm">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+                                                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                                     stroke-linejoin="round" class="feather feather-plus">
+                                                <line x1="12" y1="5" x2="12" y2="19"></line>
+                                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                                                </svg> Agregar
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </article>
         </section>
 
-        <footer>
-            <div class="container-fluid">
+        <footer class="footer">
+            <div class="container">
                 <div class="row">
-                    <div id="col1" class="col-12">
-                        <p>Pie de página</p>
+                    <div class="col-md-4">
+                        <h5>Enlaces</h5>
+                        <ul class="list-unstyled">
+                            <li><a href="#">Inicio</a></li>
+                            <li><a href="#">Productos</a></li>
+                            <li><a href="#">Servicios</a></li>
+                            <li><a href="#">Contacto</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-4">
+                        <h5>Contacto</h5>
+                        <p>Dirección: Calle Principal, Ciudad</p>
+                        <p>Teléfono: 123-456-7890</p>
+                        <p>Email: info@example.com</p>
+                    </div>
+                    <div class="col-md-4">
+                        <h5>Síguenos en redes sociales</h5>
+                        <ul class="list-inline">
+                            <li class="list-inline-item"><a href="#"><i class="fab fa-facebook"></i></a></li>
+                            <li class="list-inline-item"><a href="#"><i class="fab fa-twitter"></i></a></li>
+                            <li class="list-inline-item"><a href="#"><i class="fab fa-instagram"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <p>&copy; 2023 Todos los derechos reservados</p>
                     </div>
                 </div>
             </div>
