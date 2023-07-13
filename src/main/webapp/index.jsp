@@ -4,6 +4,11 @@
     Author     : Brian
 --%>
 
+<%@page import="libreria.modelo.dao.MarcaDAO"%>
+<%@page import="libreria.modelo.bean.Marca"%>
+<%@page import="libreria.modelo.dao.ProductoDAO"%>
+<%@page import="libreria.modelo.bean.Producto"%>
+<%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -20,6 +25,7 @@
         <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800;900&display=swap"
               rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     </head>
     <body>
 
@@ -199,22 +205,22 @@
             <div class="container-fluid">
                 <div class="row">
                     <div id="col1">
-                        <a href="#row1">OFERTAS</a>
+                        <a href="#article-1">OFERTAS</a>
                     </div>
                     <span></span>
                     <div id="col2">
-                        <a href="#row2">CATEGORÍAS</a>
+                        <a href="#article-2">CATEGORÍAS</a>
                     </div>
                     <span></span>
                     <div id="col3">
-                        <a href="#row3">LO MÁS VENDIDO</a>
+                        <a href="#article-3">LO MÁS VENDIDO</a>
                     </div>
                 </div>
             </div>
         </nav>
 
         <section>
-            <article>
+            <article id="article-1">
                 <div class="container-fluid">
                     <div id="row1" class="row">
                         <div id="col1" class="col-12">
@@ -241,7 +247,7 @@
                 </div>
             </article>
 
-            <article>
+            <article id="article-2">
                 <div class="slide-container">
                     <div class="pre-slide-inner">
                         <span>CATEGORÍAS</span>
@@ -287,40 +293,49 @@
                 </div>
             </article>
 
-            <article>
-                <div class="title-3">
+            <article id="article-3">
+                <div class="title-3 pt-5">
                     <span>LO MÁS VENDIDO</span>
                 </div>
-                <div class="container-fluid">
-                    <div class="row g-4 row-cols-2 row-cols-lg-4 row-cols-md-3">
+                <div class="container-fluid p-5">
+                    <div class="row g-4 row-cols-1 row-cols-md-3 row-cols-lg-4">
+                        <%
+                            ArrayList<Producto> listaProducto = new ProductoDAO().tolist();
+                            for (Producto p : listaProducto) {
+                        %>
                         <div class="col">
                             <div class="card card-product">
                                 <div class="card-body">
                                     <div class="text-center position-relative ">
                                         <div class=" position-absolute top-0 start-0">
-                                            <span class="badge bg-danger">Sale</span>
+                                            <span class="badge bg-success">Stock</span>
                                         </div>
-                                        <a href="#!">
-                                            <img src="images/linux.png" class="mb-3 img-fluid">
+                                        <a href="#">
+                                            <img src="readImage?SKUProducto=<%=p.getSKU()%>" class="mb-3" width="150" height="180">
                                         </a>
                                     </div>
                                     <div class="text-small mb-1">
-                                        <a href="#!" class="text-decoration-none text-muted">
-                                            <small>Marca</small>
+                                        <a href="#" class="text-decoration-none text-muted">
+                                            <%
+                                                Marca m = new Marca();
+                                                m.setIdmarca(p.getIdmarca());
+                                                m = new MarcaDAO().read(m);
+                                            %>
+                                            <small><%=m.getMarca()%></small>
                                         </a>
                                     </div>
                                     <h2 class="fs-6">
-                                        <a href="./pages/shop-single.html" class="text-inherit text-decoration-none">Nombre</a>
+                                        <a href="#" class="text-inherit text-decoration-none"><%=p.getNombre()%></a>
                                     </h2>
-                                    <div>
-                                        Descripcion
+                                    <div class="text-truncate" style="max-width: 600px;">
+                                        <%=p.getDescripcion()%>
                                     </div>
                                     <div class="d-flex justify-content-between align-items-center mt-3">
                                         <div>
-                                            <span class="text-dark">$000</span>
+                                            <span class="text-dark">S/. <%=p.getPrecio()%></span>
                                         </div>
                                         <div>
-                                            <a href="#!" class="btn btn-primary btn-sm">
+                                            <a href="addtoCart?SKU=<%=p.getSKU()%>" class="btn btn-primary btn-sm">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
                                                      fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                                      stroke-linejoin="round" class="feather feather-plus">
@@ -333,289 +348,11 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col">
-                            <div class="card card-product">
-                                <div class="card-body">
-                                    <div class="text-center position-relative ">
-                                        <div class=" position-absolute top-0 start-0">
-                                            <span class="badge bg-danger">Sale</span>
-                                        </div>
-                                        <a href="#!">
-                                            <img src="images/linux.png" class="mb-3 img-fluid">
-                                        </a>
-                                    </div>
-                                    <div class="text-small mb-1">
-                                        <a href="#!" class="text-decoration-none text-muted">
-                                            <small>Marca</small>
-                                        </a>
-                                    </div>
-                                    <h2 class="fs-6">
-                                        <a href="./pages/shop-single.html" class="text-inherit text-decoration-none">Nombre</a>
-                                    </h2>
-                                    <div>
-                                        Descripcion
-                                    </div>
-                                    <div class="d-flex justify-content-between align-items-center mt-3">
-                                        <div>
-                                            <span class="text-dark">$000</span>
-                                        </div>
-                                        <div>
-                                            <a href="#!" class="btn btn-primary btn-sm">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
-                                                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                                     stroke-linejoin="round" class="feather feather-plus">
-                                                <line x1="12" y1="5" x2="12" y2="19"></line>
-                                                <line x1="5" y1="12" x2="19" y2="12"></line>
-                                                </svg> Agregar
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="card card-product">
-                                <div class="card-body">
-                                    <div class="text-center position-relative ">
-                                        <div class=" position-absolute top-0 start-0">
-                                            <span class="badge bg-danger">Sale</span>
-                                        </div>
-                                        <a href="#!">
-                                            <img src="images/linux.png" class="mb-3 img-fluid">
-                                        </a>
-                                    </div>
-                                    <div class="text-small mb-1">
-                                        <a href="#!" class="text-decoration-none text-muted">
-                                            <small>Marca</small>
-                                        </a>
-                                    </div>
-                                    <h2 class="fs-6">
-                                        <a href="./pages/shop-single.html" class="text-inherit text-decoration-none">Nombre</a>
-                                    </h2>
-                                    <div>
-                                        Descripcion
-                                    </div>
-                                    <div class="d-flex justify-content-between align-items-center mt-3">
-                                        <div>
-                                            <span class="text-dark">$000</span>
-                                        </div>
-                                        <div>
-                                            <a href="#!" class="btn btn-primary btn-sm">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
-                                                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                                     stroke-linejoin="round" class="feather feather-plus">
-                                                <line x1="12" y1="5" x2="12" y2="19"></line>
-                                                <line x1="5" y1="12" x2="19" y2="12"></line>
-                                                </svg> Agregar
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="card card-product">
-                                <div class="card-body">
-                                    <div class="text-center position-relative ">
-                                        <div class=" position-absolute top-0 start-0">
-                                            <span class="badge bg-danger">Sale</span>
-                                        </div>
-                                        <a href="#!">
-                                            <img src="images/linux.png" class="mb-3 img-fluid">
-                                        </a>
-                                    </div>
-                                    <div class="text-small mb-1">
-                                        <a href="#!" class="text-decoration-none text-muted">
-                                            <small>Marca</small>
-                                        </a>
-                                    </div>
-                                    <h2 class="fs-6">
-                                        <a href="./pages/shop-single.html" class="text-inherit text-decoration-none">Nombre</a>
-                                    </h2>
-                                    <div>
-                                        Descripcion
-                                    </div>
-                                    <div class="d-flex justify-content-between align-items-center mt-3">
-                                        <div>
-                                            <span class="text-dark">$000</span>
-                                        </div>
-                                        <div>
-                                            <a href="#!" class="btn btn-primary btn-sm">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
-                                                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                                     stroke-linejoin="round" class="feather feather-plus">
-                                                <line x1="12" y1="5" x2="12" y2="19"></line>
-                                                <line x1="5" y1="12" x2="19" y2="12"></line>
-                                                </svg> Agregar
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="card card-product">
-                                <div class="card-body">
-                                    <div class="text-center position-relative ">
-                                        <div class=" position-absolute top-0 start-0">
-                                            <span class="badge bg-danger">Sale</span>
-                                        </div>
-                                        <a href="#!">
-                                            <img src="images/linux.png" class="mb-3 img-fluid">
-                                        </a>
-                                    </div>
-                                    <div class="text-small mb-1">
-                                        <a href="#!" class="text-decoration-none text-muted">
-                                            <small>Marca</small>
-                                        </a>
-                                    </div>
-                                    <h2 class="fs-6">
-                                        <a href="./pages/shop-single.html" class="text-inherit text-decoration-none">Nombre</a>
-                                    </h2>
-                                    <div>
-                                        Descripcion
-                                    </div>
-                                    <div class="d-flex justify-content-between align-items-center mt-3">
-                                        <div>
-                                            <span class="text-dark">$000</span>
-                                        </div>
-                                        <div>
-                                            <a href="#!" class="btn btn-primary btn-sm">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
-                                                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                                     stroke-linejoin="round" class="feather feather-plus">
-                                                <line x1="12" y1="5" x2="12" y2="19"></line>
-                                                <line x1="5" y1="12" x2="19" y2="12"></line>
-                                                </svg> Agregar
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="card card-product">
-                                <div class="card-body">
-                                    <div class="text-center position-relative ">
-                                        <div class=" position-absolute top-0 start-0">
-                                            <span class="badge bg-danger">Sale</span>
-                                        </div>
-                                        <a href="#!">
-                                            <img src="images/linux.png" class="mb-3 img-fluid">
-                                        </a>
-                                    </div>
-                                    <div class="text-small mb-1">
-                                        <a href="#!" class="text-decoration-none text-muted">
-                                            <small>Marca</small>
-                                        </a>
-                                    </div>
-                                    <h2 class="fs-6">
-                                        <a href="./pages/shop-single.html" class="text-inherit text-decoration-none">Nombre</a>
-                                    </h2>
-                                    <div>
-                                        Descripcion
-                                    </div>
-                                    <div class="d-flex justify-content-between align-items-center mt-3">
-                                        <div>
-                                            <span class="text-dark">$000</span>
-                                        </div>
-                                        <div>
-                                            <a href="#!" class="btn btn-primary btn-sm">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
-                                                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                                     stroke-linejoin="round" class="feather feather-plus">
-                                                <line x1="12" y1="5" x2="12" y2="19"></line>
-                                                <line x1="5" y1="12" x2="19" y2="12"></line>
-                                                </svg> Agregar
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="card card-product">
-                                <div class="card-body">
-                                    <div class="text-center position-relative ">
-                                        <div class=" position-absolute top-0 start-0">
-                                            <span class="badge bg-danger">Sale</span>
-                                        </div>
-                                        <a href="#!">
-                                            <img src="images/linux.png" class="mb-3 img-fluid">
-                                        </a>
-                                    </div>
-                                    <div class="text-small mb-1">
-                                        <a href="#!" class="text-decoration-none text-muted">
-                                            <small>Marca</small>
-                                        </a>
-                                    </div>
-                                    <h2 class="fs-6">
-                                        <a href="./pages/shop-single.html" class="text-inherit text-decoration-none">Nombre</a>
-                                    </h2>
-                                    <div>
-                                        Descripcion
-                                    </div>
-                                    <div class="d-flex justify-content-between align-items-center mt-3">
-                                        <div>
-                                            <span class="text-dark">$000</span>
-                                        </div>
-                                        <div>
-                                            <a href="#!" class="btn btn-primary btn-sm">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
-                                                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                                     stroke-linejoin="round" class="feather feather-plus">
-                                                <line x1="12" y1="5" x2="12" y2="19"></line>
-                                                <line x1="5" y1="12" x2="19" y2="12"></line>
-                                                </svg> Agregar
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="card card-product">
-                                <div class="card-body">
-                                    <div class="text-center position-relative ">
-                                        <div class=" position-absolute top-0 start-0">
-                                            <span class="badge bg-danger">Sale</span>
-                                        </div>
-                                        <a href="#!">
-                                            <img src="images/linux.png" class="mb-3 img-fluid">
-                                        </a>
-                                    </div>
-                                    <div class="text-small mb-1">
-                                        <a href="#!" class="text-decoration-none text-muted">
-                                            <small>Marca</small>
-                                        </a>
-                                    </div>
-                                    <h2 class="fs-6">
-                                        <a href="./pages/shop-single.html" class="text-inherit text-decoration-none">Nombre</a>
-                                    </h2>
-                                    <div>
-                                        Descripcion
-                                    </div>
-                                    <div class="d-flex justify-content-between align-items-center mt-3">
-                                        <div>
-                                            <span class="text-dark">$000</span>
-                                        </div>
-                                        <div>
-                                            <a href="#!" class="btn btn-primary btn-sm">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
-                                                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                                     stroke-linejoin="round" class="feather feather-plus">
-                                                <line x1="12" y1="5" x2="12" y2="19"></line>
-                                                <line x1="5" y1="12" x2="19" y2="12"></line>
-                                                </svg> Agregar
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        <%}%>
                     </div>
                 </div>
             </article>
+
         </section>
 
         <footer class="footer">
@@ -626,22 +363,21 @@
                         <ul class="list-unstyled">
                             <li><a href="#">Inicio</a></li>
                             <li><a href="#">Productos</a></li>
-                            <li><a href="#">Servicios</a></li>
                             <li><a href="#">Contacto</a></li>
                         </ul>
                     </div>
                     <div class="col-md-4">
                         <h5>Contacto</h5>
-                        <p>Dirección: Calle Principal, Ciudad</p>
-                        <p>Teléfono: 123-456-7890</p>
-                        <p>Email: info@example.com</p>
+                        <p>Dirección: Av. Los Héroes 115, Lima, Perú</p>
+                        <p>Teléfono: +51 987 654 321</p>
+                        <p>Email: techoffice@gmail.com</p>
                     </div>
                     <div class="col-md-4">
                         <h5>Síguenos en redes sociales</h5>
                         <ul class="list-inline">
-                            <li class="list-inline-item"><a href="#"><i class="fab fa-facebook"></i></a></li>
-                            <li class="list-inline-item"><a href="#"><i class="fab fa-twitter"></i></a></li>
-                            <li class="list-inline-item"><a href="#"><i class="fab fa-instagram"></i></a></li>
+                            <li class="list-inline-item"><a href="#"><a href="#" class="fa fa-facebook"></a></li>
+                            <li class="list-inline-item"><a href="#"><a href="#" class="fa fa-twitter"></a></li>
+                            <li class="list-inline-item"><a href="#"><a href="#" class="fa fa-instagram"></a></li>
                         </ul>
                     </div>
                 </div>

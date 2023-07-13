@@ -16,24 +16,56 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
         <link rel="stylesheet" type="text/css" href="CSS/styleC.css"/>
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" 
-              integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
-        <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.0/dist/jquery.min.js"></script>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
+              integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+        <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800;900&display=swap"
+              rel="stylesheet">
     </head>
     <body>
         <%
             Cliente c = (Cliente) request.getSession().getAttribute("customer");
         %>
-
         <header>
-            LIBRERIA
+            <header-button>
+                <div class="container-fluid">
+                    <div class="row">
+                        <div id="col1" class="col-12">
+                            <a href="viewMainC" class="logo">
+                                <img src="images/tech-office/logo-white-transp.png"
+                                     alt="logo-generico">
+                            </a>
+                            <form class="d-flex" role="search">
+                                <input class="form-control rounded-end-0 shadow-none" type="search"
+                                       placeholder="¿Qué desea buscar?">
+                                <button class="btn btn-success rounded-start-0" type="submit"><i
+                                        class="bi bi-search"></i></button>
+                            </form>
+                            <nav id="nav-secundario">
+                                <a href="viewCart" class="nav-link">
+                                    <div class="cart-icon">
+                                        <i class="bi bi-cart-fill"></i>
+                                        <span class="cart-count">${quantityProductToCart}</span>
+                                    </div>
+                                    <span>Carrito</span>
+                                </a>
+                                <a href="#" class="nav-link">
+                                    <i class="bi bi-person-circle"></i>
+                                    <span><%=c.getNombre()%> <%=c.getApaterno()%></span>
+                                </a>
+                                <a href="logoutC" class="nav-link">
+                                    <i class="bi bi-box-arrow-left"></i>
+                                    <span>Cerrar sesión</span>
+                                </a>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </header-button>
         </header>
-        <nav id="nav1">
-            <span>Bienvenido, <%=c.getNombre()%> <%=c.getApaterno()%></span><span><a href="logoutC">Cerrar sesión</a></span>
-        </nav>
-        <nav id="nav2">
-            <a href="viewMainC" class="btn btn-info">Home</a>
-        </nav>
         <section>
             <div class="container">
                 <h3>Carrito de compras</h3>
@@ -94,6 +126,7 @@
         <footer>
 
         </footer>
+        <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.0/dist/jquery.min.js"></script>
         <script src="JS/scriptCart.js" type="text/javascript"></script>
         <script src="JS/bootstrap-input-spinner.js" type="text/javascript"></script>
         <script>

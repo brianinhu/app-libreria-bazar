@@ -10,9 +10,23 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
+        <link rel="stylesheet" href="CSS/checkoutSuccess.css"/>
+        
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" 
+              integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
     </head>
     <body>
-        <h1>COMPRA REALIZADA CON ÉXITO</h1>
-        <a href="viewMainC">Volver a la tienda</a>
+        <div class="container">
+            <div class="card">
+                <h3 class="card-title">¡Compra Finalizada!</h3>
+                <p class="card-text">Gracias por tu compra. Hemos recibido tu pedido correctamente.</p>
+                <p class="card-text">Número de pedido: <span id="order-number"></span></p>
+                <hr>
+                <p class="card-text">Recibirás un correo electrónico de confirmación con los detalles de tu compra.</p>
+                <div class="text-center">
+                    <a href="viewMainC" id="home-button">Volver a la página principal</a>
+                </div>
+            </div>
+        </div>
     </body>
 </html>

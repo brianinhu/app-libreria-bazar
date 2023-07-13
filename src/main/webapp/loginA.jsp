@@ -14,7 +14,7 @@
     </head>
     <body>
         <%
-        String messageError = (String) request.getAttribute("messageError");
+            String messageError = (String) request.getAttribute("messageError");
         %>
         <header>
             ADMINISTRACION

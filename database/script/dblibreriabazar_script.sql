@@ -151,7 +151,8 @@ INSERT INTO marca(marca) VALUES
 ('Stabilo'),
 ('Surco'),
 ('Alpha'),
-('Ove');
+('Ove'),
+('Otros');
 -- Insertar datos a la tabla personal
 INSERT INTO personal (nombre, apaterno, amaterno, telefono, edad, profesion) 
 VALUES ('Brian', 'Inca', 'Huamani', '911275987', '20', 'Ingeniero de Sistemas'),

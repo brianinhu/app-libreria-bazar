@@ -324,3 +324,77 @@ header-top #col1 {
 }
 
 /* footer */
+
+/* LOGIN C */
+
+#form-login {
+    width: 500px !important;
+}
+
+#form-login .col {
+    padding: 2rem;
+    margin: 1rem;
+    border: 1px solid #e6e6e6;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    border-radius: 15px;
+}
+
+/* LOGIN C */
+
+/*Sign up cliente*/
+
+#form-singup {
+    width: 700px !important;
+}
+
+#form-singup .col {
+    padding: 2rem;
+    margin: 1rem;
+    border: 1px solid #e6e6e6;
+    display: flex;
+    flex-direction: column;
+    border-radius: 15px;
+}
+
+#form-singup input {
+    width: 600px;
+}
+
+#txtidgenero, #txttelefono {
+    width: 300px !important;
+}
+
+#btn-registrar {
+    width: 300px;
+}
+
+/*Sign up cliente*/
+
+/* Seccion articulos*/
+#article-3 {
+    background-color: #FFDD00 !important;
+}
+
+.card {
+    width: 100%;
+    height: 400px !important;
+}
+/* Seccion articulos*/
+
+
+.table tr {
+    text-align: center;
+}
+
+.table td {
+    text-align: center;
+    vertical-align: middle;
+}
+
+.input-group {
+    width: 150px !important;
+    display: inline-flex !important;
+}
