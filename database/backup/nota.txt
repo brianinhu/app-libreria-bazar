@@ -1,0 +1,5 @@
+Base de datos con registros en todas las tablas, excepto:
+
+- Tabla cliente
+- Tabla pedido
+- Tabla pedido_detalle
