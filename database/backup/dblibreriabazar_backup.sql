@@ -44,7 +44,7 @@ CREATE TABLE `administrador` (
 
 LOCK TABLES `administrador` WRITE;
 /*!40000 ALTER TABLE `administrador` DISABLE KEYS */;
-INSERT INTO `administrador` VALUES (1,'binca','binca','1',1,1),(2,'jcaman','jcaman','1',2,2),(3,'nrimache','nrimache','1',3,3);
+INSERT INTO `administrador` VALUES (1,'ataboada','ataboada','1',1,1),(2,'sreyes','sreyes','1',2,2),(3,'agarcia','agarcia','1',3,3);
 /*!40000 ALTER TABLE `administrador` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -319,7 +319,7 @@ CREATE TABLE `personal` (
 
 LOCK TABLES `personal` WRITE;
 /*!40000 ALTER TABLE `personal` DISABLE KEYS */;
-INSERT INTO `personal` VALUES (1,'Brian','Inca','Huamani','911275987',20,'Ingeniero de Sistemas'),(2,'Josue','Caman','Aguirre','934419031',20,'Ingeniero de Software'),(3,'Nick','Rimache','Oropeza','955922381',20,'Ingeniero Informático');
+INSERT INTO `personal` VALUES (1,'Alejandro','Taboada','Sanchez','911275987',25,'Ingeniero de Sistemas'),(2,'Sofia','Reyes','Soto','934419031',21,'Ingeniera de Software'),(3,'Adam','García','Martínez','955922381',22,'Ingeniero Informático');
 /*!40000 ALTER TABLE `personal` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -417,4 +417,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-07-14 22:00:24
+-- Dump completed on 2023-07-24 13:40:44

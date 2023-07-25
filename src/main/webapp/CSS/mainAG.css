@@ -1,0 +1,81 @@
+body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+    background-color: #f2f2f2;
+    min-height: 100vh;
+}
+
+.aside {
+    height: 100%;
+    width: 300px;
+    background-color: darkgoldenrod;
+    color: #fff;
+    position: fixed;
+    padding: 10px;
+    transition: width 0.4s ease;
+}
+
+.head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 50px;
+    margin: 1.5rem 0;
+}
+
+.head img {
+    width: 50px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.head i {
+    font-size: 30px;
+    cursor: pointer;
+}
+
+.profile {
+    display: flex;
+    align-items: center;
+}
+
+.options div, .options a {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    cursor: pointer;
+    margin-bottom: 1rem;
+    border-radius: 10px;
+    text-decoration: none;
+    color: #fff;
+}
+
+.options div:hover, .options a:hover {
+    background-color: rgba(255,255,255,0.2);
+    transition: background-color 0.4s ease-in-out;
+}
+
+.options i {
+    font-size: 25px;
+    margin-right: 10px;
+}
+
+.aside.active {
+    width: 80px;
+    transition: all 0.4s ease;
+}
+
+.aside.active .option, 
+.aside.active .profile{
+    display: none;
+}
+
+.aside.active .head i {
+    margin: auto;
+}
+
+.aside.active .options i {
+    margin: auto;
+}
