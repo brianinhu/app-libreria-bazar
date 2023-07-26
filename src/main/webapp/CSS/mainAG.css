@@ -41,7 +41,7 @@ body {
     align-items: center;
 }
 
-.options div, .options a {
+.options a {
     display: flex;
     align-items: center;
     padding: 15px;
@@ -52,7 +52,7 @@ body {
     color: #fff;
 }
 
-.options div:hover, .options a:hover {
+.options a:hover {
     background-color: rgba(255,255,255,0.2);
     transition: background-color 0.4s ease-in-out;
 }
@@ -67,7 +67,7 @@ body {
     transition: all 0.4s ease;
 }
 
-.aside.active .option, 
+.aside.active .option,
 .aside.active .profile{
     display: none;
 }
@@ -79,3 +79,13 @@ body {
 .aside.active .options i {
     margin: auto;
 }
+
+.div-panel {
+    margin-left: 300px;
+    transition: margin-left 0.4s ease;
+}
+
+.div-panel.decompressed {
+    margin-left: 80px;
+}
+

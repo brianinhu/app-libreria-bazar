@@ -15,7 +15,9 @@ import libreria.modelo.dao.AdministradorDAO;
 import libreria.modelo.dao.ProductoDAO;
 
 @MultipartConfig
-@WebServlet(name = "SvAdministrador", urlPatterns = {"/SvAdministrador", "/loginA", "/logoutA", "/viewProductoAG", "/createProducto", "/readImage", "/deleteProducto", "/updateProducto"})
+@WebServlet(name = "SvAdministrador", urlPatterns = {"/SvAdministrador", "/loginA", "/logoutA",
+    "/viewProductosAG", "/createProducto", "/readImage", "/deleteProducto", "/updateProducto",
+    "/viewAdministradoresAG", "/viewClientesAG", "/viewPedidosAG", "/viewPersonalAG"})
 public class SvAdministrador extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -25,14 +27,18 @@ public class SvAdministrador extends HttpServlet {
         String path = request.getServletPath();
 
         switch (path) {
+            /* Inicios de sesión */
             case "/loginA":
                 loginSession(request, response);
                 break;
             case "/logoutA":
                 logoutSession(request, response);
                 break;
-            case "/viewProductoAG":
-                request.getRequestDispatcher("WEB-INF/administratorAG/productoAG.jsp").forward(request, response);
+            /* Inicios de sesión */
+
+ /* Vista productos */
+            case "/viewProductosAG":
+                request.getRequestDispatcher("WEB-INF/administratorAG/productosAG.jsp").forward(request, response);
                 break;
             case "/createProducto":
                 createProducto(request, response);
@@ -46,6 +52,31 @@ public class SvAdministrador extends HttpServlet {
             case "/updateProducto":
                 updateProducto(request, response);
                 break;
+            /* Vista productos */
+
+ /* Vista administradores */
+            case "/viewAdministradoresAG":
+                request.getRequestDispatcher("WEB-INF/administratorAG/administradoresAG.jsp").forward(request, response);
+                break;
+            /* Vista administradores */
+
+ /* Vista clientes */
+            case "/viewClientesAG":
+                request.getRequestDispatcher("WEB-INF/administratorAG/clientesAG.jsp").forward(request, response);
+                break;
+            /* Vista clientes */
+
+ /* Vista pedidos */
+            case "/viewPedidosAG":
+                request.getRequestDispatcher("WEB-INF/administratorAG/pedidosAG.jsp").forward(request, response);
+                break;
+            /* Vista pedidos */
+
+ /* Vista personal */
+            case "/viewPersonalAG":
+                request.getRequestDispatcher("WEB-INF/administratorAG/personalAG.jsp").forward(request, response);
+                break;
+            /* Vista personal */
         }
     }
 
@@ -138,7 +169,7 @@ public class SvAdministrador extends HttpServlet {
         InputStream inputStream = part.getInputStream();
         Producto p = new Producto(SKU, nombre, descripcion, idmarca, precio, stock, inputStream, idcategoria);
         new ProductoDAO().create(p);
-        request.getRequestDispatcher("WEB-INF/administratorAG/productoAG.jsp").forward(request, response);
+        request.getRequestDispatcher("WEB-INF/administratorAG/productosAG.jsp").forward(request, response);
     }
 
     private void readImage(HttpServletRequest request, HttpServletResponse response) {
@@ -151,7 +182,7 @@ public class SvAdministrador extends HttpServlet {
         Producto producto = new Producto();
         producto.setSKU(SKU);
         new ProductoDAO().delete(producto);
-        request.getRequestDispatcher("WEB-INF/administratorAG/productoAG.jsp").forward(request, response);
+        request.getRequestDispatcher("WEB-INF/administratorAG/productosAG.jsp").forward(request, response);
     }
 
     private void updateProducto(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
@@ -166,7 +197,7 @@ public class SvAdministrador extends HttpServlet {
         InputStream inputStream = part.getInputStream();
         Producto p = new Producto(SKU, nombre, descripcion, idmarca, precio, stock, inputStream, idcategoria);
         new ProductoDAO().update(p);
-        request.getRequestDispatcher("WEB-INF/administratorAG/productoAG.jsp").forward(request, response);
+        request.getRequestDispatcher("WEB-INF/administratorAG/productosAG.jsp").forward(request, response);
     }
 
 }

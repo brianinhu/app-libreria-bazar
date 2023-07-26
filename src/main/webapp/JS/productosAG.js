@@ -1,5 +1,3 @@
-
-
 const trunk = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 codeGenerate = (length) => {
     let code = "";

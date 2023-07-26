@@ -1,7 +1,13 @@
+<%-- 
+    Document   : ClientesAG
+    Created on : 26 jul. 2023, 07:01:41
+    Author     : Brian
+--%>
+
 <%@page import="libreria.modelo.dao.RolDAO"%>
 <%@page import="libreria.modelo.bean.Rol"%>
-<%@page import="libreria.modelo.bean.Personal"%>
 <%@page import="libreria.modelo.dao.PersonalDAO"%>
+<%@page import="libreria.modelo.bean.Personal"%>
 <%@page import="libreria.modelo.bean.Administrador"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -41,7 +47,7 @@
                     <i class='bx bx-menu' id="menu"></i>
                 </div>
                 <div class="options">
-                    <a href="viewAdministradoresAG">
+                    <a href="viewAdministradorAG">
                         <i class="bx bxs-briefcase"></i>
                         <span class="option">Administradores</span>
                     </a>
@@ -70,7 +76,7 @@
         </section>
         <section id="section-2">
             <div class="div-panel" id="div-panel">
-                <img src="JOTCHUA UNTELSINO.png" alt="alt"/>
+                <p>Clientes</p>
             </div>
         </section>
         <script src="JS/mainAG.js" type="text/javascript"></script>
