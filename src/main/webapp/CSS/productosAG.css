@@ -1,0 +1,16 @@
+#div-panel {
+    padding: 3rem;
+}
+
+#section-2 {
+    font-size: 0.8rem;
+}
+
+#table tbody{
+    text-align: center;
+    vertical-align: middle;
+}
+
+#table thead th {
+    text-align: center;
+}

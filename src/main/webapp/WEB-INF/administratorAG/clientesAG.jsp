@@ -47,7 +47,7 @@
                     <i class='bx bx-menu' id="menu"></i>
                 </div>
                 <div class="options">
-                    <a href="viewAdministradorAG">
+                    <a href="viewAdministradoresAG">
                         <i class="bx bxs-briefcase"></i>
                         <span class="option">Administradores</span>
                     </a>

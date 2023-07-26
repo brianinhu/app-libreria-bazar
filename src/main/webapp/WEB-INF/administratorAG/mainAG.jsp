@@ -70,7 +70,7 @@
         </section>
         <section id="section-2">
             <div class="div-panel" id="div-panel">
-                <img src="JOTCHUA UNTELSINO.png" alt="alt"/>
+                <p>Main</p>
             </div>
         </section>
         <script src="JS/mainAG.js" type="text/javascript"></script>

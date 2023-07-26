@@ -16,15 +16,23 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
+        <!-- CSS Bootstrap 5 -->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" 
               integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+        <!-- CSS Boxicons -->
         <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+        <!-- CSS FontsGoogle -->
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800;900&display=swap"
               rel="stylesheet">
+        <!-- CSS Bootstrap Icons -->
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+        <!-- CSS DataTable -->
+        <link rel="stylesheet" href="//cdn.datatables.net/1.13.5/css/jquery.dataTables.min.css">
+        <!-- CSS mainAG -->
         <link href="CSS/mainAG.css" rel="stylesheet" type="text/css"/>
+        <link href="CSS/productosAG.css" rel="stylesheet" type="text/css"/>
     </head>
     <body>
         <%
@@ -49,7 +57,7 @@
                     <i class='bx bx-menu' id="menu"></i>
                 </div>
                 <div class="options">
-                    <a href="viewAdministradorAG">
+                    <a href="viewAdministradoresAG">
                         <i class="bx bxs-briefcase"></i>
                         <span class="option">Administradores</span>
                     </a>
@@ -78,62 +86,72 @@
         </section>
         <section id="section-2">
             <div class="div-panel" id="div-panel">
-                <h3>Lista de productos</h3>
-                <table class="table">
-                    <tr>
-                        <th>SKU</th>
-                        <th>Nombre</th>
-                        <th>Descripcion</th>
-                        <th>Marca</th>
-                        <th>Precio</th>
-                        <th>Stock</th>
-                        <th>Imagen</th>
-                        <th>Categoria</th>
-                        <th colspan="2">
-                            <div class="d-grid col-6 mx-auto">
-                                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#staticBackdrop1">
-                                    <i class="bi bi-bag-plus-fill"></i>
-                                </button>
-                            </div>
-                        </th>
-                    </tr>
-                    <%
-                        ArrayList<Producto> listaProductos = new ProductoDAO().tolist();
-                        for (Producto producto : listaProductos) {
-                    %>
-                    <tr>
-                        <td><%=producto.getSKU()%></td>
-                        <td><%=producto.getNombre()%></td>
-                        <td><%=producto.getDescripcion()%></td>
-                        <%
-                            Marca marca = new Marca(producto.getIdmarca(), "");
-                            marca = new MarcaDAO().read(marca);
-                        %>
-                        <td><%=marca.getMarca()%></td>
-                        <td><%=producto.getPrecio()%></td>
-                        <td><%=producto.getStock()%></td>
-                        <td><img src="readImage?SKUProducto=<%=producto.getSKU()%>" alt="img" width="100"/></td>
-                            <%
-                                Categoria categoria = new Categoria(producto.getIdcategoria(), "");
-                                categoria = new CategoriaDAO().read(categoria);
-                            %>
-                        <td><%=categoria.getCategoria()%></td>
-                        <td>
-                            <div class="d-grid">
-                                <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#staticBackdrop2" 
-                                        onclick="abrirModal('<%=producto.getSKU()%>', '<%=producto.getNombre()%>', '<%=producto.getDescripcion()%>', '<%=producto.getIdmarca()%>', '<%=producto.getPrecio()%>', '<%=producto.getStock()%>', '<%=producto.getIdcategoria()%>')">
-                                    <i class="bi bi-pencil-square"></i>
-                                </button>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="d-grid">
-                                <a href="#" onclick="deleteProduct('<%=producto.getSKU()%>')" type="button" class="btn btn-danger"><i class="bi bi-trash3-fill"></i></a>
-                            </div>
-                        </td>
-                    </tr>
-                    <%}%>
-                </table>
+                <div class="card">
+                    <div class="card-header">
+                        <span class="fw-semibold">Listado de productos</span>
+                    </div>
+                    <div class="card-body">
+                        <table id="table">
+                            <thead>
+                                <tr>
+                                    <th>SKU</th>
+                                    <th>Nombre</th>
+                                    <th>Descripcion</th>
+                                    <th>Marca</th>
+                                    <th>Precio</th>
+                                    <th>Stock</th>
+                                    <th>Imagen</th>
+                                    <th>Categoria</th>
+                                    <th>
+                                        <div class="d-grid col-6 mx-auto">
+                                            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#staticBackdrop1">
+                                                <i class="bi bi-bag-plus-fill"></i>
+                                            </button>
+                                        </div>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <%
+                                    ArrayList<Producto> listaProductos = new ProductoDAO().tolist();
+                                    for (Producto producto : listaProductos) {
+                                %>
+                                <tr>
+                                    <td><%=producto.getSKU()%></td>
+                                    <td><%=producto.getNombre()%></td>
+                                    <td><%=producto.getDescripcion()%></td>
+                                    <%
+                                        Marca marca = new Marca(producto.getIdmarca(), "");
+                                        marca = new MarcaDAO().read(marca);
+                                    %>
+                                    <td><%=marca.getMarca()%></td>
+                                    <td><%=producto.getPrecio()%></td>
+                                    <td><%=producto.getStock()%></td>
+                                    <td><img src="readImage?SKUProducto=<%=producto.getSKU()%>" alt="img" width="100" height="100"/></td>
+                                        <%
+                                            Categoria categoria = new Categoria(producto.getIdcategoria(), "");
+                                            categoria = new CategoriaDAO().read(categoria);
+                                        %>
+                                    <td><%=categoria.getCategoria()%></td>
+                                    <td>
+                                        <div class="d-grid">
+                                            <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#staticBackdrop2" 
+                                                    onclick="abrirModal('<%=producto.getSKU()%>', '<%=producto.getNombre()%>', '<%=producto.getDescripcion()%>', '<%=producto.getIdmarca()%>', '<%=producto.getPrecio()%>', '<%=producto.getStock()%>', '<%=producto.getIdcategoria()%>')">
+                                                <i class="bi bi-pencil-square"></i>
+                                            </button>
+                                        </div>
+                                        <div class="d-grid">
+                                            <a href="#" onclick="deleteProduct('<%=producto.getSKU()%>')" type="button" class="btn btn-danger"><i class="bi bi-trash3-fill"></i></a>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <%
+                                    }
+                                %>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
         </section>
 
@@ -237,12 +255,20 @@
                 </div>
             </div>
         </div>
-    </div>
-    <!-- Modal editar producto -->
-    
-    <script src="JS/mainAG.js" type="text/javascript"></script>
-    <script src="JS/productosAG.js" type="text/javascript"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" 
-    integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
-</body>
+        <!-- Modal editar producto -->
+
+        <!-- JavaScript JQuery -->
+        <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.0/dist/jquery.min.js"></script>
+        <!-- JavaScript DataTable -->
+        <script src="//cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
+        <!-- JavaScript mainAG -->
+        <script src="JS/mainAG.js" type="text/javascript"></script>
+        <!-- JavaScript productosAG -->
+        <script src="JS/productosAG.js" type="text/javascript"></script>
+        <!-- JavaScript Bootstrap 5 -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" 
+        integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+        <!-- JavaScript Sweetalert -->
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    </body>
 </html>
