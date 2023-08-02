@@ -85,6 +85,22 @@
             </aside>
         </section>
         <section id="section-2">
+            <div class="div-panel panel-add" id="div-panel">
+                <div class="card">
+                    <div class="card-header">
+                        <span class="fw-semibold">Añadir producto</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="d-grid col-6 mx-auto">
+                            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#staticBackdrop1">
+                                <i class="bi bi-bag-plus-fill"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section id="section-3">
             <div class="div-panel" id="div-panel">
                 <div class="card">
                     <div class="card-header">
@@ -102,13 +118,7 @@
                                     <th>Stock</th>
                                     <th>Imagen</th>
                                     <th>Categoria</th>
-                                    <th>
-                                        <div class="d-grid col-6 mx-auto">
-                                            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#staticBackdrop1">
-                                                <i class="bi bi-bag-plus-fill"></i>
-                                            </button>
-                                        </div>
-                                    </th>
+                                    <th>Acciones</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -157,7 +167,7 @@
 
         <!-- Modal añadir producto -->
         <div class="modal fade" id="staticBackdrop1" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-            <div class="modal-dialog w-dialog">
+            <div class="modal-dialog w-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h1 class="modal-title fs-5" id="staticBackdropLabel">Registro de producto</h1>
@@ -166,37 +176,77 @@
                     <form action="createProducto" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
                         <div class="modal-body">
                             <input type="hidden" name="txtSKUCreate" id="txtSKUCreate">
-                            <p>Nombre</p>
-                            <input type="text" name="txtnombre">
-                            <p>Descripcion</p>
-                            <input type="text" name="txtdescripcion">
-                            <p>Marca</p>
-                            <select name="cbxMarca">
-                                <%
-                                    ArrayList<Marca> listaMarcas = new MarcaDAO().tolist();
-                                    for (Marca m : listaMarcas) {
-                                %>
-                                <option value="<%=m.getIdmarca()%>"><%=m.getMarca()%></option>
-                                <%}%>
-                            </select>
-                            <p>Precio</p>
-                            <input type="text" name="txtprecio">
-                            <p>Stock</p>
-                            <input type="text" name="txtstock">
-                            <p>Imagen</p>
-                            <input type="file" name="fileImagen">
-                            <p>Categoria</p>
-                            <select name="cbxCategoria">
-                                <%
-                                    ArrayList<Categoria> listaCategorias = new CategoriaDAO().tolist();
-                                    for (Categoria c : listaCategorias) {
-                                %>
-                                <option value="<%=c.getIdcategoria()%>"><%=c.getCategoria()%></option>
-                                <%}%>
-                            </select>
+
+                            <div class="input-group mb-3">
+                                <span class="input-group-text"><i class='bx bx-package'></i></span>
+                                <input type="text" name="txtnombre" class="form-control" placeholder="Nombre">
+                            </div>
+                            <div class="input-group mb-3">
+                                <textarea name="txtdescripcion" class="form-control" rows="5" placeholder="Descripción"></textarea>
+                            </div>
+                            <div class="container-fluid mb-3">
+                                <div class="row">
+                                    <div class="col-8 p-0 pe-2">
+                                        <select name="cbxCategoria" class="form-select">
+                                            <option selected disabled>Categoría</option>
+                                            <%
+                                                ArrayList<Categoria> listaCategorias = new CategoriaDAO().tolist();
+                                                for (Categoria c : listaCategorias) {
+                                            %>
+                                            <option value="<%=c.getIdcategoria()%>"><%=c.getCategoria()%></option>
+                                            <%}%>
+                                        </select>
+                                    </div>
+                                    <div class="col-4 p-0 ps-2">
+                                        <div class="input-group">
+                                            <span class="input-group-text"><i class='bx bx-dollar'></i></span>
+                                            <input type="text" name="txtprecio" class="form-control" placeholder="Precio">
+                                            <span class="input-group-text">.0</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="container-fluid mb-3">
+                                <div class="row">
+                                    <div class="col-8 p-0 pe-2">
+                                        <select name="cbxMarca" class="form-select">
+                                            <option selected disabled>Marca</option>
+                                            <%
+                                                ArrayList<Marca> listaMarcas = new MarcaDAO().tolist();
+                                                for (Marca m : listaMarcas) {
+                                            %>
+                                            <option value="<%=m.getIdmarca()%>"><%=m.getMarca()%></option>
+                                            <%}%>
+                                        </select>
+                                    </div>
+                                    <div class="col-4 p-0 ps-2">
+                                        <div class="input-group">
+                                            <span class="input-group-text"><i class='bx bxs-component'></i></span>
+                                            <input type="text" name="txtstock" class="form-control" placeholder="Stock">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="container-fluid">
+                                <div class="row">
+                                    <div class="col-2 p-0 pe-2">
+                                        <div class="d-flex justify-content-center align-items-center h-100">
+                                            <span>Imagen:</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-10 p-0 ps-2">
+                                        <div class="input-group">
+                                            <input class="form-control" name="fileImagen" type="file" id="formFile">
+                                            <label class="input-group-text" for="formFile"><i class='bx bx-image-add'></i></label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>                      
                         </div>
                         <div class="modal-footer">
-                            <button type="submit" id="btn-agregar" class="btn btn-primary">Agregar</button>
+                            <div class="d-flex align-items-center justify-content-center w-100">
+                                <button type="submit" id="btn-agregar" class="btn btn-primary w-50">Agregar</button>
+                            </div>
                         </div>
                     </form>
                 </div>
@@ -206,7 +256,7 @@
 
         <!-- Modal editar producto -->
         <div class="modal fade" id="staticBackdrop2" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-            <div class="modal-dialog w-dialog">
+            <div class="modal-dialog w-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h1 class="modal-title fs-5" id="staticBackdropLabel">Actualización de datos del producto</h1>

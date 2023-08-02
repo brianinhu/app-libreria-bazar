@@ -1,8 +1,8 @@
 #div-panel {
-    padding: 3rem;
+    padding: 0.5rem 2rem;
 }
 
-#section-2 {
+#section-2, #section-3 {
     font-size: 0.8rem;
 }
 
@@ -13,4 +13,20 @@
 
 #table thead th {
     text-align: center;
+}
+
+.panel-add {
+    width: 25%;
+}
+
+.w-dialog {
+    max-width: 850px !important; 
+    width: 100%;
+}
+
+.modal-body{
+    margin: 1rem;
+    padding: 2rem;
+    border: 1px solid #f2f2f2;
+    border-radius: 15px;
 }

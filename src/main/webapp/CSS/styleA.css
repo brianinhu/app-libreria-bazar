@@ -38,12 +38,6 @@ header {
     vertical-align: middle;
 }
 
-
-.w-dialog {
-    max-width: 850px !important; 
-    width: 100%;
-}
-
 #div-imagen {
     display: flex;
     justify-content: center;
