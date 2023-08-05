@@ -29,9 +29,11 @@
         <!-- CSS Bootstrap Icons -->
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
         <!-- CSS DataTable -->
-        <link rel="stylesheet" href="//cdn.datatables.net/1.13.5/css/jquery.dataTables.min.css">
+        <link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/css/jquery.dataTables.min.css">
+        <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.3.0/css/responsive.bootstrap5.min.css"/>
         <!-- CSS mainAG -->
         <link href="CSS/mainAG.css" rel="stylesheet" type="text/css"/>
+        <!-- CSS productosAG -->
         <link href="CSS/productosAG.css" rel="stylesheet" type="text/css"/>
     </head>
     <body>
@@ -52,7 +54,10 @@
                 <div class="head">
                     <div class="profile">
                         <img src="Images/administrator/imagen-admi.png" alt="alt"/>
-                        <span class="font-weight-bold"><%=p.getNombre()%> <%=p.getApaterno()%></span>
+                        <div>
+                            <div id="div-nombre"><%=p.getNombre()%> <%=p.getApaterno()%></div>
+                            <div id="div-rol"><%=r.getRol()%></div>
+                        </div>
                     </div>
                     <i class='bx bx-menu' id="menu"></i>
                 </div>
@@ -77,7 +82,7 @@
                         <i class='bx bxs-store'></i>
                         <span class="option">Productos</span>
                     </a>
-                    <a href="logoutA">
+                    <a id="a-logout" href="logoutA">
                         <i class='bx bx-log-out-circle'></i>
                         <span class="option">Cerrar sesión</span>
                     </a>
@@ -85,7 +90,7 @@
             </aside>
         </section>
         <section id="section-2">
-            <div class="div-panel panel-add" id="div-panel">
+            <div class="div-panel panel-add" id="div-panel-add">
                 <div class="card">
                     <div class="card-header">
                         <span class="fw-semibold">Añadir producto</span>
@@ -101,18 +106,18 @@
             </div>
         </section>
         <section id="section-3">
-            <div class="div-panel" id="div-panel">
+            <div class="div-panel" id="div-panel-view">
                 <div class="card">
                     <div class="card-header">
                         <span class="fw-semibold">Listado de productos</span>
                     </div>
                     <div class="card-body">
-                        <table id="table">
+                        <table id="table" style="width:100%">
                             <thead>
                                 <tr>
-                                    <th>SKU</th>
+                                    <th style="width: 60px;">SKU</th>
                                     <th>Nombre</th>
-                                    <th>Descripcion</th>
+                                    <th style="width: 100px;">Descripcion</th>
                                     <th>Marca</th>
                                     <th>Precio</th>
                                     <th>Stock</th>
@@ -129,7 +134,15 @@
                                 <tr>
                                     <td><%=producto.getSKU()%></td>
                                     <td><%=producto.getNombre()%></td>
-                                    <td><%=producto.getDescripcion()%></td>
+                                    <td class="td-container">
+                                        <div class="text-container">
+                                            <%=producto.getDescripcion()%>
+                                        </div>
+                                        <button class="btnchange more-less">
+                                            <i class="bi bi-eye-slash-fill"></i>
+                                            <i class="bi bi-eye-fill" style="display: none;"></i>
+                                        </button>
+                                    </td>
                                     <%
                                         Marca marca = new Marca(producto.getIdmarca(), "");
                                         marca = new MarcaDAO().read(marca);
@@ -137,22 +150,20 @@
                                     <td><%=marca.getMarca()%></td>
                                     <td><%=producto.getPrecio()%></td>
                                     <td><%=producto.getStock()%></td>
-                                    <td><img src="readImage?SKUProducto=<%=producto.getSKU()%>" alt="img" width="100" height="100"/></td>
+                                    <td><img class="w-50" src="readImage?SKUProducto=<%=producto.getSKU()%>" alt="img"/></td>
                                         <%
                                             Categoria categoria = new Categoria(producto.getIdcategoria(), "");
                                             categoria = new CategoriaDAO().read(categoria);
                                         %>
                                     <td><%=categoria.getCategoria()%></td>
                                     <td>
-                                        <div class="d-grid">
-                                            <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#staticBackdrop2" 
-                                                    onclick="abrirModal('<%=producto.getSKU()%>', '<%=producto.getNombre()%>', '<%=producto.getDescripcion()%>', '<%=producto.getIdmarca()%>', '<%=producto.getPrecio()%>', '<%=producto.getStock()%>', '<%=producto.getIdcategoria()%>')">
-                                                <i class="bi bi-pencil-square"></i>
-                                            </button>
-                                        </div>
-                                        <div class="d-grid">
-                                            <a href="#" onclick="deleteProduct('<%=producto.getSKU()%>')" type="button" class="btn btn-danger"><i class="bi bi-trash3-fill"></i></a>
-                                        </div>
+                                        <button class="btn btn-info" data-bs-toggle="modal" data-bs-target="#staticBackdrop2" 
+                                                onclick="abrirModal('<%=producto.getSKU()%>', '<%=producto.getNombre()%>', '<%=producto.getDescripcion()%>', '<%=producto.getIdmarca()%>', '<%=producto.getPrecio()%>', '<%=producto.getStock()%>', '<%=producto.getIdcategoria()%>')">
+                                            <i class="bi bi-pencil-square"></i>
+                                        </button>
+                                        <button onclick="deleteProduct('<%=producto.getSKU()%>')" class="btn btn-danger">
+                                            <i class="bi bi-trash3-fill"></i>
+                                        </button>
                                     </td>
                                 </tr>
                                 <%
@@ -176,19 +187,23 @@
                     <form action="createProducto" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
                         <div class="modal-body">
                             <input type="hidden" name="txtSKUCreate" id="txtSKUCreate">
-
                             <div class="input-group mb-3">
                                 <span class="input-group-text"><i class='bx bx-package'></i></span>
-                                <input type="text" name="txtnombre" class="form-control" placeholder="Nombre">
+                                <input type="text" name="txtnombre" class="form-control" placeholder="Nombre" required>
                             </div>
                             <div class="input-group mb-3">
                                 <textarea name="txtdescripcion" class="form-control" rows="5" placeholder="Descripción"></textarea>
                             </div>
                             <div class="container-fluid mb-3">
                                 <div class="row">
-                                    <div class="col-8 p-0 pe-2">
-                                        <select name="cbxCategoria" class="form-select">
-                                            <option selected disabled>Categoría</option>
+                                    <div class="col-2 p-0 pe-2">
+                                        <div class="d-flex justify-content-center align-items-center h-100">
+                                            <span>Categoría</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-6 p-0 pe-2">
+                                        <select name="cbxCategoria" class="form-select" required>
+                                            <option selected hidden>Seleccione</option>
                                             <%
                                                 ArrayList<Categoria> listaCategorias = new CategoriaDAO().tolist();
                                                 for (Categoria c : listaCategorias) {
@@ -200,17 +215,21 @@
                                     <div class="col-4 p-0 ps-2">
                                         <div class="input-group">
                                             <span class="input-group-text"><i class='bx bx-dollar'></i></span>
-                                            <input type="text" name="txtprecio" class="form-control" placeholder="Precio">
-                                            <span class="input-group-text">.0</span>
+                                            <input type="text" name="txtprecio" class="form-control" placeholder="Precio" required>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="container-fluid mb-3">
                                 <div class="row">
-                                    <div class="col-8 p-0 pe-2">
-                                        <select name="cbxMarca" class="form-select">
-                                            <option selected disabled>Marca</option>
+                                    <div class="col-2 p-0 pe-2">
+                                        <div class="d-flex justify-content-center align-items-center h-100">
+                                            <span>Marca</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-6 p-0 pe-2">
+                                        <select name="cbxMarca" class="form-select" required>
+                                            <option selected hidden>Seleccione</option>
                                             <%
                                                 ArrayList<Marca> listaMarcas = new MarcaDAO().tolist();
                                                 for (Marca m : listaMarcas) {
@@ -222,7 +241,7 @@
                                     <div class="col-4 p-0 ps-2">
                                         <div class="input-group">
                                             <span class="input-group-text"><i class='bx bxs-component'></i></span>
-                                            <input type="text" name="txtstock" class="form-control" placeholder="Stock">
+                                            <input type="text" name="txtstock" class="form-control" placeholder="Stock" required>
                                         </div>
                                     </div>
                                 </div>
@@ -231,10 +250,10 @@
                                 <div class="row">
                                     <div class="col-2 p-0 pe-2">
                                         <div class="d-flex justify-content-center align-items-center h-100">
-                                            <span>Imagen:</span>
+                                            <span>Imagen</span>
                                         </div>
                                     </div>
-                                    <div class="col-10 p-0 ps-2">
+                                    <div class="col-10 p-0">
                                         <div class="input-group">
                                             <input class="form-control" name="fileImagen" type="file" id="formFile">
                                             <label class="input-group-text" for="formFile"><i class='bx bx-image-add'></i></label>
@@ -264,38 +283,101 @@
                     </div>
                     <form action="updateProducto" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
                         <div class="modal-body">
-                            <p>SKU</p>
-                            <input type="text" name="txtSKUUpdate" id="txtSKUUpdate" readonly>
-                            <p>Nombre</p>
-                            <input type="text" name="txtnombre" id="txtnombre">
-                            <p>Descripcion</p>
-                            <input type="text" name="txtdescripcion" id="txtdescripcion">
-                            <p>Marca</p>
-                            <select name="cbxMarca" id="cbxMarca">
-                                <%
-                                    ArrayList<Marca> listaMarcas2 = new MarcaDAO().tolist();
-                                    for (Marca m : listaMarcas2) {
-                                %>
-                                <option value="<%=m.getIdmarca()%>"><%=m.getMarca()%></option>
-                                <%}%>
-                            </select>
-                            <p>Precio</p>
-                            <input type="text" name="txtprecio" id="txtprecio">
-                            <p>Stock</p>
-                            <input type="text" name="txtstock" id="txtstock">
-                            <p>Imagen</p>
-                            <input type="file" name="fileImagen">
-                            <p>Categoria</p>
-                            <select name="cbxCategoria" id="cbxCategoria">
-                                <%
-                                    ArrayList<Categoria> listaCategorias2 = new CategoriaDAO().tolist();
-                                    for (Categoria c : listaCategorias2) {
-                                %>
-                                <option value="<%=c.getIdcategoria()%>"><%=c.getCategoria()%></option>
-                                <%}%>
-                            </select>
-                            <div id="div-imagen">
-                                <img id="imagen" src="" alt="img" width="300"/>
+                            <div class="container-fluid p-0">
+                                <div class="row m-0 mb-2">
+                                    <div class="col p-0">
+                                        <div class="input-group" style="width: 30%">
+                                            <span class="input-group-text justify-content-center" style="width: 90.28px;">SKU</span>
+                                            <input type="text" id="txtSKUUpdate" name="txtSKUUpdate" class="form-control" readonly>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row m-0 mb-2">
+                                    <div class="col p-0">
+                                        <div class="input-group">
+                                            <span class="input-group-text">Nombre</span>
+                                            <input type="text" id="txtnombre" name="txtnombre" class="form-control" required>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row m-0">
+                                    <div class="col-6 p-0 pe-1">
+                                        <div class="row m-0 mb-2">
+                                            <div class="col p-0">
+                                                <div class="input-group">
+                                                    <span class="input-group-text">Descripción</span>
+                                                    <textarea id="txtdescripcion" name="txtdescripcion" class="form-control" rows="5"></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row m-0 mb-2">
+                                            <div class="col p-0">
+                                                <div class="input-group">
+                                                    <span class="input-group-text">Categoría</span>
+                                                    <select id="cbxCategoria" name="cbxCategoria" class="form-select" required>
+                                                        <option selected hidden>Seleccione</option>
+                                                        <%
+                                                            for (Categoria c : listaCategorias) {
+                                                        %>
+                                                        <option value="<%=c.getIdcategoria()%>"><%=c.getCategoria()%></option>
+                                                        <%}%>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row m-0 mb-2">
+                                            <div class="col p-0">
+                                                <div class="input-group">
+                                                    <span style="width: 106.3px" class="input-group-text justify-content-center">Marca</span>
+                                                    <select id="cbxMarca" name="cbxMarca" class="form-select" required>
+                                                        <option selected hidden>Seleccione</option>
+                                                        <%
+                                                            for (Marca m : listaMarcas) {
+                                                        %>
+                                                        <option value="<%=m.getIdmarca()%>"><%=m.getMarca()%></option>
+                                                        <%}%>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row m-0 mb-2">
+                                            <div class="col p-0">
+                                                <div class="row m-0">
+                                                    <div class="col-6 p-0 pe-2">
+                                                        <div class="input-group">
+                                                            <span class="input-group-text"><i class='bx bx-dollar'></i></span>
+                                                            <input type="text" id="txtprecio" name="txtprecio" class="form-control" required>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-6 p-0 ps-2">
+                                                        <div class="input-group">
+                                                            <span class="input-group-text"><i class='bx bxs-component'></i></span>
+                                                            <input type="text" id="txtstock" name="txtstock" class="form-control" required>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row m-0">
+                                            <div class="col p-0">
+                                                <div class="input-group">
+                                                    <input class="form-control" name="fileImagen" type="file" id="formFile">
+                                                    <label class="input-group-text" for="formFile"><i class='bx bx-image-add'></i></label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-6 p-0 ps-1">
+                                        <div class="card">
+                                            <div class="card-header">
+                                                <p class="text-center m-0">Imagen</p>
+                                            </div>
+                                            <div style="width: 371.4px; height: 275.2px" class="d-flex justify-content-center align-items-center">
+                                                <img id="imagen" class="card-img-bottom w-50" alt="img" src="readImage?SKUProducto=2AXC92C3Z9">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="modal-footer">
@@ -310,14 +392,14 @@
         <!-- JavaScript JQuery -->
         <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.0/dist/jquery.min.js"></script>
         <!-- JavaScript DataTable -->
-        <script src="//cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
-        <!-- JavaScript mainAG -->
-        <script src="JS/mainAG.js" type="text/javascript"></script>
-        <!-- JavaScript productosAG -->
-        <script src="JS/productosAG.js" type="text/javascript"></script>
+        <script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
+        <script src="https://cdn.datatables.net/responsive/2.3.0/js/dataTables.responsive.min.js"></script>
+        <script src="https://cdn.datatables.net/responsive/2.3.0/js/responsive.bootstrap5.min.js"></script>
         <!-- JavaScript Bootstrap 5 -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" 
         integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+        <!-- JavaScript productosAG -->
+        <script src="JS/productosAG.js" type="text/javascript"></script>
         <!-- JavaScript Sweetalert -->
         <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     </body>

@@ -175,7 +175,7 @@
                 <div class="container-fluid">
                     <div class="row">
                         <div id="col1" class="col-12">
-                            <a href="#" class="logo">
+                            <a href="" class="logo">
                                 <img src="Images/tech-office/logo-white-transp.png"
                                      alt="logo-generico">
                             </a>
@@ -186,7 +186,7 @@
                                         class="bi bi-search"></i></button>
                             </form>
                             <nav id="nav-secundario">
-                                <a href="#" class="nav-link">
+                                <a href="" class="nav-link">
                                     <i class="bi bi-cart-fill"></i>
                                     <span>Carrito</span>
                                 </a>

@@ -10,11 +10,11 @@ body {
 .aside {
     height: 100%;
     width: 300px;
-    background-color: darkgoldenrod;
+    background-color: #0D6EFD;
     color: #fff;
     position: fixed;
     padding: 10px;
-    transition: width 0.4s ease;
+    transition: width 0.2s ease;
 }
 
 .head {
@@ -23,10 +23,13 @@ body {
     justify-content: space-between;
     height: 50px;
     margin: 1.5rem 0;
+    padding: 0.5rem;
+    border-radius: 10px;
+    background-color: #FFDD00;
 }
 
 .head img {
-    width: 50px;
+    width: 40px;
     border-radius: 50%;
     margin-right: 10px;
 }
@@ -41,20 +44,38 @@ body {
     align-items: center;
 }
 
-.options a {
+#div-nombre {
+    font-size: 14px;
+    font-weight: bold;
+}
+
+#div-rol {
+    font-size: 10px;
+}
+
+.options {
     display: flex;
+    flex-direction: column;
+    margin-top: 120px;
+}
+
+.options a {
+    display: inline-flex;
     align-items: center;
     padding: 15px;
     cursor: pointer;
-    margin-bottom: 1rem;
     border-radius: 10px;
     text-decoration: none;
     color: #fff;
 }
 
+#a-logout {
+    margin-top: 100px;
+}
+
 .options a:hover {
     background-color: rgba(255,255,255,0.2);
-    transition: background-color 0.4s ease-in-out;
+    transition: background-color 0.2s ease-in-out;
 }
 
 .options i {
@@ -64,7 +85,7 @@ body {
 
 .aside.active {
     width: 80px;
-    transition: all 0.4s ease;
+    transition: all 0.2s ease;
 }
 
 .aside.active .option,
@@ -82,10 +103,34 @@ body {
 
 .div-panel {
     margin-left: 300px;
-    transition: margin-left 0.4s ease;
+    transition: margin-left 0.2s ease;
 }
 
 .div-panel.decompressed {
     margin-left: 80px;
 }
 
+/* Estilos cuando el ancho de la pantalla es menor o igual a 1024px */
+@media screen and (max-width: 1024px) {
+    .aside {
+        width: 80px;
+        transition: all 0.2s ease;
+    }
+
+    .aside .option,
+    .aside .profile{
+        display: none;
+    }
+
+    .aside .head i {
+        margin: auto;
+    }
+
+    .aside .options i {
+        margin: auto;
+    }
+
+    .div-panel {
+        margin-left: 80px;
+    }
+}
