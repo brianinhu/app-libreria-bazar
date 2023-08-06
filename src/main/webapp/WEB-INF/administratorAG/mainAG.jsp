@@ -36,7 +36,10 @@
                 <div class="head">
                     <div class="profile">
                         <img src="Images/administrator/imagen-admi.png" alt="alt"/>
-                        <span class="font-weight-bold"><%=p.getNombre()%> <%=p.getApaterno()%></span>
+                        <div>
+                            <div id="div-nombre"><%=p.getNombre()%> <%=p.getApaterno()%></div>
+                            <div id="div-rol"><%=r.getRol()%></div>
+                        </div>
                     </div>
                     <i class='bx bx-menu' id="menu"></i>
                 </div>
@@ -61,7 +64,7 @@
                         <i class='bx bxs-store'></i>
                         <span class="option">Productos</span>
                     </a>
-                    <a href="logoutA">
+                    <a id="a-logout" href="logoutA">
                         <i class='bx bx-log-out-circle'></i>
                         <span class="option">Cerrar sesión</span>
                     </a>

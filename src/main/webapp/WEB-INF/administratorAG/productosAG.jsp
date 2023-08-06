@@ -93,7 +93,7 @@
             <div class="div-panel panel-add" id="div-panel-add">
                 <div class="card">
                     <div class="card-header">
-                        <span class="fw-semibold">Añadir producto</span>
+                        <span class="fw-semibold fs-6">Añadir producto</span>
                     </div>
                     <div class="card-body">
                         <div class="d-grid col-6 mx-auto">
@@ -109,7 +109,7 @@
             <div class="div-panel" id="div-panel-view">
                 <div class="card">
                     <div class="card-header">
-                        <span class="fw-semibold">Listado de productos</span>
+                        <span class="fw-semibold fs-6">Listado de productos</span>
                     </div>
                     <div class="card-body">
                         <table id="table" style="width:100%">
@@ -131,7 +131,7 @@
                                     ArrayList<Producto> listaProductos = new ProductoDAO().tolist();
                                     for (Producto producto : listaProductos) {
                                 %>
-                                <tr>
+                                <tr style="min-height: 150px;">
                                     <td><%=producto.getSKU()%></td>
                                     <td><%=producto.getNombre()%></td>
                                     <td class="td-container">
@@ -150,7 +150,7 @@
                                     <td><%=marca.getMarca()%></td>
                                     <td><%=producto.getPrecio()%></td>
                                     <td><%=producto.getStock()%></td>
-                                    <td><img class="w-50" src="readImage?SKUProducto=<%=producto.getSKU()%>" alt="img"/></td>
+                                    <td><img style="width: 90px;" src="readImage?SKUProducto=<%=producto.getSKU()%>" alt="img"/></td>
                                         <%
                                             Categoria categoria = new Categoria(producto.getIdcategoria(), "");
                                             categoria = new CategoriaDAO().read(categoria);

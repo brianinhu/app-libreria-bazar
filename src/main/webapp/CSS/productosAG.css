@@ -22,7 +22,7 @@
 }
 
 .panel-add {
-    width: 25%;
+    width: 300px;
 }
 
 .w-dialog {
@@ -87,6 +87,6 @@ td .btn {
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100px !important;
+    min-height: 150px;
 }
 /* La clase predominante tiene que estar debajo de la otra clase */
