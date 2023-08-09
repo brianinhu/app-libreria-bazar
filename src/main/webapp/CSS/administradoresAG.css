@@ -1,0 +1,9 @@
+.btn-success {
+    width: 180px;
+    height: 35px;
+}
+
+#panel-tri {
+    flex-wrap: wrap;
+    column-gap: 20px;
+}

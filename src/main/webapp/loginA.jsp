@@ -31,17 +31,17 @@
                         <div><img src="Images/tech-office/logo-white-transp.png" alt="alt" width="150" height="150"/></div>
                         <h3>Administración</h3>
                         <div class="form-floating mb-3 w-50">
-                            <input type="text" class="form-control" id="floatingInput" placeholder="name@example.com" name="txtuser">
+                            <input type="text" class="form-control" id="floatingInput" placeholder="name@example.com" name="txtuser" required>
                             <label for="floatingInput">Usuario</label>
                         </div>
                         <div class="form-floating mb-3 w-50">
-                            <input type="password" class="form-control" id="floatingInput2" placeholder="name@example.com" name="txtpass">
+                            <input type="password" class="form-control" id="floatingInput2" placeholder="name@example.com" name="txtpass" required>
                             <label for="floatingInput2">Contraseña</label>
                         </div>
                         <div class="d-grid w-25">
                             <button class="btn btn-success">Ingresar</button>
                         </div>
-                        <p><%=messageError != null ? messageError : ""%></p>
+                        <p class="m-0 mt-3 text-light"><%=messageError != null ? messageError : ""%></p>
                     </form>
                 </div>
             </div>

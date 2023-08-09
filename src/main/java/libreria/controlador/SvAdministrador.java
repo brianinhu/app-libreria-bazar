@@ -35,8 +35,8 @@ public class SvAdministrador extends HttpServlet {
                 logoutSession(request, response);
                 break;
             /* Inicios de sesión */
-
- /* Vista productos */
+                
+            /* Vista productos */
             case "/viewProductosAG":
                 request.getRequestDispatcher("WEB-INF/administratorAG/productosAG.jsp").forward(request, response);
                 break;
@@ -53,26 +53,26 @@ public class SvAdministrador extends HttpServlet {
                 updateProducto(request, response);
                 break;
             /* Vista productos */
-
- /* Vista administradores */
+                
+            /* Vista administradores */
             case "/viewAdministradoresAG":
                 request.getRequestDispatcher("WEB-INF/administratorAG/administradoresAG.jsp").forward(request, response);
                 break;
             /* Vista administradores */
 
- /* Vista clientes */
+            /* Vista clientes */
             case "/viewClientesAG":
                 request.getRequestDispatcher("WEB-INF/administratorAG/clientesAG.jsp").forward(request, response);
                 break;
             /* Vista clientes */
 
- /* Vista pedidos */
+            /* Vista pedidos */
             case "/viewPedidosAG":
                 request.getRequestDispatcher("WEB-INF/administratorAG/pedidosAG.jsp").forward(request, response);
                 break;
             /* Vista pedidos */
 
- /* Vista personal */
+            /* Vista personal */
             case "/viewPersonalAG":
                 request.getRequestDispatcher("WEB-INF/administratorAG/personalAG.jsp").forward(request, response);
                 break;
