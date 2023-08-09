@@ -1,5 +1,7 @@
 # Librería TechOffice
 
+###### (Importante: El proyecto aún se encuentra en construcción. Cualquier apoyo será bienvenido, gracias ✌🏻)
+
 ## Introducción
 Proyecto de una tienda online con temática de papelería. 
 
