@@ -2,6 +2,8 @@ package libreria.controlador;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.PrintWriter;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
@@ -10,14 +12,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 import libreria.modelo.bean.Administrador;
+import libreria.modelo.bean.Personal;
 import libreria.modelo.bean.Producto;
 import libreria.modelo.dao.AdministradorDAO;
+import libreria.modelo.dao.PersonalDAO;
 import libreria.modelo.dao.ProductoDAO;
 
 @MultipartConfig
 @WebServlet(name = "SvAdministrador", urlPatterns = {"/SvAdministrador", "/loginA", "/logoutA",
     "/viewProductosAG", "/createProducto", "/readImage", "/deleteProducto", "/updateProducto",
-    "/viewAdministradoresAG", "/viewClientesAG", "/viewPedidosAG", "/viewPersonalAG"})
+    "/viewAdministradoresAG", "/viewClientesAG", "/viewPedidosAG", "/viewPersonalAG", "/verAdminxRol"})
 public class SvAdministrador extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -35,8 +39,8 @@ public class SvAdministrador extends HttpServlet {
                 logoutSession(request, response);
                 break;
             /* Inicios de sesión */
-                
-            /* Vista productos */
+
+ /* Vista productos */
             case "/viewProductosAG":
                 request.getRequestDispatcher("WEB-INF/administratorAG/productosAG.jsp").forward(request, response);
                 break;
@@ -53,26 +57,29 @@ public class SvAdministrador extends HttpServlet {
                 updateProducto(request, response);
                 break;
             /* Vista productos */
-                
-            /* Vista administradores */
+
+ /* Vista administradores */
             case "/viewAdministradoresAG":
                 request.getRequestDispatcher("WEB-INF/administratorAG/administradoresAG.jsp").forward(request, response);
                 break;
+            case "/verAdminxRol":
+                verAdminxRol(request, response);
+                break;
             /* Vista administradores */
 
-            /* Vista clientes */
+ /* Vista clientes */
             case "/viewClientesAG":
                 request.getRequestDispatcher("WEB-INF/administratorAG/clientesAG.jsp").forward(request, response);
                 break;
             /* Vista clientes */
 
-            /* Vista pedidos */
+ /* Vista pedidos */
             case "/viewPedidosAG":
                 request.getRequestDispatcher("WEB-INF/administratorAG/pedidosAG.jsp").forward(request, response);
                 break;
             /* Vista pedidos */
 
-            /* Vista personal */
+ /* Vista personal */
             case "/viewPersonalAG":
                 request.getRequestDispatcher("WEB-INF/administratorAG/personalAG.jsp").forward(request, response);
                 break;
@@ -198,6 +205,43 @@ public class SvAdministrador extends HttpServlet {
         Producto p = new Producto(SKU, nombre, descripcion, idmarca, precio, stock, inputStream, idcategoria);
         new ProductoDAO().update(p);
         request.getRequestDispatcher("WEB-INF/administratorAG/productosAG.jsp").forward(request, response);
+    }
+
+    private void verAdminxRol(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        int idrol = Integer.parseInt(request.getParameter("idrol"));
+        ArrayList<Administrador> listaAdmin;
+        if (idrol != 4) {
+            listaAdmin = new AdministradorDAO().tolistbyIdRol(idrol);
+        } else {
+            listaAdmin = new AdministradorDAO().tolist();
+        }
+        StringBuilder htmlTabla = new StringBuilder();
+        htmlTabla.append("<table>");
+        htmlTabla.append("<tr><th>ID</th><th>User</th><th>Password</th><th>Estado</th><th>Personal</th></tr>");
+        for (Administrador a : listaAdmin) {
+            htmlTabla.append("<tr>");
+            htmlTabla.append("<td>").append(a.getIdadministrador()).append("</td>");
+            htmlTabla.append("<td>").append(a.getUser()).append("</td>");
+            htmlTabla.append("<td>").append(a.getPassword()).append("</td>");
+            if (a.getEstado() == '0') {
+                htmlTabla.append("<td>").append("Inactivo").append("</td>");
+            } else {
+                htmlTabla.append("<td>").append("Activo").append("</td>");
+            }
+            Personal p = new Personal();
+            p.setIdpersonal(a.getIdpersonal());
+            p = new PersonalDAO().read(p);
+            htmlTabla.append("<td>").append(p.getNombre()).append(p.getApaterno()).append("</td>");
+            htmlTabla.append("</tr>");
+        }
+        htmlTabla.append("</table>");
+
+        // Devolver la respuesta con el HTML de la tabla
+        response.setContentType("text/html");
+        response.setCharacterEncoding("UTF-8");
+        PrintWriter out = response.getWriter();
+        out.print(htmlTabla.toString());
+        out.flush();
     }
 
 }

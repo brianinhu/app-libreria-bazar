@@ -87,20 +87,19 @@
                                 <div class="card-header">
                                     Acciones
                                 </div>
-                                <div class="card-body">
-                                    <div class="row">
+                                <div class="card-body  d-flex justify-content-center align-items-center">
+                                    <div class="row w-100">
                                         <div class="col">
                                             <span class="mb-3">Ver administradores</span>
-                                            <select id="id" class="form-select mt-2">
+                                            <select id="cbxAdministradores" class="form-select mt-2">
                                                 <option value="1">Generales</option>
-                                                <option value="2">De contenido</option>
-                                                <option value="3">De venta</option>
+                                                <option value="2">De venta</option>
+                                                <option value="3">De contenido</option>
                                                 <option value="4">Todos</option>
                                             </select>
                                         </div>
                                         <div class="col d-flex justify-content-center align-items-center flex-column">
                                             <button class="btn btn-success mb-1">+ Administrador</button>
-                                            <button class="btn btn-success mb-1">+ Rol</button>
                                             <button class="btn btn-success">+ Personal</button>
                                         </div>
                                     </div>
@@ -115,16 +114,14 @@
                                     <div class="card" style="width: 490px; height: 700px; margin-top: 20px;">
                                         <div class="card-header text-center">Administración</div>
                                         <div class="card-body">
-                                            <table class="table">
+                                            <table id="tablaAdmi" class="table">
                                                 <tr>
-                                                    <th>Header</th>
-                                                    <th>Header2</th>
+                                                    <th>ID</th>
+                                                    <th>User</th>
+                                                    <th>Password</th>
+                                                    <th>Estado</th>
+                                                    <th>Personal</th>
                                                 </tr>
-                                                <tr>
-                                                    <td>Cell1</td>
-                                                    <td>Cell2</td>
-                                                </tr>
-                                                <tr>
                                             </table>
                                         </div>
                                     </div>
@@ -153,19 +150,9 @@
                                     <div class="row m-0">
                                         <div class="col p-0">
                                             <div class="card" style="width: 490px; height: 340px; margin-top: 20px;">
-                                                <div class="card-header text-center">Roles</div>
+                                                <div class="card-header text-center">Gráfico</div>
                                                 <div class="card-body">
-                                                    <table class="table">
-                                                        <tr>
-                                                            <th>Header</th>
-                                                            <th>Header2</th>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Cell1</td>
-                                                            <td>Cell2</td>
-                                                        </tr>
-                                                        <tr>
-                                                    </table>
+
                                                 </div>
                                             </div>
                                         </div>
@@ -178,5 +165,7 @@
             </div>
         </section>
         <script src="JS/mainAG.js" type="text/javascript"></script>
+        <script src="JS/administradoresAG.js" type="text/javascript"></script>
+        <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.0/dist/jquery.min.js"></script>
     </body>
 </html>

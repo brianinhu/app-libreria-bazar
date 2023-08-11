@@ -10,7 +10,48 @@ public class AdministradorDAO extends Conexion implements InterfaceCRUD<Administ
 
     @Override
     public ArrayList<Administrador> tolist() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        Administrador admin;
+        ArrayList<Administrador> listaAdministrador = new ArrayList<>();
+        String sentence = "select * from administrador";
+        try {
+            cn = getConnection();
+            ps = cn.prepareStatement(sentence);
+            rs = ps.executeQuery();
+            while (rs.next()) {                
+                admin = new Administrador(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4).charAt(0), rs.getInt(5), rs.getInt(6));
+                listaAdministrador.add(admin);
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error al mostrar la lista de administradores. \nDetalles: " + ex.getMessage());
+        } finally {
+            close(cn);
+            close(ps);
+            close(rs);
+        }
+        return listaAdministrador;
+    }
+    
+    public ArrayList<Administrador> tolistbyIdRol(int idrol) {
+        Administrador admin;
+        ArrayList<Administrador> listaAdministrador = new ArrayList<>();
+        String sentence = "select * from administrador where idrol = ?";
+        try {
+            cn = getConnection();
+            ps = cn.prepareStatement(sentence);
+            ps.setInt(1, idrol);
+            rs = ps.executeQuery();
+            while (rs.next()) {                
+                admin = new Administrador(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4).charAt(0), rs.getInt(5), rs.getInt(6));
+                listaAdministrador.add(admin);
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error al mostrar la lista de administradores por rol. \nDetalles: " + ex.getMessage());
+        } finally {
+            close(cn);
+            close(ps);
+            close(rs);
+        }
+        return listaAdministrador;
     }
 
     @Override
