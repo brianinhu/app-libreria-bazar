@@ -110,6 +110,7 @@ body {
 .div-panel {
     margin-left: 300px;
     transition: margin-left 0.2s ease;
+    font-size: 13px !important;
 }
 
 .div-panel.decompressed {

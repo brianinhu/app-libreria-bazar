@@ -7,3 +7,6 @@ cbxadministradores.addEventListener("change", () => {
 }); 
 
 
+function openModalEditarAdmin() {
+    $('#modalEditarAdmin').modal('show');
+}

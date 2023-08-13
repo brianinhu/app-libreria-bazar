@@ -373,7 +373,7 @@
                                                 <p class="text-center m-0">Imagen</p>
                                             </div>
                                             <div style="width: 371.4px; height: 275.2px" class="d-flex justify-content-center align-items-center">
-                                                <img id="imagen" class="card-img-bottom w-50" alt="img" src="readImage?SKUProducto=2AXC92C3Z9">
+                                                <img id="imagen" class="card-img-bottom w-50" alt="img">
                                             </div>
                                         </div>
                                     </div>

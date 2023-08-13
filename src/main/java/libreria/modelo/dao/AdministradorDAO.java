@@ -56,7 +56,7 @@ public class AdministradorDAO extends Conexion implements InterfaceCRUD<Administ
 
     @Override
     public void create(Administrador e) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        String sentence = "";
     }
 
     @Override

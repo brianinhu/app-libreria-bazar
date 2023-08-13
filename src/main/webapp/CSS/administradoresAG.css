@@ -1,9 +1,26 @@
-.btn-success {
-    width: 180px;
-    height: 35px;
-}
-
 #panel-tri {
     flex-wrap: wrap;
     column-gap: 20px;
+}
+
+/* Estilos para la tabla administracion */
+#tablaAdmi {
+    font-size: 13px;
+    text-align: center;
+}
+
+#tablaAdmi .btn {
+    font-size: 12px !important;
+    color: #fff;
+    padding: 6px;
+    display: inline-flex;
+}
+
+#tablaAdmi tr td {
+    vertical-align: middle;
+}
+/* Estilos para la tabla administracion */
+
+.form-select {
+    font-size: 13px;
 }

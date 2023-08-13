@@ -6,7 +6,7 @@ import libreria.conexion.Conexion;
 import libreria.helper.InterfaceCRUD;
 import libreria.modelo.bean.Rol;
 
-public class RolDAO extends Conexion implements InterfaceCRUD<Rol>{
+public class RolDAO extends Conexion implements InterfaceCRUD<Rol> {
 
     @Override
     public ArrayList<Rol> tolist() {
