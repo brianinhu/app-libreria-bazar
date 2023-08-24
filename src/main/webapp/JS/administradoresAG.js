@@ -6,7 +6,6 @@ cbxadministradores.addEventListener("change", () => {
     $("#tablaAdmi").load("verAdminxRol", {idrol: idrol});
 }); 
 
-
-function openModalEditarAdmin() {
-    $('#modalEditarAdmin').modal('show');
+function openAddAdmin() {
+    $('#modalAddAdmin').modal('show');
 }

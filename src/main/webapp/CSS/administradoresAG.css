@@ -1,9 +1,11 @@
+/*font size 13px*/
+
 #panel-tri {
     flex-wrap: wrap;
     column-gap: 20px;
 }
 
-/* Estilos para la tabla administracion */
+/* Inicio - Estilos para la tabla administracion */
 #tablaAdmi {
     font-size: 13px;
     text-align: center;
@@ -19,8 +21,30 @@
 #tablaAdmi tr td {
     vertical-align: middle;
 }
-/* Estilos para la tabla administracion */
+/* Fin - Estilos para la tabla administracion */
 
-.form-select {
-    font-size: 13px;
+.span-number-admin {
+    width: 100%;
+    font-size: 3rem;
+    padding: 0.5rem;
+    background-color: #333;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.span-text-admin {
+    padding: 0.5rem;
+}
+
+.div-descripcion {
+    font-size: 11px;
+    background-color: #b3b300;
+    border-radius: 10px;
+    color: #fff;
+    width: 160px;
+    height: 160px;
+}
+
+.modal-dialog {
+    min-width: 750px;
 }

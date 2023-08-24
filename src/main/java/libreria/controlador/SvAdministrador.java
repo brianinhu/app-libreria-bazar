@@ -210,31 +210,61 @@ public class SvAdministrador extends HttpServlet {
     private void verAdminxRol(HttpServletRequest request, HttpServletResponse response) throws IOException {
         int idrol = Integer.parseInt(request.getParameter("idrol"));
         ArrayList<Administrador> listaAdmin;
+        StringBuilder htmlTabla = new StringBuilder();
         if (idrol != 4) {
             listaAdmin = new AdministradorDAO().tolistbyIdRol(idrol);
+            htmlTabla.append("<table>");
+            htmlTabla.append("<tr><th>Personal</th><th>User</th><th>Password</th><th>Estado</th><th>Acciones</th></tr>");
+            for (Administrador a : listaAdmin) {
+                htmlTabla.append("<tr>");
+                Personal p = new Personal();
+                p.setIdpersonal(a.getIdpersonal());
+                p = new PersonalDAO().read(p);
+                htmlTabla.append("<td>").append(p.getNombre()).append(" ").append(p.getApaterno()).append("</td>");
+                htmlTabla.append("<td>").append(a.getUser()).append("</td>");
+                htmlTabla.append("<td>").append(a.getPassword()).append("</td>");
+                if (a.getEstado() == '0') {
+                    htmlTabla.append("<td>").append("<span class='badge text-bg-danger'>Inactivo</span>").append("</td>");
+                } else {
+                    htmlTabla.append("<td>").append("<span class='badge text-bg-success'>Activo</span>").append("</td>");
+                }
+                htmlTabla.append("<td><button class='btn btn-warning me-1'><i class='bx bxs-edit'></i></button><button class='btn btn-danger'><i class='bx bxs-trash-alt'></i></button></td>");
+                htmlTabla.append("</tr>");
+            }
+            htmlTabla.append("</table>");
         } else {
             listaAdmin = new AdministradorDAO().tolist();
-        }
-        StringBuilder htmlTabla = new StringBuilder();
-        htmlTabla.append("<table>");
-        htmlTabla.append("<tr><th>Personal</th><th>User</th><th>Password</th><th>Estado</th><th>Acciones</th></tr>");
-        for (Administrador a : listaAdmin) {
-            htmlTabla.append("<tr>");
-            Personal p = new Personal();
-            p.setIdpersonal(a.getIdpersonal());
-            p = new PersonalDAO().read(p);
-            htmlTabla.append("<td>").append(p.getNombre()).append(" ").append(p.getApaterno()).append("</td>");
-            htmlTabla.append("<td>").append(a.getUser()).append("</td>");
-            htmlTabla.append("<td>").append(a.getPassword()).append("</td>");
-            if (a.getEstado() == '0') {
-                htmlTabla.append("<td>").append("<span class='badge text-bg-danger'>Inactivo</span>").append("</td>");
-            } else {
-                htmlTabla.append("<td>").append("<span class='badge text-bg-success'>Activo</span>").append("</td>");
+            htmlTabla.append("<table>");
+            htmlTabla.append("<tr><th>Tipo</th><th>Personal</th><th>User</th><th>Password</th><th>Estado</th><th>Acciones</th></tr>");
+            for (Administrador a : listaAdmin) {
+                htmlTabla.append("<tr>");
+                switch (a.getIdrol()) {
+                    case 1:
+                        htmlTabla.append("<td>AG</td>");
+                        break;
+                    case 2:
+                        htmlTabla.append("<td>AV</td>");
+                        break;
+                    default:
+                        htmlTabla.append("<td>AC</td>");
+                        break;
+                }
+                Personal p = new Personal();
+                p.setIdpersonal(a.getIdpersonal());
+                p = new PersonalDAO().read(p);
+                htmlTabla.append("<td>").append(p.getNombre()).append(" ").append(p.getApaterno()).append("</td>");
+                htmlTabla.append("<td>").append(a.getUser()).append("</td>");
+                htmlTabla.append("<td>").append(a.getPassword()).append("</td>");
+                if (a.getEstado() == '0') {
+                    htmlTabla.append("<td>").append("<span class='badge text-bg-danger'>Inactivo</span>").append("</td>");
+                } else {
+                    htmlTabla.append("<td>").append("<span class='badge text-bg-success'>Activo</span>").append("</td>");
+                }
+                htmlTabla.append("<td><button class='btn btn-warning me-1'><i class='bx bxs-edit'></i></button><button class='btn btn-danger'><i class='bx bxs-trash-alt'></i></button></td>");
+                htmlTabla.append("</tr>");
             }
-            htmlTabla.append("<td><button class='btn btn-warning me-1'><i class='bx bxs-edit'></i></button><button class='btn btn-danger'><i class='bx bxs-trash-alt'></i></button></td>");
-            htmlTabla.append("</tr>");
+            htmlTabla.append("</table>");
         }
-        htmlTabla.append("</table>");
 
         // Devolver la respuesta con el HTML de la tabla
         response.setContentType("text/html");

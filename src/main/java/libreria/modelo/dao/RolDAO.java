@@ -10,7 +10,25 @@ public class RolDAO extends Conexion implements InterfaceCRUD<Rol> {
 
     @Override
     public ArrayList<Rol> tolist() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        ArrayList<Rol> listarol = new ArrayList<>();
+        Rol rol;
+        try {
+            String sentence = "select * from rol";
+            cn = getConnection();
+            ps = cn.prepareStatement(sentence);
+            rs = ps.executeQuery();
+            while (rs.next()) {                
+                rol = new Rol(rs.getInt(1), rs.getString(2));
+                listarol.add(rol);
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error al listar los roles. \nDetalles: " + ex.getMessage());
+        } finally {
+            close(cn);
+            close(ps);
+            close(rs);
+        }
+        return listarol;
     }
 
     @Override

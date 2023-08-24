@@ -2,6 +2,8 @@ package libreria.modelo.dao;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import libreria.conexion.Conexion;
 import libreria.helper.InterfaceCRUD;
 import libreria.modelo.bean.Administrador;
@@ -17,7 +19,7 @@ public class AdministradorDAO extends Conexion implements InterfaceCRUD<Administ
             cn = getConnection();
             ps = cn.prepareStatement(sentence);
             rs = ps.executeQuery();
-            while (rs.next()) {                
+            while (rs.next()) {
                 admin = new Administrador(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4).charAt(0), rs.getInt(5), rs.getInt(6));
                 listaAdministrador.add(admin);
             }
@@ -30,7 +32,7 @@ public class AdministradorDAO extends Conexion implements InterfaceCRUD<Administ
         }
         return listaAdministrador;
     }
-    
+
     public ArrayList<Administrador> tolistbyIdRol(int idrol) {
         Administrador admin;
         ArrayList<Administrador> listaAdministrador = new ArrayList<>();
@@ -40,7 +42,7 @@ public class AdministradorDAO extends Conexion implements InterfaceCRUD<Administ
             ps = cn.prepareStatement(sentence);
             ps.setInt(1, idrol);
             rs = ps.executeQuery();
-            while (rs.next()) {                
+            while (rs.next()) {
                 admin = new Administrador(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4).charAt(0), rs.getInt(5), rs.getInt(6));
                 listaAdministrador.add(admin);
             }
@@ -90,6 +92,27 @@ public class AdministradorDAO extends Conexion implements InterfaceCRUD<Administ
     @Override
     public void delete(Administrador e) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    public int countAdmin(int idrol) {
+        int cantidad = -1;
+        String sentence = "select COUNT(*) as cantidad from administrador where idrol = ?";
+        try {
+            cn = getConnection();
+            ps = cn.prepareStatement(sentence);
+            ps.setInt(1, idrol);
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                cantidad = rs.getInt(1);
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error al contar la cantidad de administradores por rol. \nDetalles: " + ex.getMessage());
+        } finally {
+            close(cn);
+            close(ps);
+            close(rs);
+        }
+        return cantidad;
     }
 
 }

@@ -90,12 +90,12 @@
                                     <div class="card" style="width: 565px; height: 700px; margin-top: 20px;">
                                         <div class="card-header text-center">Tabla de administradores</div>
                                         <div class="card-body">
-                                            <fieldset class="border rounded-3 p-3">
+                                            <fieldset class="border rounded-3 p-3 mb-2">
                                                 <legend class="float-none w-auto m-0 px-2" style="font-size: 13px;">Acciones</legend>
                                                 <div class="row">
                                                     <div class="col-6">
                                                         <span>Ver administradores</span>
-                                                        <select id="cbxAdministradores" class="form-select mt-2 w-75">
+                                                        <select id="cbxAdministradores" class="form-select mt-2 w-75" style="font-size: 13px;">
                                                             <option value="1">Generales</option>
                                                             <option value="2">De venta</option>
                                                             <option value="3">De contenido</option>
@@ -104,14 +104,29 @@
                                                     </div>
                                                     <div class="col-6">
                                                         <div class="d-flex justify-content-center align-items-center flex-column">
-                                                            <button class="btn btn-sm btn-success mb-1 w-75">+ Administrador</button>
+                                                            <button class="btn btn-sm btn-success mb-1 w-75" onclick="openAddAdmin()">+ Administrador</button>
                                                             <button class="btn btn-sm btn-success w-75">+ Personal</button>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </fieldset>
-                                            <table id="tablaAdmi" class="table table-bordered mt-2">
+                                            <div class="p-1 text-center d-flex justify-content-between align-items-center">
+                                                <div class="d-flex justify-content-center align-items-center flex-column div-descripcion">
+                                                    <% int cantidad = new AdministradorDAO().countAdmin(1);%>
+                                                    <span class="span-number-admin"><%=cantidad%></span><span class="span-text-admin">AG<br>Administrador<br>general</span>
+                                                </div>
+                                                <div class="d-flex justify-content-center align-items-center flex-column div-descripcion">
+                                                    <% cantidad = new AdministradorDAO().countAdmin(2);%>
+                                                    <span class="span-number-admin"><%=cantidad%></span><span class="span-text-admin">AV<br>Administrador de<br>ventas</span>
+                                                </div>
+                                                <div class="d-flex justify-content-center align-items-center flex-column div-descripcion">
+                                                    <% cantidad = new AdministradorDAO().countAdmin(3);%>
+                                                    <span class="span-number-admin"><%=cantidad%></span><span class="span-text-admin">AC<br>Administrador de<br>contenido</span>
+                                                </div>
+                                            </div>
+                                            <table id="tablaAdmi" class="table table-bordered mt-2 mb-2">
                                                 <tr>
+                                                    <th>Tipo</th>
                                                     <th>Personal</th>
                                                     <th>User</th>
                                                     <th>Password</th>
@@ -125,6 +140,21 @@
                                                         p = new PersonalDAO().read(p);
                                                 %>
                                                 <tr>
+                                                    <%
+                                                        if (admin.getIdrol() == 1) {
+                                                    %>
+                                                    <td>AG</td>
+                                                    <%
+                                                    } else if (admin.getIdrol() == 2) {
+                                                    %>
+                                                    <td>AV</td>
+                                                    <%
+                                                    } else {
+                                                    %>
+                                                    <td>AC</td>
+                                                    <%
+                                                        }
+                                                    %>
                                                     <td><%=p.getNombre() + " " + p.getApaterno()%></td>
                                                     <td><%=admin.getUser()%></td>
                                                     <td><%=admin.getPassword()%></td>
@@ -141,12 +171,11 @@
 
                                                     %>
                                                     <td>
-                                                        <button class='btn btn-warning me-1' onclick="openModalEditarAdmin()"><i class='bx bxs-edit'></i></button>
+                                                        <button class='btn btn-warning me-1'><i class='bx bxs-edit'></i></button>
                                                         <button class='btn btn-danger'><i class='bx bxs-trash-alt'></i></button>
                                                     </td>
                                                 </tr>
-                                                <%                                                    
-                                                    }
+                                                <%                                                    }
                                                 %>
                                             </table>
                                         </div>
@@ -190,78 +219,46 @@
             </div>
         </section>
 
-        <!-- Modal editar administrador -->
-        <div class="modal fade" id="modalEditarAdmin" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-            <div class="modal-dialog w-dialog modal-dialog-centered">
+        <!-- Modal añadir administrador -->
+        <div class="modal fade" id="modalAddAdmin" data-bs-backdrop="static">
+            <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="staticBackdropLabel">Actualizar administrador</h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <p class="m-0 text-center w-100">Nuevo administrador</p>
+                        <button class="btn-close m-0" data-bs-dismiss="modal"></button>
                     </div>
-                    <form action="updateAdmin" method="post" accept-charset="UTF-8">
-                        <div class="modal-body">
-                            <div class="container-fluid p-0">
-                                <div class="row m-0 mb-2">
-                                    <div class="col p-0">
-                                        <div class="input-group" style="width: 30%">
-                                            <span class="input-group-text justify-content-center"">ID</span>
-                                            <input type="text" id="txtid" name="txtid" class="form-control" readonly>
-                                        </div>
-                                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="input-group">
+                                    <span class="input-group-text">Rol</span>
+                                    <select id="cbxRol" name="cbxRol" class="form-select" required>
+                                        <option selected hidden>Seleccione</option>
+                                        <%
+                                            ArrayList<Rol> listarol = new RolDAO().tolist();
+                                            for (Rol rol : listarol) {
+                                        %>
+                                        <option value="<%=rol.getIdrol()%>"><%=rol.getRol()%></option>
+                                        <%}%>
+                                    </select>
                                 </div>
-                                <div class="row m-0 mb-2">
-                                    <div class="col p-0">
-                                        <div class="input-group">
-                                            <span class="input-group-text">Personal</span>
-                                            <input type="text" id="txtpersonal" name="txtpersonal" class="form-control" readonly>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row m-0">
-                                    <div class="col-6 p-0 pe-1">
-                                        <div class="row m-0 mb-2">
-                                            <div class="col p-0">
-                                                <div class="input-group">
-                                                    <span class="input-group-text">Rol</span>
-                                                    <select id="cbxRol" class="form-select">
-                                                        <option value="first">text1</option>
-                                                        <option value="second">text2</option>
-                                                        <option value="third">text3</option>
-                                                    </select>
-
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row m-0">
-                                            <div class="col p-0">
-                                                <div class="input-group">
-                                                    <input class="form-control" name="fileImagen" type="file" id="formFile">
-                                                    <label class="input-group-text" for="formFile"><i class='bx bx-image-add'></i></label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-6 p-0 ps-1">
-                                        <div class="card">
-                                            <div class="card-header">
-                                                <p class="text-center m-0">Imagen</p>
-                                            </div>
-                                            <div style="width: 371.4px; height: 275.2px" class="d-flex justify-content-center align-items-center">
-                                                <img id="imagen" class="card-img-bottom w-50" alt="img" src="readImage?SKUProducto=2AXC92C3Z9">
-                                            </div>
-                                        </div>
-                                    </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="input-group">
+                                    <span class="input-group-text">Estado</span>
+                                    <input type="text" id="txtnombre" name="txtnombre" class="form-control" required>
                                 </div>
                             </div>
                         </div>
-                        <div class="modal-footer">
-                            <button type="submit" class="btn btn-primary">Guardar cambios</button>
-                        </div>
-                    </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-primary">Save changes</button>
+                    </div>
                 </div>
             </div>
         </div>
-        <!-- Modal editar producto -->
+        <!-- Modal añadir administrador -->
+
         <script src="JS/mainAG.js" type="text/javascript"></script>
         <script src="JS/administradoresAG.js" type="text/javascript"></script>
         <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.0/dist/jquery.min.js"></script>
