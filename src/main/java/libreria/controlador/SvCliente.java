@@ -272,6 +272,7 @@ public class SvCliente extends HttpServlet {
         Pedido pedido = new Pedido();
         pedido.setCodigo(codigo);
         if (new PedidoDAO().read(pedido) != null) {
+            request.setAttribute("codigo", codigo);
             request.getRequestDispatcher("WEB-INF/customer/checkout/buySuccess.jsp").forward(request, response);
         } else {
             request.getRequestDispatcher("WEB-INF/customer/checkout/buyError.jsp").forward(request, response);

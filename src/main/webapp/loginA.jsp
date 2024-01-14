@@ -24,11 +24,11 @@
         <div class="container">
             <div class="row">
                 <div id="left" class="col-6">
-                    <img src="Images/administrator/login-admin.png" alt="login-admin"/>
+                    <img src="img/administrator/login-admin.png" alt="login-admin"/>
                 </div>
                 <div id="right" class="col-6">
                     <form action="loginA" method="post">
-                        <div><img src="Images/tech-office/logo-white-transp.png" alt="alt" width="150" height="150"/></div>
+                        <div><img src="img/tech-office/logo-white-transp.png" alt="alt" width="150" height="150"/></div>
                         <h3>Administración</h3>
                         <div class="form-floating mb-3 w-50">
                             <input type="text" class="form-control" id="floatingInput" placeholder="name@example.com" name="txtuser" required>

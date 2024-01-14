@@ -10,7 +10,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
-        <link rel="stylesheet" href="CSS/index.css"/>
+        <link rel="stylesheet" href="CSS/layout.css"/>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
               integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
         <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
@@ -19,6 +19,30 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800;900&display=swap"
               rel="stylesheet">
+        <style>
+            /* Sombra inferior del nav principal*/
+            #nav-principal {
+                box-shadow: 0 0 16px 0 rgba(0,0,0,.05);
+            }
+            /* Sombra inferior del nav principal*/
+
+            /* Cuadro de inicio de sesión */
+            #form-login {
+                width: 500px !important;
+            }
+
+            #form-login .col {
+                padding: 2rem;
+                margin: 1rem;
+                border: 1px solid #e6e6e6;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                flex-direction: column;
+                border-radius: 15px;
+            }
+            /* Cuadro de inicio de sesión */
+        </style>
     </head>
     <body>
         <%
@@ -32,132 +56,132 @@
                             <div class="slider">
                                 <div class="slide-track">
                                     <div class="slide">
-                                        <img src="Images/marcas/b3-marcas-1.png" alt="">
+                                        <img src="img/marcas/b3-marcas-1.png" alt="">
                                     </div>
                                     <div class="slide">
-                                        <img src="Images/marcas/b3-marcas-2.png" alt="">
+                                        <img src="img/marcas/b3-marcas-2.png" alt="">
                                     </div>
                                     <div class="slide">
-                                        <img src="Images/marcas/b3-marcas-3.png" alt="">
+                                        <img src="img/marcas/b3-marcas-3.png" alt="">
                                     </div>
                                     <div class="slide">
-                                        <img src="Images/marcas/b3-marcas-4.png" alt="">
+                                        <img src="img/marcas/b3-marcas-4.png" alt="">
                                     </div>
                                     <div class="slide">
-                                        <img src="Images/marcas/b3-marcas-5.png" alt="">
+                                        <img src="img/marcas/b3-marcas-5.png" alt="">
                                     </div>
                                     <div class="slide">
-                                        <img src="Images/marcas/b3-marcas-6.png" alt="">
+                                        <img src="img/marcas/b3-marcas-6.png" alt="">
                                     </div>
                                     <div class="slide">
-                                        <img src="Images/marcas/b3-marcas-7.png" alt="">
+                                        <img src="img/marcas/b3-marcas-7.png" alt="">
                                     </div>
                                     <div class="slide">
-                                        <img src="Images/marcas/b3-marcas-8.png" alt="">
+                                        <img src="img/marcas/b3-marcas-8.png" alt="">
                                     </div>
                                     <div class="slide">
-                                        <img src="Images/marcas/b3-marcas-9.png" alt="">
+                                        <img src="img/marcas/b3-marcas-9.png" alt="">
                                     </div>
                                     <div class="slide">
-                                        <img src="Images/marcas/b3-marcas-10.png" alt="">
+                                        <img src="img/marcas/b3-marcas-10.png" alt="">
                                     </div>
                                     <div class="slide">
-                                        <img src="Images/marcas/b3-marcas-11.png" alt="">
+                                        <img src="img/marcas/b3-marcas-11.png" alt="">
                                     </div>
                                     <div class="slide">
-                                        <img src="Images/marcas/b3-marcas-12.png" alt="">
+                                        <img src="img/marcas/b3-marcas-12.png" alt="">
                                     </div>
                                     <div class="slide">
-                                        <img src="Images/marcas/b3-marcas-13.png" alt="">
+                                        <img src="img/marcas/b3-marcas-13.png" alt="">
                                     </div>
                                     <div class="slide">
-                                        <img src="Images/marcas/b3-marcas-14.png" alt="">
-                                    </div>
-
-                                    <div class="slide">
-                                        <img src="Images/marcas/b3-marcas-1.png" alt="">
-                                    </div>
-                                    <div class="slide">
-                                        <img src="Images/marcas/b3-marcas-2.png" alt="">
-                                    </div>
-                                    <div class="slide">
-                                        <img src="Images/marcas/b3-marcas-3.png" alt="">
-                                    </div>
-                                    <div class="slide">
-                                        <img src="Images/marcas/b3-marcas-4.png" alt="">
-                                    </div>
-                                    <div class="slide">
-                                        <img src="Images/marcas/b3-marcas-5.png" alt="">
-                                    </div>
-                                    <div class="slide">
-                                        <img src="Images/marcas/b3-marcas-6.png" alt="">
-                                    </div>
-                                    <div class="slide">
-                                        <img src="Images/marcas/b3-marcas-7.png" alt="">
-                                    </div>
-                                    <div class="slide">
-                                        <img src="Images/marcas/b3-marcas-8.png" alt="">
-                                    </div>
-                                    <div class="slide">
-                                        <img src="Images/marcas/b3-marcas-9.png" alt="">
-                                    </div>
-                                    <div class="slide">
-                                        <img src="Images/marcas/b3-marcas-10.png" alt="">
-                                    </div>
-                                    <div class="slide">
-                                        <img src="Images/marcas/b3-marcas-11.png" alt="">
-                                    </div>
-                                    <div class="slide">
-                                        <img src="Images/marcas/b3-marcas-12.png" alt="">
-                                    </div>
-                                    <div class="slide">
-                                        <img src="Images/marcas/b3-marcas-13.png" alt="">
-                                    </div>
-                                    <div class="slide">
-                                        <img src="Images/marcas/b3-marcas-14.png" alt="">
+                                        <img src="img/marcas/b3-marcas-14.png" alt="">
                                     </div>
 
                                     <div class="slide">
-                                        <img src="Images/marcas/b3-marcas-1.png" alt="">
+                                        <img src="img/marcas/b3-marcas-1.png" alt="">
                                     </div>
                                     <div class="slide">
-                                        <img src="Images/marcas/b3-marcas-2.png" alt="">
+                                        <img src="img/marcas/b3-marcas-2.png" alt="">
                                     </div>
                                     <div class="slide">
-                                        <img src="Images/marcas/b3-marcas-3.png" alt="">
+                                        <img src="img/marcas/b3-marcas-3.png" alt="">
                                     </div>
                                     <div class="slide">
-                                        <img src="Images/marcas/b3-marcas-4.png" alt="">
+                                        <img src="img/marcas/b3-marcas-4.png" alt="">
                                     </div>
                                     <div class="slide">
-                                        <img src="Images/marcas/b3-marcas-5.png" alt="">
+                                        <img src="img/marcas/b3-marcas-5.png" alt="">
                                     </div>
                                     <div class="slide">
-                                        <img src="Images/marcas/b3-marcas-6.png" alt="">
+                                        <img src="img/marcas/b3-marcas-6.png" alt="">
                                     </div>
                                     <div class="slide">
-                                        <img src="Images/marcas/b3-marcas-7.png" alt="">
+                                        <img src="img/marcas/b3-marcas-7.png" alt="">
                                     </div>
                                     <div class="slide">
-                                        <img src="Images/marcas/b3-marcas-8.png" alt="">
+                                        <img src="img/marcas/b3-marcas-8.png" alt="">
                                     </div>
                                     <div class="slide">
-                                        <img src="Images/marcas/b3-marcas-9.png" alt="">
+                                        <img src="img/marcas/b3-marcas-9.png" alt="">
                                     </div>
                                     <div class="slide">
-                                        <img src="Images/marcas/b3-marcas-10.png" alt="">
+                                        <img src="img/marcas/b3-marcas-10.png" alt="">
                                     </div>
                                     <div class="slide">
-                                        <img src="Images/marcas/b3-marcas-11.png" alt="">
+                                        <img src="img/marcas/b3-marcas-11.png" alt="">
                                     </div>
                                     <div class="slide">
-                                        <img src="Images/marcas/b3-marcas-12.png" alt="">
+                                        <img src="img/marcas/b3-marcas-12.png" alt="">
                                     </div>
                                     <div class="slide">
-                                        <img src="Images/marcas/b3-marcas-13.png" alt="">
+                                        <img src="img/marcas/b3-marcas-13.png" alt="">
                                     </div>
                                     <div class="slide">
-                                        <img src="Images/marcas/b3-marcas-14.png" alt="">
+                                        <img src="img/marcas/b3-marcas-14.png" alt="">
+                                    </div>
+
+                                    <div class="slide">
+                                        <img src="img/marcas/b3-marcas-1.png" alt="">
+                                    </div>
+                                    <div class="slide">
+                                        <img src="img/marcas/b3-marcas-2.png" alt="">
+                                    </div>
+                                    <div class="slide">
+                                        <img src="img/marcas/b3-marcas-3.png" alt="">
+                                    </div>
+                                    <div class="slide">
+                                        <img src="img/marcas/b3-marcas-4.png" alt="">
+                                    </div>
+                                    <div class="slide">
+                                        <img src="img/marcas/b3-marcas-5.png" alt="">
+                                    </div>
+                                    <div class="slide">
+                                        <img src="img/marcas/b3-marcas-6.png" alt="">
+                                    </div>
+                                    <div class="slide">
+                                        <img src="img/marcas/b3-marcas-7.png" alt="">
+                                    </div>
+                                    <div class="slide">
+                                        <img src="img/marcas/b3-marcas-8.png" alt="">
+                                    </div>
+                                    <div class="slide">
+                                        <img src="img/marcas/b3-marcas-9.png" alt="">
+                                    </div>
+                                    <div class="slide">
+                                        <img src="img/marcas/b3-marcas-10.png" alt="">
+                                    </div>
+                                    <div class="slide">
+                                        <img src="img/marcas/b3-marcas-11.png" alt="">
+                                    </div>
+                                    <div class="slide">
+                                        <img src="img/marcas/b3-marcas-12.png" alt="">
+                                    </div>
+                                    <div class="slide">
+                                        <img src="img/marcas/b3-marcas-13.png" alt="">
+                                    </div>
+                                    <div class="slide">
+                                        <img src="img/marcas/b3-marcas-14.png" alt="">
                                     </div>
                                 </div>
                             </div>
@@ -171,7 +195,7 @@
                     <div class="row">
                         <div id="col1" class="col-12">
                             <a href="#" class="logo">
-                                <img src="Images/tech-office/logo-white-transp.png"
+                                <img src="img/tech-office/logo-white-transp.png"
                                      alt="logo-generico">
                             </a>
                             <form class="d-flex" role="search">
@@ -195,8 +219,25 @@
                 </div>
             </header-button>
         </header>
-        <nav>
+
+        <nav id="nav-principal">
+            <div class="container-fluid">
+                <div class="row">
+                    <div id="col1">
+                        <a href="#article-1">OFERTAS</a>
+                    </div>
+                    <span></span>
+                    <div id="col2">
+                        <a href="#article-2">CATEGORÍAS</a>
+                    </div>
+                    <span></span>
+                    <div id="col3">
+                        <a href="#article-3">LO MÁS VENDIDO</a>
+                    </div>
+                </div>
+            </div>
         </nav>
+
         <section>
             <form id="form-login" class="container" action="loginC" method="post">
                 <div class="row">
@@ -221,6 +262,7 @@
                 </div>
             </form>
         </section>
+
         <footer class="footer">
             <div class="container">
                 <div class="row">

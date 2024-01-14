@@ -15,7 +15,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
-        <link rel="stylesheet" type="text/css" href="CSS/styleC.css"/>
+        <link rel="stylesheet" href="CSS/layout.css"/>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
               integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
         <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
@@ -24,18 +24,213 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800;900&display=swap"
               rel="stylesheet">
+        <style>
+            /* Efecto hover al div del carrito*/
+            header-button #nav-secundario a:hover>div i {
+                color: #FFDD00;
+                transition: color 0.3s ease-in;
+            }
+            /* Efecto hover al div del carrito*/
+
+            /* Sombra inferior del nav principal*/
+            #nav-principal {
+                box-shadow: 0 0 16px 0 rgba(0,0,0,.05);
+            }
+            /* Sombra inferior del nav principal*/
+
+            /*Icono del carrito*/
+            .cart-icon {
+                position: relative;
+                display: inline-block;
+            }
+
+            .cart-count {
+                position: absolute;
+                top: -1px;
+                right: -8px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 18px;
+                height: 18px;
+                background-color: gold;
+                color: white;
+                font-size: 13px;
+                font-weight: bold;
+                border-radius: 50%;
+            }
+            /*Icono del carrito*/
+
+            /*Estilo de la tabla*/
+            .table tr {
+                text-align: center;
+            }
+
+            .table td {
+                text-align: center;
+                vertical-align: middle;
+            }
+            /*Estilo de la tabla*/
+
+            /*Estilo del input de cantidad*/
+            .input-group {
+                width: 150px !important;
+                display: inline-flex !important;
+            }
+            /*Estilo del input de cantidad*/
+        </style>
     </head>
     <body>
         <%
             Cliente c = (Cliente) request.getSession().getAttribute("customer");
         %>
         <header>
+            <header-top>
+                <div class="container-fluid">
+                    <div class="row">
+                        <div id="col1" class="col-12">
+                            <div class="slider">
+                                <div class="slide-track">
+                                    <div class="slide">
+                                        <img src="img/marcas/b3-marcas-1.png" alt="">
+                                    </div>
+                                    <div class="slide">
+                                        <img src="img/marcas/b3-marcas-2.png" alt="">
+                                    </div>
+                                    <div class="slide">
+                                        <img src="img/marcas/b3-marcas-3.png" alt="">
+                                    </div>
+                                    <div class="slide">
+                                        <img src="img/marcas/b3-marcas-4.png" alt="">
+                                    </div>
+                                    <div class="slide">
+                                        <img src="img/marcas/b3-marcas-5.png" alt="">
+                                    </div>
+                                    <div class="slide">
+                                        <img src="img/marcas/b3-marcas-6.png" alt="">
+                                    </div>
+                                    <div class="slide">
+                                        <img src="img/marcas/b3-marcas-7.png" alt="">
+                                    </div>
+                                    <div class="slide">
+                                        <img src="img/marcas/b3-marcas-8.png" alt="">
+                                    </div>
+                                    <div class="slide">
+                                        <img src="img/marcas/b3-marcas-9.png" alt="">
+                                    </div>
+                                    <div class="slide">
+                                        <img src="img/marcas/b3-marcas-10.png" alt="">
+                                    </div>
+                                    <div class="slide">
+                                        <img src="img/marcas/b3-marcas-11.png" alt="">
+                                    </div>
+                                    <div class="slide">
+                                        <img src="img/marcas/b3-marcas-12.png" alt="">
+                                    </div>
+                                    <div class="slide">
+                                        <img src="img/marcas/b3-marcas-13.png" alt="">
+                                    </div>
+                                    <div class="slide">
+                                        <img src="img/marcas/b3-marcas-14.png" alt="">
+                                    </div>
+
+                                    <div class="slide">
+                                        <img src="img/marcas/b3-marcas-1.png" alt="">
+                                    </div>
+                                    <div class="slide">
+                                        <img src="img/marcas/b3-marcas-2.png" alt="">
+                                    </div>
+                                    <div class="slide">
+                                        <img src="img/marcas/b3-marcas-3.png" alt="">
+                                    </div>
+                                    <div class="slide">
+                                        <img src="img/marcas/b3-marcas-4.png" alt="">
+                                    </div>
+                                    <div class="slide">
+                                        <img src="img/marcas/b3-marcas-5.png" alt="">
+                                    </div>
+                                    <div class="slide">
+                                        <img src="img/marcas/b3-marcas-6.png" alt="">
+                                    </div>
+                                    <div class="slide">
+                                        <img src="img/marcas/b3-marcas-7.png" alt="">
+                                    </div>
+                                    <div class="slide">
+                                        <img src="img/marcas/b3-marcas-8.png" alt="">
+                                    </div>
+                                    <div class="slide">
+                                        <img src="img/marcas/b3-marcas-9.png" alt="">
+                                    </div>
+                                    <div class="slide">
+                                        <img src="img/marcas/b3-marcas-10.png" alt="">
+                                    </div>
+                                    <div class="slide">
+                                        <img src="img/marcas/b3-marcas-11.png" alt="">
+                                    </div>
+                                    <div class="slide">
+                                        <img src="img/marcas/b3-marcas-12.png" alt="">
+                                    </div>
+                                    <div class="slide">
+                                        <img src="img/marcas/b3-marcas-13.png" alt="">
+                                    </div>
+                                    <div class="slide">
+                                        <img src="img/marcas/b3-marcas-14.png" alt="">
+                                    </div>
+
+                                    <div class="slide">
+                                        <img src="img/marcas/b3-marcas-1.png" alt="">
+                                    </div>
+                                    <div class="slide">
+                                        <img src="img/marcas/b3-marcas-2.png" alt="">
+                                    </div>
+                                    <div class="slide">
+                                        <img src="img/marcas/b3-marcas-3.png" alt="">
+                                    </div>
+                                    <div class="slide">
+                                        <img src="img/marcas/b3-marcas-4.png" alt="">
+                                    </div>
+                                    <div class="slide">
+                                        <img src="img/marcas/b3-marcas-5.png" alt="">
+                                    </div>
+                                    <div class="slide">
+                                        <img src="img/marcas/b3-marcas-6.png" alt="">
+                                    </div>
+                                    <div class="slide">
+                                        <img src="img/marcas/b3-marcas-7.png" alt="">
+                                    </div>
+                                    <div class="slide">
+                                        <img src="img/marcas/b3-marcas-8.png" alt="">
+                                    </div>
+                                    <div class="slide">
+                                        <img src="img/marcas/b3-marcas-9.png" alt="">
+                                    </div>
+                                    <div class="slide">
+                                        <img src="img/marcas/b3-marcas-10.png" alt="">
+                                    </div>
+                                    <div class="slide">
+                                        <img src="img/marcas/b3-marcas-11.png" alt="">
+                                    </div>
+                                    <div class="slide">
+                                        <img src="img/marcas/b3-marcas-12.png" alt="">
+                                    </div>
+                                    <div class="slide">
+                                        <img src="img/marcas/b3-marcas-13.png" alt="">
+                                    </div>
+                                    <div class="slide">
+                                        <img src="img/marcas/b3-marcas-14.png" alt="">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </header-top>
             <header-button>
                 <div class="container-fluid">
                     <div class="row">
                         <div id="col1" class="col-12">
                             <a href="viewMainC" class="logo">
-                                <img src="images/tech-office/logo-white-transp.png"
+                                <img src="img/tech-office/logo-white-transp.png"
                                      alt="logo-generico">
                             </a>
                             <form class="d-flex" role="search">
@@ -66,6 +261,25 @@
                 </div>
             </header-button>
         </header>
+
+        <nav id="nav-principal">
+            <div class="container-fluid">
+                <div class="row">
+                    <div id="col1">
+                        <a href="#row1">OFERTAS</a>
+                    </div>
+                    <span></span>
+                    <div id="col2">
+                        <a href="#row2">CATEGORÍAS</a>
+                    </div>
+                    <span></span>
+                    <div id="col3">
+                        <a href="#row3">LO MÁS VENDIDO</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
         <section>
             <div class="container">
                 <h3>Carrito de compras</h3>
@@ -123,8 +337,39 @@
                 </div>
             </div>
         </section>
-        <footer>
-
+        <footer class="footer">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4">
+                        <h5>Enlaces</h5>
+                        <ul class="list-unstyled">
+                            <li><a href="#">Inicio</a></li>
+                            <li><a href="#">Productos</a></li>
+                            <li><a href="#">Servicios</a></li>
+                            <li><a href="#">Contacto</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-4">
+                        <h5>Contacto</h5>
+                        <p>Dirección: Calle Principal, Ciudad</p>
+                        <p>Teléfono: 123-456-7890</p>
+                        <p>Email: info@example.com</p>
+                    </div>
+                    <div class="col-md-4">
+                        <h5>Síguenos en redes sociales</h5>
+                        <ul class="list-inline">
+                            <li class="list-inline-item"><a href="#"><i class="fab fa-facebook"></i></a></li>
+                            <li class="list-inline-item"><a href="#"><i class="fab fa-twitter"></i></a></li>
+                            <li class="list-inline-item"><a href="#"><i class="fab fa-instagram"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <p>&copy; 2023 Todos los derechos reservados</p>
+                    </div>
+                </div>
+            </div>
         </footer>
         <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.0/dist/jquery.min.js"></script>
         <script src="JS/scriptCart.js" type="text/javascript"></script>
