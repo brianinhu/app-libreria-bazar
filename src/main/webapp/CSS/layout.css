@@ -1,0 +1,240 @@
+/* Estilos universales*/
+body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: 'Poppins', sans-serif !important;
+}
+/* Estilos universales*/
+
+/*Header top*/
+header-top #col1 {
+    background-color: #FFDD00;
+    height: 84px;
+    padding: 0;
+}
+
+.slider {
+    width: 100%;
+    height: auto;
+    margin: auto;
+    overflow: hidden;
+}
+
+.slider .slide-track {
+    display: flex;
+    animation: scroll 30s linear infinite;
+    -webkit-animation: scroll 30s linear infinite;
+    width: calc(100px * 42);
+}
+
+.slider .slide {
+    width: 100px;
+    margin-left: 1rem;
+    margin-right: 1rem;
+}
+
+.slider .slide img {
+    width: 100px;
+    margin-left: 1rem;
+    margin-right: 1rem;
+}
+
+@keyframes scroll {
+    0% {
+        -webkit-transform: translateX(0);
+        transform: translateX(0);
+    }
+    100% {
+        -webkit-transform: translateX(calc(-100px * 14));
+        transform: translateX(calc(-100px * 14));
+    }
+}
+/*Header top*/
+
+/* Header button*/
+header-button #col1 {
+    background-color: #4F2CF8;
+    height: 15vh;
+    text-align: center;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    padding-left: 10rem;
+    padding-right: 10rem;
+}
+
+header-button form {
+    width: 700px;
+}
+
+header-button .logo img {
+    max-width: 150px;
+}
+
+header-button #nav-secundario {
+    display: flex;
+    color: #fff;
+    font-weight: 500;
+}
+
+header-button #nav-secundario a {
+    margin: 0.5rem;
+}
+
+header-button #nav-secundario a:hover>i,
+header-button #nav-secundario a:hover>span {
+    color: #FFDD00;
+    transition: color 0.3s ease-in;
+}
+
+header-button #nav-secundario span {
+    display: block;
+}
+
+header-button #nav-secundario i {
+    font-size: 2rem;
+}
+/* Header button*/
+
+/* Nav principal*/
+#nav-principal div {
+    padding: 0;
+}
+
+#nav-principal a {
+    color: #000;
+    text-decoration: none;
+    font-weight: 400;
+    padding: 0.5rem;
+}
+
+#nav-principal a:hover {
+    background-color: #4F2CF8;
+    border: 1px solid #4F2CF8;
+    color: #fff;
+    border-radius: 10px;
+    font-weight: 500;
+    transition: all 0s ease-in-out;
+}
+
+#nav-principal .row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #fff;
+    height: 6vh;
+    margin: 0;
+}
+
+#nav-principal span {
+    width: 0.5px;
+    height: 50%;
+    margin: 0.2rem;
+    padding: 0rem;
+    display: inline-block;
+    justify-content: center;
+    align-items: center;
+    background-color: #000;
+}
+
+#nav-principal #col1 {
+    width: 88px;
+    display: inline-block;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+#nav-principal #col2 {
+    width: 120px;
+    display: inline-block;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+#nav-principal #col3 {
+    width: 155px;
+    display: inline-block;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+/* Nav principal*/
+
+/* Secciones */
+section #row1 #col1 {
+    height: auto;
+    padding: 0;
+}
+
+section #row3 #col1 {
+    height: 500px;
+    padding: 0;
+}
+
+.title-3{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 3rem;
+    font-weight: bold;
+}
+/* Secciones */
+
+/* Footer */
+/* Estilos generales del footer */
+.footer {
+    background-color: #f8f9fa;
+    padding: 40px 0;
+}
+
+.footer h5 {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.footer p {
+    font-size: 14px;
+    line-height: 1.5;
+    margin-bottom: 10px;
+}
+
+.footer a {
+    color: #333;
+    text-decoration: none;
+}
+
+.footer ul.list-unstyled li {
+    margin-bottom: 10px;
+}
+
+.footer ul.list-inline li {
+    margin-right: 10px;
+}
+
+.footer p.copyright {
+    margin-top: 20px;
+    font-size: 12px;
+}
+/* Estilos generales del footer */
+/* Estilo para dispositivos móviles */
+@media (max-width: 767.98px) {
+    .footer h5 {
+        font-size: 16px;
+    }
+
+    .footer p {
+        font-size: 12px;
+    }
+
+    .footer ul.list-inline li {
+        margin-right: 5px;
+    }
+
+    .footer p.copyright {
+        font-size: 10px;
+    }
+}
+/* Estilo para dispositivos móviles */
+/* Footer */
