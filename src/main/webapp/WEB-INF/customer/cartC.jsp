@@ -15,7 +15,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
-        <link rel="stylesheet" href="CSS/layout.css"/>
+        <link rel="stylesheet" href="css-customer/layout.css"/>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
               integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
         <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
@@ -25,42 +25,6 @@
         <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800;900&display=swap"
               rel="stylesheet">
         <style>
-            /* Efecto hover al div del carrito*/
-            header-button #nav-secundario a:hover>div i {
-                color: #FFDD00;
-                transition: color 0.3s ease-in;
-            }
-            /* Efecto hover al div del carrito*/
-
-            /* Sombra inferior del nav principal*/
-            #nav-principal {
-                box-shadow: 0 0 16px 0 rgba(0,0,0,.05);
-            }
-            /* Sombra inferior del nav principal*/
-
-            /*Icono del carrito*/
-            .cart-icon {
-                position: relative;
-                display: inline-block;
-            }
-
-            .cart-count {
-                position: absolute;
-                top: -1px;
-                right: -8px;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                width: 18px;
-                height: 18px;
-                background-color: gold;
-                color: white;
-                font-size: 13px;
-                font-weight: bold;
-                border-radius: 50%;
-            }
-            /*Icono del carrito*/
-
             /*Estilo de la tabla*/
             .table tr {
                 text-align: center;

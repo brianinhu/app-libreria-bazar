@@ -13,7 +13,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
-        <link rel="stylesheet" href="CSS/layout.css"/>
+        <link rel="stylesheet" href="css-customer/layout.css"/>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
               integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
         <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
@@ -23,12 +23,6 @@
         <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800;900&display=swap"
               rel="stylesheet">
         <style>
-            /* Sombra inferior del nav principal*/
-            #nav-principal {
-                box-shadow: 0 0 16px 0 rgba(0,0,0,.05);
-            }
-            /* Sombra inferior del nav principal*/
-
             /* Cuadro de registro*/
             #form-singup {
                 width: 700px !important;
