@@ -1,8 +1,4 @@
-<%-- 
-    Document   : administradorAG
-    Created on : 26 jul. 2023, 06:56:58
-    Author     : Brian
---%>
+<!-- No formatear el archivo -->
 
 <%@page import="libreria.modelo.dao.AdministradorDAO"%>
 <%@page import="java.util.ArrayList"%>
@@ -24,7 +20,7 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800;900&display=swap"
               rel="stylesheet">
-        <link rel="stylesheet" href="css-admin/layout.css"/>
+        <link rel="stylesheet" href="css/admin/layout.css"/>
         <style>
             #panel-tri {
                 flex-wrap: wrap;
@@ -305,13 +301,25 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div>                                    
         <!-- Modal añadir administrador -->
 
-        <script src="JS/mainAG.js" type="text/javascript"></script>
-        <script src="JS/administradoresAG.js" type="text/javascript"></script>
         <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.0/dist/jquery.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" 
         integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+        <script src="js/admin/layout.js"></script>
+        <script>
+            var cbxadministradores = document.getElementById("cbxAdministradores");
+
+            cbxadministradores.addEventListener("change", () => {
+                var idrol = cbxadministradores.value;
+                console.log(idrol);
+                $("#tablaAdmi").load("verAdminxRol", {idrol: idrol});
+            });
+
+            function openAddAdmin() {
+                $('#modalAddAdmin').modal('show');
+            }
+        </script>
     </body>
 </html>

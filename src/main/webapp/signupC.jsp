@@ -327,6 +327,6 @@
                 </div>
             </div>
         </footer>
-        <script type="text/javascript" src="JS/scriptC.js"></script>
+        <script type="text/javascript" src="js/scriptC.js"></script>
     </body>
 </html>

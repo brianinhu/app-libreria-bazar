@@ -22,7 +22,7 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800;900&display=swap"
               rel="stylesheet">
-        <link rel="stylesheet" href="css-admin/layout.css"/>
+        <link rel="stylesheet" href="css/admin/layout.css"/>
     </head>
     <body>
         <%
@@ -82,6 +82,6 @@
                 <p>Personal</p>
             </div>
         </section>
-        <script src="JS/mainAG.js" type="text/javascript"></script>
+        <script src="js/admin/layout.js"></script>
     </body>
 </html>

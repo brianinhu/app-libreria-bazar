@@ -1,3 +1,5 @@
+<!-- No formatear el archivo -->
+
 <%@page import="libreria.modelo.dao.ProductoDAO"%>
 <%@page import="libreria.modelo.bean.Producto"%>
 <%@page import="libreria.modelo.dao.CategoriaDAO"%>
@@ -32,13 +34,13 @@
         <link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/css/jquery.dataTables.min.css">
         <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.3.0/css/responsive.bootstrap5.min.css"/>
         <!-- CSS layout -->
-        <link rel="stylesheet" href="css-admin/layout.css"/>
+        <link rel="stylesheet" href="css/admin/layout.css"/>
         <style>
             #div-panel-add {
                 padding: 2rem;
             }
 
-            #div-panel-view {
+            #div-panel-table {
                 padding-left: 2rem;
                 padding-right: 2rem;
                 padding-bottom: 2rem;
@@ -197,7 +199,7 @@
             </div>
         </section>
         <section id="section-3">
-            <div class="div-panel" id="div-panel-view">
+            <div class="div-panel" id="div-panel-table">
                 <div class="card">
                     <div class="card-header">
                         <span class="fw-semibold fs-6">Listado de productos</span>
@@ -489,9 +491,111 @@
         <!-- JavaScript Bootstrap 5 -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" 
         integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
-        <!-- JavaScript productosAG -->
-        <script src="JS/productosAG.js" type="text/javascript"></script>
         <!-- JavaScript Sweetalert -->
         <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+        <!-- JavaScript productosAG -->
+        <script>
+            $(document).ready(function () {
+                $('#table').DataTable({
+                    responsive: true,
+                    pagingType: 'full_numbers',
+                    lengthMenu: [5, 10, 15, 20],
+                    pageLength: 5,
+                    language: {
+                        url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json'
+                    }
+                });
+            });
+
+            /* Evento clic del boton ver más de la descripcion */
+            $('.btnchange').on('click', function () {
+                var textContainer = $(this).prev('.text-container');
+                textContainer.toggleClass('active-normal');
+                if (textContainer.hasClass('active-normal')) {
+                    $(this).find('.bi-eye-slash-fill').hide();
+                    $(this).find('.bi-eye-fill').show();
+                    $(this).css('background-color', '#D33333');
+                } else {
+                    $(this).find('.bi-eye-slash-fill').show();
+                    $(this).find('.bi-eye-fill').hide();
+                    $(this).css('background-color', '');
+                }
+            });
+            /* Evento clic del boton ver más de la descripcion */
+
+            /* Dinamismo del menu */
+            var aside = document.getElementById("aside");
+            var menu = document.getElementById("menu");
+
+            var divpaneladd = document.getElementById("div-panel-add");
+            var divpaneltable = document.getElementById("div-panel-table");
+
+            menu.addEventListener("click", () => {
+                aside.classList.toggle("active");
+                divpaneladd.classList.toggle("decompressed");
+                divpaneltable.classList.toggle("decompressed");
+            });
+            /* Dinamismo del menu */
+
+            const trunk = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            codeGenerate = (length) => {
+                let code = "";
+                for (let i = 0; i < length; i++) {
+                    code += trunk.charAt(Math.floor(Math.random() * trunk.length));
+                }
+                return code;
+            };
+
+            var btnagregar = document.getElementById("btn-agregar");
+            btnagregar.addEventListener("click", () => {
+                let codigo = codeGenerate(10);
+
+                document.getElementById("txtSKUCreate").value = codigo;
+            });
+
+            function abrirModal(SKU, nombre, descripcion, idmarca, precio, stock, idcategoria) {
+                document.getElementById("txtSKUUpdate").value = SKU;
+                document.getElementById("txtnombre").value = nombre;
+                document.getElementById("txtdescripcion").value = descripcion;
+                document.getElementById("cbxMarca").value = idmarca;
+                document.getElementById("txtprecio").value = precio;
+                document.getElementById("txtstock").value = stock;
+                document.getElementById("imagen").src = "readImage?SKUProducto=" + SKU;
+                document.getElementById("cbxCategoria").value = idcategoria;
+
+                // Abrir la ventana modal
+                $('#staticBackdrop2').modal('show');
+            }
+
+            function confirmDelete() {
+                return new Promise((resolve) => {
+                    swal({
+                        title: "¿Estás seguro de eliminar el producto?",
+                        text: "Esta acción es permanente",
+                        icon: "warning",
+                        buttons: true,
+                        dangerMode: true
+                    }).then((willDelete) => {
+                        resolve(willDelete);
+                    });
+                });
+            }
+
+            function deleteProduct(SKU) {
+                confirmDelete().then((result) => {
+                    if (result) {
+                        swal("¡Producto eliminado correctamente!", {
+                            icon: "success"
+                        }).then((result) => {
+                            if (result) {
+                                window.location.href = "deleteProducto?SKU=" + SKU;
+                            }
+                        });
+                    } else {
+                        swal("Producto a salvo");
+                    }
+                });
+            }
+        </script>
     </body>
 </html>
