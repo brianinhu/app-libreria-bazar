@@ -16,9 +16,11 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
-        <!-- CSS Bootstrap 5 -->
+        <!-- CSS Bootstrap -->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" 
               integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+        <!-- CSS Bootstrap Icons -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
         <!-- CSS Boxicons -->
         <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
         <!-- CSS FontsGoogle -->
@@ -26,15 +28,104 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800;900&display=swap"
               rel="stylesheet">
-        <!-- CSS Bootstrap Icons -->
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
         <!-- CSS DataTable -->
         <link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/css/jquery.dataTables.min.css">
         <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.3.0/css/responsive.bootstrap5.min.css"/>
-        <!-- CSS mainAG -->
-        <link href="CSS/mainAG.css" rel="stylesheet" type="text/css"/>
-        <!-- CSS productosAG -->
-        <link href="CSS/productosAG.css" rel="stylesheet" type="text/css"/>
+        <!-- CSS layout -->
+        <link rel="stylesheet" href="css-admin/layout.css"/>
+        <style>
+            #div-panel-add {
+                padding: 2rem;
+            }
+
+            #div-panel-view {
+                padding-left: 2rem;
+                padding-right: 2rem;
+                padding-bottom: 2rem;
+            }
+
+            #section-2, #section-3 {
+                font-size: 0.8rem;
+            }
+
+            #table tbody{
+                text-align: center;
+                vertical-align: middle;
+            }
+
+            #table thead th {
+                text-align: center;
+            }
+
+            .panel-add {
+                width: 300px;
+            }
+
+            .w-dialog {
+                max-width: 850px !important;
+                width: 100%;
+            }
+
+            .modal-body{
+                margin: 1rem;
+                padding: 2rem;
+                border: 1px solid #f2f2f2;
+                border-radius: 15px;
+            }
+
+            /* Estilos para el boton ver más */
+            .more-less {
+                position: relative;
+                width: 25px;
+                height: 25px;
+                background-color: #0D6EFD;
+                border-radius: 50%;
+                border: 3px solid #fff;
+                color: #fff;
+                cursor: pointer;
+                box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+            }
+            /* Estilos para el boton ver más */
+
+            /* Estilos para el icono */
+            td .bi {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                font-size: 10px;
+                color: #fff;
+            }
+            /* Estilos para el icono */
+
+            /* Estilos del boton bootstrap */
+            td .btn {
+                width: 30px !important;
+                height: 30px !important;
+                padding: 0 !important;
+                box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+            }
+            /* Estilos del boton bootstrap */
+
+            /* Tienen que estar juntos ambas clases antagonicas */
+            .text-container {
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                max-width: 180px;
+            }
+
+            .active-normal {
+                white-space: normal;
+            }
+
+            .td-container {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                min-height: 150px;
+            }
+            /* La clase predominante tiene que estar debajo de la otra clase */
+        </style>
     </head>
     <body>
         <%

@@ -24,8 +24,57 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800;900&display=swap"
               rel="stylesheet">
-        <link href="CSS/mainAG.css" rel="stylesheet" type="text/css"/>
-        <link href="CSS/administradoresAG.css" rel="stylesheet" type="text/css"/>
+        <link rel="stylesheet" href="css-admin/layout.css"/>
+        <style>
+            #panel-tri {
+                flex-wrap: wrap;
+                column-gap: 20px;
+            }
+
+            /* Estilos para la tabla administracion */
+            #tablaAdmi {
+                font-size: 13px;
+                text-align: center;
+            }
+
+            #tablaAdmi .btn {
+                font-size: 12px !important;
+                color: #fff;
+                padding: 6px;
+                display: inline-flex;
+            }
+
+            #tablaAdmi tr td {
+                vertical-align: middle;
+            }
+            /* Estilos para la tabla administracion */
+
+            .span-number-admin {
+                width: 100%;
+                font-size: 3rem;
+                padding: 0.5rem;
+                background-color: #333;
+                border-top-left-radius: 10px;
+                border-top-right-radius: 10px;
+            }
+
+            .span-text-admin {
+                padding: 0.5rem;
+            }
+
+            .div-descripcion {
+                font-size: 11px;
+                background-color: #b3b300;
+                border-radius: 10px;
+                color: #fff;
+                width: 160px;
+                height: 160px;
+            }
+
+            .modal-dialog {
+                min-width: 750px;
+            }
+        </style>
     </head>
     <body>
         <%

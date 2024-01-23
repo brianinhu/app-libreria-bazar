@@ -42,7 +42,7 @@ public class SvAdministrador extends HttpServlet {
 
  /* Vista productos */
             case "/viewProductosAG":
-                request.getRequestDispatcher("WEB-INF/administratorAG/productosAG.jsp").forward(request, response);
+                request.getRequestDispatcher("WEB-INF/administrator/administratorAG/productosAG.jsp").forward(request, response);
                 break;
             case "/createProducto":
                 createProducto(request, response);
@@ -60,7 +60,7 @@ public class SvAdministrador extends HttpServlet {
 
  /* Vista administradores */
             case "/viewAdministradoresAG":
-                request.getRequestDispatcher("WEB-INF/administratorAG/administradoresAG.jsp").forward(request, response);
+                request.getRequestDispatcher("WEB-INF/administrator/administratorAG/administradoresAG.jsp").forward(request, response);
                 break;
             case "/verAdminxRol":
                 verAdminxRol(request, response);
@@ -69,19 +69,19 @@ public class SvAdministrador extends HttpServlet {
 
  /* Vista clientes */
             case "/viewClientesAG":
-                request.getRequestDispatcher("WEB-INF/administratorAG/clientesAG.jsp").forward(request, response);
+                request.getRequestDispatcher("WEB-INF/administrator/administratorAG/clientesAG.jsp").forward(request, response);
                 break;
             /* Vista clientes */
 
  /* Vista pedidos */
             case "/viewPedidosAG":
-                request.getRequestDispatcher("WEB-INF/administratorAG/pedidosAG.jsp").forward(request, response);
+                request.getRequestDispatcher("WEB-INF/administrator/administratorAG/pedidosAG.jsp").forward(request, response);
                 break;
             /* Vista pedidos */
 
  /* Vista personal */
             case "/viewPersonalAG":
-                request.getRequestDispatcher("WEB-INF/administratorAG/personalAG.jsp").forward(request, response);
+                request.getRequestDispatcher("WEB-INF/administrator/administratorAG/personalAG.jsp").forward(request, response);
                 break;
             /* Vista personal */
         }
@@ -139,13 +139,13 @@ public class SvAdministrador extends HttpServlet {
                 request.getSession().setAttribute("administrator", a);
                 switch (a.getIdrol()) {
                     case 1:
-                        request.getRequestDispatcher("WEB-INF/administratorAG/mainAG.jsp").forward(request, response);
+                        request.getRequestDispatcher("WEB-INF/administrator/administratorAG/mainAG.jsp").forward(request, response);
                         break;
                     case 2:
-                        request.getRequestDispatcher("WEB-INF/administratorAV/mainAV.jsp").forward(request, response);
+                        request.getRequestDispatcher("WEB-INF/administrator/administratorAV/mainAV.jsp").forward(request, response);
                         break;
                     case 3:
-                        request.getRequestDispatcher("WEB-INF/administratorAC/mainAC.jsp").forward(request, response);
+                        request.getRequestDispatcher("WEB-INF/administrator/administratorAC/mainAC.jsp").forward(request, response);
                         break;
                 }
             } else {
@@ -176,7 +176,7 @@ public class SvAdministrador extends HttpServlet {
         InputStream inputStream = part.getInputStream();
         Producto p = new Producto(SKU, nombre, descripcion, idmarca, precio, stock, inputStream, idcategoria);
         new ProductoDAO().create(p);
-        request.getRequestDispatcher("WEB-INF/administratorAG/productosAG.jsp").forward(request, response);
+        request.getRequestDispatcher("WEB-INF/administrator/administratorAG/productosAG.jsp").forward(request, response);
     }
 
     private void readImage(HttpServletRequest request, HttpServletResponse response) {
@@ -189,7 +189,7 @@ public class SvAdministrador extends HttpServlet {
         Producto producto = new Producto();
         producto.setSKU(SKU);
         new ProductoDAO().delete(producto);
-        request.getRequestDispatcher("WEB-INF/administratorAG/productosAG.jsp").forward(request, response);
+        request.getRequestDispatcher("WEB-INF/administrator/administratorAG/productosAG.jsp").forward(request, response);
     }
 
     private void updateProducto(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
@@ -204,7 +204,7 @@ public class SvAdministrador extends HttpServlet {
         InputStream inputStream = part.getInputStream();
         Producto p = new Producto(SKU, nombre, descripcion, idmarca, precio, stock, inputStream, idcategoria);
         new ProductoDAO().update(p);
-        request.getRequestDispatcher("WEB-INF/administratorAG/productosAG.jsp").forward(request, response);
+        request.getRequestDispatcher("WEB-INF/administrator/administratorAG/productosAG.jsp").forward(request, response);
     }
 
     private void verAdminxRol(HttpServletRequest request, HttpServletResponse response) throws IOException {
