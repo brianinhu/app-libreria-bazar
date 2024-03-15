@@ -15,8 +15,8 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
-        <link rel="stylesheet" href="css-customer/layout.css"/>
-        <link rel="stylesheet" href="css-customer/layout-sections.css"/>
+        <link rel="stylesheet" href="css/customer/layout.css"/>
+        <link rel="stylesheet" href="css/customer/layout-sections.css"/>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
               integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
         <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
@@ -225,20 +225,20 @@
                 <div class="container-fluid">
                     <div id="row1" class="row">
                         <div id="col1" class="col-12">
-                            <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel" data-interval="500">
+                            <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
                                 <div class="carousel-indicators">
                                     <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
                                     <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
                                     <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
                                 </div>
                                 <div class="carousel-inner">
-                                    <div class="carousel-item active" data-bs-interval="1000">
+                                    <div class="carousel-item active" data-bs-interval="3000">
                                         <img src="img/banners/banner-1.png" class="d-block w-100" alt="">
                                     </div>
-                                    <div class="carousel-item" data-bs-interval="1000">
+                                    <div class="carousel-item" data-bs-interval="3000">
                                         <img src="img/banners/banner-2.png" class="d-block w-100" alt="">
                                     </div>
-                                    <div class="carousel-item" data-bs-interval="1000">
+                                    <div class="carousel-item" data-bs-interval="3000">
                                         <img src="img/banners/banner-3.png" class="d-block w-100" alt="">
                                     </div>
                                 </div>
@@ -394,6 +394,6 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
                 integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
         crossorigin="anonymous"></script>
-        <script src="js/index.js"></script>
+        <script src="js/customer/layout.js"></script>
     </body>
 </html>

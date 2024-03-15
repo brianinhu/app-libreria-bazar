@@ -58,6 +58,10 @@
             #divizq, #divder {
                 padding: 1rem;
             }
+
+            #btn-tienda, #btn-delivery {
+                background-color: #f2f2f2;
+            }
         </style>
     </head>
     <body>
@@ -213,9 +217,129 @@
                 </div>
             </div>
         </section>
-        <script src="JS/checkout.js" type="text/javascript"></script>
+        <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.0/dist/jquery.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" 
         integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.0/dist/jquery.min.js"></script>
+        <script>
+            let btntienda = document.getElementById("btn-tienda");
+            let btndelivery = document.getElementById("btn-delivery");
+            let divtienda = document.getElementById("div-tienda");
+            let divdireccion = document.getElementById("div-direccion");
+
+            let iddistrito = 0;
+            let idtienda = 0;
+            let identrega = 0;
+            let idpago = 0;
+            let direccion = "";
+
+            btntienda.addEventListener("click", () => {
+                btntienda.style.background = '#00e600';
+                btntienda.style.color = '#fff';
+                btndelivery.style.color = '#000';
+                btndelivery.style.background = '#f2f2f2';
+
+                divtienda.style.display = 'block';
+                document.getElementById("cbxDistrito").value = '';
+                document.getElementById("txtdireccion").value = '';
+                divdireccion.style.display = 'none';
+
+                identrega = 1;
+            });
+
+            btndelivery.addEventListener("click", () => {
+                btntienda.style.background = '#f2f2f2';
+                btntienda.style.color = '#000';
+                btndelivery.style.color = '#fff';
+                btndelivery.style.background = '#00e600';
+
+                document.getElementById("cbxTienda").value = '';
+                divtienda.style.display = 'none';
+                divdireccion.style.display = 'block';
+
+                identrega = 2;
+            });
+
+            const trunkNumber = "01234567890123456789";
+            codeGenerateNumber = (length) => {
+                let code = "";
+                for (let i = 0; i < length; i++) {
+                    code += trunkNumber.charAt(Math.floor(Math.random() * trunkNumber.length));
+                }
+                return code;
+            };
+
+            const trunkWord = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+            codeGenerateWord = (length) => {
+                let code = "";
+                for (let i = 0; i < length; i++) {
+                    code += trunkWord.charAt(Math.floor(Math.random() * trunkWord.length));
+                }
+                return code;
+            };
+
+            let btngenerarcompra = document.getElementById("btn-generarcompra");
+            btngenerarcompra.addEventListener("click", () => {
+
+                /*****Tabla Pedido*****/
+                let codigo_Pedido = codeGenerateWord(4) + codeGenerateNumber(3);
+
+                // Obtén la fecha actual
+                let fecha = new Date();
+
+                // Obtiene los componentes de la fecha
+                let year = fecha.getFullYear();
+                let month = fecha.getMonth() + 1; // Los meses van de 0 a 11, por eso se suma 1
+                let day = fecha.getDate();
+
+                // Formatea la fecha con ceros a la izquierda si es necesario
+                let formattedDate = year + '-' + ('0' + month).slice(-2) + '-' + ('0' + day).slice(-2);
+
+                // La variable formattedDate ahora contiene la fecha en formato YYYY-MM-DD
+
+                let totalPay = document.getElementById("totalPay").value;
+                let idcliente = document.getElementById("idcliente").value;
+
+                if (identrega === 1) {
+                    idtienda = document.getElementById("cbxTienda").value;
+                } else {
+                    iddistrito = document.getElementById("cbxDistrito").value;
+                    direccion = document.getElementById("txtdireccion").value;
+                }
+
+                idpago = document.getElementById("cbxPago").value;
+
+                console.log(codigo_Pedido);
+                console.log(formattedDate);
+                console.log(totalPay);
+                console.log(idcliente);
+                console.log(iddistrito);
+                console.log(idtienda);
+                console.log(identrega);
+                console.log(idpago);
+                console.log(direccion);
+
+                $.ajax({
+                    url: "buyComplete",
+                    type: "POST",
+                    data: {
+                        codigo: codigo_Pedido,
+                        fecha: formattedDate,
+                        total: totalPay,
+                        idcliente: idcliente,
+                        iddistrito: iddistrito,
+                        idtienda: idtienda,
+                        identrega: identrega,
+                        idpago: idpago,
+                        direccion: direccion
+                    },
+                    success: function (response) {
+                        window.location.href = "checkBuyComplete?codigo=" + codigo_Pedido;
+                    },
+                    error: function (error) {
+                        window.location.href = "checkBuyComplete?codigo=" + codigo_Pedido;
+                    }
+                });
+            });
+        </script>
     </body>
 </html>

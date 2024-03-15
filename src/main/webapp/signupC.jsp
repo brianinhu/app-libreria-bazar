@@ -13,7 +13,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
-        <link rel="stylesheet" href="css-customer/layout.css"/>
+        <link rel="stylesheet" href="css/customer/layout.css"/>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
               integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
         <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
@@ -327,6 +327,26 @@
                 </div>
             </div>
         </footer>
-        <script type="text/javascript" src="js/scriptC.js"></script>
+        <script>
+            const trunk = "01234567890123456789";
+            codeGenerate = (length) => {
+                let code = "";
+                for (let i = 0; i < length; i++) {
+                    code += trunk.charAt(Math.floor(Math.random() * trunk.length));
+                }
+                return code;
+            };
+
+            var btnregistrar = document.getElementById("btn-registrar");
+            btnregistrar.addEventListener("click", () => {
+                let nombre = document.getElementById("txtnombre").value;
+                let apaterno = document.getElementById("txtapaterno").value;
+
+                let codigo = codeGenerate(3) + nombre.charAt(0).toUpperCase() + apaterno.charAt(0).toUpperCase() + codeGenerate(3);
+
+                var idcliente = document.getElementById("txtidcliente");
+                idcliente.value = codigo;
+            });
+        </script>
     </body>
 </html>
