@@ -114,11 +114,11 @@
                         </div>
                         <input type="hidden" id="txtidcliente" name="txtidcliente">
                         <div class="form-floating mb-3">
-                            <input type="text" class="form-control" id="txtnombre" name="txtnombre" required="">
+                            <input type="text" class="form-control" id="txtnombre" name="txtnombre" required>
                             <label for="txtnombre">Nombre (*)</label>
                         </div>
                         <div class="form-floating mb-3">
-                            <input type="text" class="form-control" id="txtapaterno" name="txtapaterno" required="">
+                            <input type="text" class="form-control" id="txtapaterno" name="txtapaterno" required>
                             <label for="txtapaterno">Apellido paterno (*)</label>
                         </div>
                         <div class="form-floating mb-3">
@@ -142,11 +142,11 @@
                             <label for="txttelefono">Teléfono</label>
                         </div>
                         <div class="form-floating mb-3">
-                            <input type="email" class="form-control" id="txtemail" name="txtemail" required="">
+                            <input type="email" class="form-control" id="txtemail" name="txtemail" required>
                             <label for="txtemail">Email (*)</label>
                         </div>
                         <div class="form-floating mb-3">
-                            <input type="password" class="form-control" id="txtcontrasena" name="txtcontrasena" required="">
+                            <input type="password" class="form-control" id="txtcontrasena" name="txtcontrasena" required>
                             <label for="txtcontrasena">Contraseña (*)</label>
                         </div>
                         <div class="d-grid gap-2 col-6 mx-auto">

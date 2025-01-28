@@ -146,6 +146,7 @@ public class SvCliente extends HttpServlet {
         Cliente cliente = new Cliente(idcliente, nombre, apaterno, amaterno, telefono, email, contraseña, idgenero);
         new ClienteDAO().create(cliente);
         request.getSession().setAttribute("customer", cliente);
+        request.getSession().setAttribute("quantityProductToCart", 0);
         request.getRequestDispatcher("WEB-INF/customer/mainC.jsp").forward(request, response);
     }
 
