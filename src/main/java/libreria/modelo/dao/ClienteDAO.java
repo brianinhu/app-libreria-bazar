@@ -3,8 +3,6 @@ package libreria.modelo.dao;
 import java.sql.SQLException;
 import java.sql.Types;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import libreria.conexion.Conexion;
 import libreria.helper.InterfaceCRUD;
 import libreria.modelo.bean.Cliente;
