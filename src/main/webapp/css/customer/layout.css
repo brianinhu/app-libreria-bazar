@@ -6,54 +6,14 @@ body {
 }
 /* Estilos universales*/
 
-/*Header top*/
-header-top #col1 {
-    background-color: #e6e035;
-    height: 84px;
-    padding: 0;
-}
-
-.slider {
-    width: 100%;
-    height: auto;
-    margin: auto;
-    overflow: hidden;
-}
-
-.slider .slide-track {
-    display: flex;
-    animation: scroll 30s linear infinite;
-    -webkit-animation: scroll 30s linear infinite;
-    width: calc(100px * 42);
-}
-
-.slider .slide {
-    width: 100px;
-    margin-left: 1rem;
-    margin-right: 1rem;
-}
-
-.slider .slide img {
-    width: 100px;
-    margin-left: 1rem;
-    margin-right: 1rem;
-}
-
-/*Movimiento infinito*/
-@keyframes scroll {
-    0% {
-        -webkit-transform: translateX(0);
-        transform: translateX(0);
-    }
-    100% {
-        -webkit-transform: translateX(calc(-100px * 14));
-        transform: translateX(calc(-100px * 14));
-    }
-}
-/*Movimiento infinito*/
-/*Header top*/
-
 /* Header button*/
+header {
+    position: sticky;
+    top: 0; /* Pegado en la parte superior */
+    z-index: 1000; /* Asegura que quede sobre otros elementos */
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2); /* Agrega una sombra para efecto flotante */
+}
+
 header-button #col1 {
     background-color: #4F2CF8;
     height: 15vh;
