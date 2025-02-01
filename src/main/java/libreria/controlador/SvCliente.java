@@ -1,9 +1,12 @@
 package libreria.controlador;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import java.io.IOException;
 import java.sql.Date;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -176,7 +179,8 @@ public class SvCliente extends HttpServlet {
 
     private void addtoCart(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         boolean flag = false;
-        String SKU = request.getParameter("SKU");
+        JsonObject json = new Gson().fromJson(request.getReader(), JsonObject.class);
+        String SKU = json.get("sku").getAsString();
         if (!listCart.isEmpty()) {
             for (int i = 0; i < listCart.size(); i++) {
                 if (listCart.get(i).getSKU().equals(SKU)) {
@@ -203,8 +207,14 @@ public class SvCliente extends HttpServlet {
             Carrito cart = new Carrito(p.getImagen(), p.getSKU(), p.getNombre(), p.getPrecio(), quantity, quantity * p.getPrecio());
             listCart.add(cart);
         }
-        request.setAttribute("quantityProductToCart", listCart.size());
-        request.getRequestDispatcher("WEB-INF/customer/mainC.jsp").forward(request, response);
+        
+        HashMap<String, Integer> responseJson = new HashMap<>();
+        responseJson.put("count",listCart.size());
+        String jsonResponse = new Gson().toJson(responseJson);
+        
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+        response.getWriter().write(jsonResponse);
     }
 
     private void deletetoCart(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

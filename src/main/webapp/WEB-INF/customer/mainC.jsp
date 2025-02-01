@@ -56,7 +56,7 @@
                                 <a href="viewCart" class="nav-link">
                                     <div class="cart-icon">
                                         <i class="bi bi-cart-fill"></i>
-                                        <span class="cart-count">${quantityProductToCart}</span>
+                                        <span id="countCart" class="cart-count"></span>
                                     </div>
                                     <span>Carrito</span>
                                 </a>
@@ -209,14 +209,14 @@
                                             <span class="text-dark">S/. <%=p.getPrecio()%></span>
                                         </div>
                                         <div>
-                                            <a href="addtoCart?SKU=<%=p.getSKU()%>" class="btn btn-primary btn-sm">
+                                            <button onclick="addProduct('<%=p.getSKU()%>')" class="btn btn-primary btn-sm">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
                                                      fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                                      stroke-linejoin="round" class="feather feather-plus">
                                                 <line x1="12" y1="5" x2="12" y2="19"></line>
                                                 <line x1="5" y1="12" x2="19" y2="12"></line>
                                                 </svg> Agregar
-                                            </a>
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
@@ -267,5 +267,28 @@
                 integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
         crossorigin="anonymous"></script>
         <script src="js/customer/layout.js"></script>
+        <script>
+            async function addProduct(SKU) {
+                
+                let response = await fetch("addtoCart", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ sku: SKU })
+                });
+                
+                if (response.ok) {
+                    let data = await response.json();
+                    updateCart(data);
+                } else {
+                    console.error("Error al agregar producto al carrito");
+                }           
+            }
+            
+            function updateCart(data) {
+                let countElement = document.getElementById("countCart");
+                countElement.textContent = data.count;
+            }
+            
+        </script>
     </body>
 </html>
