@@ -36,17 +36,29 @@
             }
             /*Estilo de la tabla*/
 
-            /*Estilo del input de cantidad*/
-            .input-group {
-                width: 150px !important;
-                display: inline-flex !important;
+            /* Estilos para los botones y el input */
+            .quantity-control {
+                display: flex;
+                align-items: center;
             }
-            /*Estilo del input de cantidad*/
+            .quantity-control button {
+                padding: 5px 10px;
+                font-size: 16px;
+                cursor: pointer;
+            }
+            .quantity-control input {
+                width: 50px;
+                text-align: center;
+                margin: 0 5px;
+                padding: 5px;
+                font-size: 16px;
+            }
         </style>
     </head>
     <body>
         <%
             Cliente c = (Cliente) request.getSession().getAttribute("customer");
+            float total = (float) request.getSession().getAttribute("total");
         %>
         <header>
             <header-top>
@@ -70,7 +82,7 @@
                                 <a href="viewCart" class="nav-link">
                                     <div class="cart-icon">
                                         <i class="bi bi-cart-fill"></i>
-                                        <span class="cart-count">${quantityProductToCart}</span>
+                                        <span class="countCart cart-count"></span>
                                     </div>
                                     <span>Carrito</span>
                                 </a>
@@ -110,7 +122,7 @@
         <section>
             <div class="container">
                 <h3>Carrito de compras</h3>
-                <p><span id="cantidadItems">${quantityProductToCart}</span> items en el carrito</p>
+                <p><span class="countCart"></span> items en el carrito</p>
             </div>
             <div class="container">
                 <div class="row">
@@ -125,7 +137,7 @@
                                 <th></th>
                             </tr>
                             <%
-                                ArrayList<Carrito> listaCarrito = (ArrayList<Carrito>) request.getAttribute("cart");
+                                ArrayList<Carrito> listaCarrito = (ArrayList<Carrito>) request.getSession().getAttribute("cart");
                                 for (Carrito cp : listaCarrito) {
                             %>
                             <tr>
@@ -133,11 +145,16 @@
                                 <td><%=cp.getNombre()%></td>
                                 <td><%=cp.getPrecio()%></td>
                                 <td>
-                                    <input type="hidden" id="txtSKU" value="<%=cp.getSKU()%>">
-                                    <input id="input-cantidad" type="number" value="<%=cp.getCantidad()%>" min="1"/></td>
-                                <td><%=cp.getSubtotal()%></td>
-                            <input type="hidden" value="<%=cp.getSubtotal()%>" id="subtotal">
-                            <td><a class="btn btn-danger" href="deletetoCart?SKU=<%=cp.getSKU()%>">Eliminar</a></td>
+                                    <div class="quantity-control">
+                                        <button class="btn-decrement" data-sku="<%=cp.getSKU()%>">-</button>
+                                        <input data-sku="<%=cp.getSKU()%>" type="number" value="<%=cp.getCantidad()%>" min="1" readonly />
+                                        <button class="btn-increment" data-sku="<%=cp.getSKU()%>">+</button>
+                                    </div>
+                                </td> 
+                                <td>
+                                    <span data-subtotal="<%=cp.getSKU()%>"><%=cp.getSubtotal()%></span>
+                                </td>
+                                <td><a class="btn btn-danger" href="deletetoCart?SKU=<%=cp.getSKU()%>">Eliminar</a></td>
                             </tr>
                             <%}%>
                         </table>
@@ -149,11 +166,11 @@
                             </div>
                             <div class="card-body">
                                 <label class="label">Subtotal</label>
-                                <input type="text" class="form-control" value="S/. ${fullPay}" readonly>
+                                <input type="text" class="totalPay form-control" readonly>
                                 <label class="label">Descuento</label>
                                 <input type="text" class="form-control" value="S/. 0" readonly>
                                 <label class="label">Total a pagar</label>
-                                <input type="text" class="form-control" value="S/. ${fullPay}" readonly>
+                                <input type="text" class="totalPay form-control" readonly>
                             </div>
                             <div class="card-footer d-grid gap-2">
                                 <a href="viewMainC" class="btn btn-success">Seguir comprando</a>
@@ -199,33 +216,104 @@
             </div>
         </footer>
         <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.0/dist/jquery.min.js"></script>
-        <script type="module">
-            import {InputSpinner} from "./js/customer/input-spinner.js"
+        <script type="text/javascript">
 
-            const inputSpinnerElements = document.querySelectorAll("input[type='number']");
-            for (const inputSpinnerElement of inputSpinnerElements) {
-                new InputSpinner(inputSpinnerElement);
-            };
+            async function updateCart(SKU, tipo, valor) {
+                try {
+                    let response = await fetch("updateCart", {
+                        method: "POST",
+                        headers: {"Content-Type": "application/json"},
+                        body: JSON.stringify({sku: SKU, type: tipo, value: valor})
+                    });
 
-            $(document).ready(function () {
-                // Escuchar el evento de clic en el botón de incremento
-                $(document).on("click", ".btn-increment", function () {
-                    var input = $(this).closest(".input-group").find("input");
-                    var newQuantity = parseFloat(input.val());
-                    var SKU = input.closest("tr").find("#txtSKU").val();
-                    // Realizar acciones adicionales aquí
-                    window.location.href = "updatetoCart?SKU=" + SKU + "&newQuantity=" + newQuantity;
+                    if (response.ok) {
+                        let data = await response.json();
+                        let subtotalElement = document.querySelector('span[data-subtotal="' + SKU +'"]');
+                        if (subtotalElement) {
+                            subtotalElement.textContent = data.nuevoSubtotal;
+                        }
+                        getTotalPay();
+                    } else {
+                        console.error("Error al actualizar la cantidad");
+                    }
+                } catch (error) {
+                    console.error("Error en la solicitud:", error);
+                }
+            }
+
+            function increment(SKU) {
+                console.log(SKU);
+                let input = document.querySelector('.quantity-control  input[data-sku="' + SKU + '"]');
+                console.log(SKU);
+                console.log(input);
+                let valor = parseInt(input.value) || 0;
+                input.value = valor + 1;
+                updateCart(SKU, 'increment', input.value);
+            }
+
+            function decrement(SKU) {
+                console.log(SKU);
+                let input = document.querySelector('.quantity-control  input[data-sku="' + SKU + '"]');
+                console.log(SKU);
+                console.log(input);
+                let valor = parseInt(input.value) || 0;
+                if (valor > 1) {
+                    input.value = valor - 1;
+                    updateCart(SKU, 'decrement', input.value);
+                } else {
+                    console.info("El valor no puede ser menor a 1");
+                }
+            }
+
+            document.addEventListener("DOMContentLoaded", function () {
+                console.log("DOM cargado. Listo para eventos.");
+                document.querySelectorAll('.btn-increment').forEach(button => {
+                    button.addEventListener('click', function () {
+                        var sku = this.getAttribute('data-sku');
+                        console.log("SKU en botón +:", sku); // Verifica el SKU
+                        increment(sku);
+                    });
                 });
 
-                // Escuchar el evento de clic en el botón de decremento
-                $(document).on("click", ".btn-decrement", function () {
-                    var input = $(this).closest(".input-group").find("input");
-                    var newQuantity = parseFloat(input.val());
-                    var SKU = input.closest("tr").find("#txtSKU").val();
-                    // Realizar acciones adicionales aquí
-                    window.location.href = "updatetoCart?SKU=" + SKU + "&newQuantity=" + newQuantity;
+                document.querySelectorAll('.btn-decrement').forEach(button => {
+                    button.addEventListener('click', function () {
+                        var sku = this.getAttribute('data-sku');
+                        console.log("SKU en botón -:", sku); // Verifica el SKU
+                        decrement(sku);
+                    });
                 });
             });
+
+            async function getCartCount() {
+                let response = await fetch("getCartCount");
+
+                if (response.ok) {
+                    let data = await response.json();
+                    let countElements = document.getElementsByClassName("countCart");
+                    Array.from(countElements).forEach(element => {
+                        element.textContent = data.count;
+                    });
+                } else {
+                    console.error("Error al obtener cantidad de productos del carrito");
+                }
+            }
+            
+            async function getTotalPay() {
+                let response = await fetch("getTotalPay");
+
+                if (response.ok) {
+                    let data = await response.json();
+                    let countElements = document.getElementsByClassName("totalPay");
+                    Array.from(countElements).forEach(element => {
+                        element.value = 'S/. ' + data.total;
+                    });
+                } else {
+                    console.error("Error al obtener el pago total del carrito");
+                }
+            }
+
+            document.addEventListener("DOMContentLoaded", getCartCount);
+            document.addEventListener("DOMContentLoaded", getTotalPay);
         </script>
     </body>
 </html>

@@ -22,7 +22,7 @@ import libreria.modelo.dao.ProductoDAO;
 
 @WebServlet(name = "SvCliente", urlPatterns
         = {"/SvCliente", "/viewLoginC", "/loginC", "/logoutC", "/viewSignupC", "/signupC",
-            "/viewCart", "/viewMainC", "/addtoCart", "/deletetoCart", "/updatetoCart",
+            "/viewCart", "/getCartCount", "/getTotalPay", "/viewMainC", "/addToCart", "/deletetoCart", "/updateCart",
             "/viewBuySummary", "/buyComplete", "/checkBuyComplete"})
 public class SvCliente extends HttpServlet {
 
@@ -55,17 +55,23 @@ public class SvCliente extends HttpServlet {
             case "/viewMainC":
                 viewMainC(request, response);
                 break;
+            case "/getCartCount":
+                getCartCount(request, response);
+                break;
             case "/viewCart":
                 viewCart(request, response);
                 break;
-            case "/addtoCart":
-                addtoCart(request, response);
+            case "/addToCart":
+                addToCart(request, response);
                 break;
             case "/deletetoCart":
                 deletetoCart(request, response);
                 break;
-            case "/updatetoCart":
-                updatetoCart(request, response);
+            case "/updateCart":
+                updateCart(request, response);
+                break;
+            case "/getTotalPay":
+                getTotalPay(request, response);
                 break;
             case "/viewBuySummary":
                 viewBuySummary(request, response);
@@ -127,13 +133,12 @@ public class SvCliente extends HttpServlet {
         cliente = new ClienteDAO().read(cliente);
         if (cliente != null) {
             request.getSession().setAttribute("customer", cliente);
-            request.setAttribute("quantityProductToCart", listCart.size());
+            request.getSession().setAttribute("cart", new ArrayList<>());
             request.getRequestDispatcher("WEB-INF/customer/mainC.jsp").forward(request, response);
         } else {
             request.setAttribute("msg", "El inicio de sesión de la cuenta fue incorrecto. Vuelva a intentarlo");
             request.getRequestDispatcher("loginC.jsp").forward(request, response);
         }
-
     }
 
     private void signupC(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -149,7 +154,7 @@ public class SvCliente extends HttpServlet {
         Cliente cliente = new Cliente(idcliente, nombre, apaterno, amaterno, telefono, email, contraseña, idgenero);
         new ClienteDAO().create(cliente);
         request.getSession().setAttribute("customer", cliente);
-        request.getSession().setAttribute("quantityProductToCart", 0);
+        request.getSession().setAttribute("cart", new ArrayList<>());
         request.getRequestDispatcher("WEB-INF/customer/mainC.jsp").forward(request, response);
     }
 
@@ -159,35 +164,34 @@ public class SvCliente extends HttpServlet {
     }
 
     private void viewMainC(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setAttribute("quantityProductToCart", listCart.size());
         request.getRequestDispatcher("WEB-INF/customer/mainC.jsp").forward(request, response);
     }
 
     private void viewCart(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        ArrayList<Carrito> cart = (ArrayList<Carrito>) request.getSession().getAttribute("cart");
         float fullPay = 0;
-        String stringFormat;
-        for (int i = 0; i < listCart.size(); i++) {
-            fullPay = fullPay + listCart.get(i).getSubtotal();
+        String fullPayFormat;
+        for (int i = 0; i < cart.size(); i++) {
+            fullPay = fullPay + cart.get(i).getSubtotal();
         }
-        stringFormat = formato.format(fullPay);
-        fullPay = Float.parseFloat(stringFormat);
-        request.setAttribute("fullPay", fullPay);
-        request.setAttribute("quantityProductToCart", listCart.size());
-        request.setAttribute("cart", listCart);
+        fullPayFormat = formato.format(fullPay);
+        float fullPayFormatFloat = Float.parseFloat(fullPayFormat);
+        request.getSession().setAttribute("total", fullPayFormatFloat);
         request.getRequestDispatcher("WEB-INF/customer/cartC.jsp").forward(request, response);
     }
 
-    private void addtoCart(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    private void addToCart(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        ArrayList<Carrito> cart = (ArrayList<Carrito>) request.getSession().getAttribute("cart");
         boolean flag = false;
         JsonObject json = new Gson().fromJson(request.getReader(), JsonObject.class);
         String SKU = json.get("sku").getAsString();
-        if (!listCart.isEmpty()) {
-            for (int i = 0; i < listCart.size(); i++) {
-                if (listCart.get(i).getSKU().equals(SKU)) {
-                    listCart.get(i).setCantidad(listCart.get(i).getCantidad() + 1);
-                    String numeroFormateado = formato.format(listCart.get(i).getCantidad() * listCart.get(i).getPrecio());
-                    float subTotalFormat = Float.parseFloat(numeroFormateado);
-                    listCart.get(i).setSubtotal(subTotalFormat);
+        if (!cart.isEmpty()) {
+            for (int i = 0; i < cart.size(); i++) {
+                if (cart.get(i).getSKU().equals(SKU)) {
+                    cart.get(i).setCantidad(cart.get(i).getCantidad() + 1);
+                    String subtotalFormat = formato.format(cart.get(i).getCantidad() * cart.get(i).getPrecio());
+                    float subtotalFormatFloat = Float.parseFloat(subtotalFormat);
+                    cart.get(i).setSubtotal(subtotalFormatFloat);
                     flag = true;
                 }
             }
@@ -195,26 +199,18 @@ public class SvCliente extends HttpServlet {
                 Producto p = new Producto();
                 p.setSKU(SKU);
                 p = new ProductoDAO().read(p);
-                String numeroFormateado = formato.format(quantity * p.getPrecio());
-                float subTotalFormat = Float.parseFloat(numeroFormateado);
-                Carrito cart = new Carrito(p.getImagen(), p.getSKU(), p.getNombre(), p.getPrecio(), quantity, subTotalFormat);
-                listCart.add(cart);
+                String precioFormat = formato.format(p.getPrecio());
+                float subTotalFormat = Float.parseFloat(precioFormat);
+                Carrito productCart = new Carrito(p.getImagen(), p.getSKU(), p.getNombre(), p.getPrecio(), 1, subTotalFormat);
+                cart.add(productCart);
             }
         } else {
             Producto p = new Producto();
             p.setSKU(SKU);
             p = new ProductoDAO().read(p);
-            Carrito cart = new Carrito(p.getImagen(), p.getSKU(), p.getNombre(), p.getPrecio(), quantity, quantity * p.getPrecio());
-            listCart.add(cart);
+            Carrito productCart = new Carrito(p.getImagen(), p.getSKU(), p.getNombre(), p.getPrecio(), 1, p.getPrecio());
+            cart.add(productCart);
         }
-        
-        HashMap<String, Integer> responseJson = new HashMap<>();
-        responseJson.put("count",listCart.size());
-        String jsonResponse = new Gson().toJson(responseJson);
-        
-        response.setContentType("application/json");
-        response.setCharacterEncoding("UTF-8");
-        response.getWriter().write(jsonResponse);
     }
 
     private void deletetoCart(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -230,20 +226,43 @@ public class SvCliente extends HttpServlet {
         response.sendRedirect("viewCart");
     }
 
-    private void updatetoCart(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        String SKU = request.getParameter("SKU");
-        int newQuantity = Integer.parseInt(request.getParameter("newQuantity"));
-        float subTotalFormat;
-        String numeroFormateado;
-        for (int i = 0; i < listCart.size(); i++) {
-            if (listCart.get(i).getSKU().equals(SKU)) {
-                listCart.get(i).setCantidad(newQuantity);
-                numeroFormateado = formato.format(listCart.get(i).getCantidad() * listCart.get(i).getPrecio());
-                subTotalFormat = Float.parseFloat(numeroFormateado);
-                listCart.get(i).setSubtotal(subTotalFormat);
+    private void updateCart(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        ArrayList<Carrito> cart = (ArrayList<Carrito>) request.getSession().getAttribute("cart");
+        JsonObject json = new Gson().fromJson(request.getReader(), JsonObject.class);
+        String SKU = json.get("sku").getAsString();
+        String type = json.get("type").getAsString();
+        int value = json.get("value").getAsInt();
+        float nuevoSubtotal = 0;
+
+        if (type.equals("increment")) {
+            for (int i = 0; i < cart.size(); i++) {
+                if (cart.get(i).getSKU().equals(SKU)) {
+                    cart.get(i).setCantidad(cart.get(i).getCantidad() + 1);
+                    String subtotalFormat = formato.format(cart.get(i).getCantidad() * cart.get(i).getPrecio());
+                    float subtotalFormatFloat = Float.parseFloat(subtotalFormat);
+                    cart.get(i).setSubtotal(subtotalFormatFloat);
+                    nuevoSubtotal = cart.get(i).getSubtotal();
+                }
+            }
+        } else {
+            for (int i = 0; i < cart.size(); i++) {
+                if (cart.get(i).getSKU().equals(SKU)) {
+                    cart.get(i).setCantidad(cart.get(i).getCantidad() - 1);
+                    String subtotalFormat = formato.format(cart.get(i).getCantidad() * cart.get(i).getPrecio());
+                    float subtotalFormatFloat = Float.parseFloat(subtotalFormat);
+                    cart.get(i).setSubtotal(subtotalFormatFloat);
+                    nuevoSubtotal = cart.get(i).getSubtotal();
+                }
             }
         }
-        response.sendRedirect("viewCart");
+        
+        HashMap<String, Float> responseJson = new HashMap<>();
+        responseJson.put("nuevoSubtotal", nuevoSubtotal);
+        String jsonResponse = new Gson().toJson(responseJson);
+
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+        response.getWriter().write(jsonResponse);
     }
 
     private void viewBuySummary(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -278,7 +297,7 @@ public class SvCliente extends HttpServlet {
         }
     }
 
-    private void checkBuyComplete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    private void checkBuyComplete(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         String codigo = request.getParameter("codigo");
         Pedido pedido = new Pedido();
         pedido.setCodigo(codigo);
@@ -289,4 +308,37 @@ public class SvCliente extends HttpServlet {
             request.getRequestDispatcher("WEB-INF/customer/checkout/buyError.jsp").forward(request, response);
         }
     }
+
+    private void getCartCount(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        ArrayList<Carrito> cart = (ArrayList<Carrito>) request.getSession().getAttribute("cart");
+        int count = cart.size();
+
+        HashMap<String, Integer> responseJson = new HashMap<>();
+        responseJson.put("count", count);
+        String jsonResponse = new Gson().toJson(responseJson);
+
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+        response.getWriter().write(jsonResponse);
+    }
+
+    private void getTotalPay(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        ArrayList<Carrito> cart = (ArrayList<Carrito>) request.getSession().getAttribute("cart");
+        float fullPay = 0;
+        String fullPayFormat;
+        for (int i = 0; i < cart.size(); i++) {
+            fullPay = fullPay + cart.get(i).getSubtotal();
+        }
+        fullPayFormat = formato.format(fullPay);
+        float fullPayFormatFloat = Float.parseFloat(fullPayFormat);
+        
+        HashMap<String, Float> responseJson = new HashMap<>();
+        responseJson.put("total", fullPayFormatFloat);
+        String jsonResponse = new Gson().toJson(responseJson);
+
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+        response.getWriter().write(jsonResponse);
+    }
+   
 }

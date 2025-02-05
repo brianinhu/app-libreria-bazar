@@ -209,7 +209,7 @@
                                             <span class="text-dark">S/. <%=p.getPrecio()%></span>
                                         </div>
                                         <div>
-                                            <button onclick="addProduct('<%=p.getSKU()%>')" class="btn btn-primary btn-sm">
+                                            <button onclick="addToCart('<%=p.getSKU()%>')" class="btn btn-primary btn-sm">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
                                                      fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                                      stroke-linejoin="round" class="feather feather-plus">
@@ -268,27 +268,33 @@
         crossorigin="anonymous"></script>
         <script src="js/customer/layout.js"></script>
         <script>
-            async function addProduct(SKU) {
-                
-                let response = await fetch("addtoCart", {
+            async function addToCart(SKU) {
+                let response = await fetch("addToCart", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({ sku: SKU })
                 });
                 
                 if (response.ok) {
-                    let data = await response.json();
-                    updateCart(data);
+                    getCartCount();
                 } else {
                     console.error("Error al agregar producto al carrito");
                 }           
             }
             
-            function updateCart(data) {
-                let countElement = document.getElementById("countCart");
-                countElement.textContent = data.count;
+            async function getCartCount() {
+                let response = await fetch("getCartCount");
+                
+                if (response.ok) {
+                    let data = await response.json();
+                    let countElement = document.getElementById("countCart");
+                    countElement.textContent = data.count;
+                } else {
+                    console.error("Error al obtener cantidad de productos del carrito");
+                }
             }
             
+            document.addEventListener("DOMContentLoaded", getCartCount);
         </script>
     </body>
 </html>
