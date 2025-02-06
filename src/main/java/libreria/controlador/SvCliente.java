@@ -22,7 +22,7 @@ import libreria.modelo.dao.ProductoDAO;
 
 @WebServlet(name = "SvCliente", urlPatterns
         = {"/SvCliente", "/viewLoginC", "/loginC", "/logoutC", "/viewSignupC", "/signupC",
-            "/viewCart", "/getCartCount", "/getTotalPay", "/viewMainC", "/addToCart", "/deletetoCart", "/updateCart",
+            "/viewCart", "/getCartCount", "/getTotalPay", "/viewMainC", "/addToCart", "/deleteCart", "/updateCart",
             "/viewBuySummary", "/buyComplete", "/checkBuyComplete"})
 public class SvCliente extends HttpServlet {
 
@@ -64,8 +64,8 @@ public class SvCliente extends HttpServlet {
             case "/addToCart":
                 addToCart(request, response);
                 break;
-            case "/deletetoCart":
-                deletetoCart(request, response);
+            case "/deleteCart":
+                deleteCart(request, response);
                 break;
             case "/updateCart":
                 updateCart(request, response);
@@ -213,17 +213,24 @@ public class SvCliente extends HttpServlet {
         }
     }
 
-    private void deletetoCart(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String SKU = request.getParameter("SKU");
-        for (int i = 0; i < listCart.size(); i++) {
-            if (listCart.get(i).getSKU().equals(SKU)) {
-                listCart.remove(i);
+    private void deleteCart(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        ArrayList<Carrito> cart = (ArrayList<Carrito>) request.getSession().getAttribute("cart");
+        JsonObject json = new Gson().fromJson(request.getReader(), JsonObject.class);
+        String SKU = json.get("sku").getAsString();
+        for (int i = 0; i < cart.size(); i++) {
+            if (cart.get(i).getSKU().equals(SKU)) {
+                cart.remove(i);
                 break;
             }
         }
-        request.setAttribute("cart", listCart);
-        request.setAttribute("quantityProductToCart", listCart.size());
-        response.sendRedirect("viewCart");
+        
+        HashMap<String, ArrayList<Carrito>> responseJson = new HashMap<>();
+        responseJson.put("cart", cart);
+        String jsonResponse = new Gson().toJson(responseJson);
+
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+        response.getWriter().write(jsonResponse);
     }
 
     private void updateCart(HttpServletRequest request, HttpServletResponse response) throws IOException {

@@ -128,35 +128,39 @@
                 <div class="row">
                     <div class="col-8">
                         <table class="table">
-                            <tr>
-                                <th>Imagen</th>
-                                <th>Nombre</th>
-                                <th>Precio</th>
-                                <th>Cantidad</th>
-                                <th>Subtotal</th>
-                                <th></th>
-                            </tr>
-                            <%
-                                ArrayList<Carrito> listaCarrito = (ArrayList<Carrito>) request.getSession().getAttribute("cart");
-                                for (Carrito cp : listaCarrito) {
-                            %>
-                            <tr>
-                                <td><img src="readImage?SKUProducto=<%=cp.getSKU()%>" alt="img" width="100"/></td>
-                                <td><%=cp.getNombre()%></td>
-                                <td><%=cp.getPrecio()%></td>
-                                <td>
-                                    <div class="quantity-control">
-                                        <button class="btn-decrement" data-sku="<%=cp.getSKU()%>">-</button>
-                                        <input data-sku="<%=cp.getSKU()%>" type="number" value="<%=cp.getCantidad()%>" min="1" readonly />
-                                        <button class="btn-increment" data-sku="<%=cp.getSKU()%>">+</button>
-                                    </div>
-                                </td> 
-                                <td>
-                                    <span data-subtotal="<%=cp.getSKU()%>"><%=cp.getSubtotal()%></span>
-                                </td>
-                                <td><a class="btn btn-danger" href="deletetoCart?SKU=<%=cp.getSKU()%>">Eliminar</a></td>
-                            </tr>
-                            <%}%>
+                            <thead>
+                                <tr>
+                                    <th>Imagen</th>
+                                    <th>Nombre</th>
+                                    <th>Precio</th>
+                                    <th>Cantidad</th>
+                                    <th>Subtotal</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <%
+                                    ArrayList<Carrito> listaCarrito = (ArrayList<Carrito>) request.getSession().getAttribute("cart");
+                                    for (Carrito product : listaCarrito) {
+                                %>
+                                <tr>
+                                    <td><img src="readImage?SKUProducto=<%=product.getSKU()%>" alt="img" width="100"/></td>
+                                    <td><%=product.getNombre()%></td>
+                                    <td><%=product.getPrecio()%></td>
+                                    <td>
+                                        <div class="quantity-control">
+                                            <button class="btn-decrement" data-sku="<%=product.getSKU()%>">-</button>
+                                            <input data-sku="<%=product.getSKU()%>" type="number" value="<%=product.getCantidad()%>" min="1" readonly />
+                                            <button class="btn-increment" data-sku="<%=product.getSKU()%>">+</button>
+                                        </div>
+                                    </td> 
+                                    <td>
+                                        <span data-subtotal="<%=product.getSKU()%>"><%=product.getSubtotal()%></span>
+                                    </td>
+                                    <td><button class="btn btn-danger btn-delete" data-sku="<%=product.getSKU()%>">Eliminar</button></td>
+                                </tr>
+                                <%}%>
+                            </tbody>
                         </table>
                     </div>
                     <div class="col-4">
@@ -228,13 +232,35 @@
 
                     if (response.ok) {
                         let data = await response.json();
-                        let subtotalElement = document.querySelector('span[data-subtotal="' + SKU +'"]');
+                        let subtotalElement = document.querySelector('span[data-subtotal="' + SKU + '"]');
                         if (subtotalElement) {
                             subtotalElement.textContent = data.nuevoSubtotal;
                         }
                         getTotalPay();
                     } else {
                         console.error("Error al actualizar la cantidad");
+                    }
+                } catch (error) {
+                    console.error("Error en la solicitud:", error);
+                }
+            }
+
+            async function deleteCart(SKU) {
+                try {
+                    let response = await fetch("deleteCart", {
+                        method: "POST",
+                        headers: {"Content-Type": "application/json"},
+                        body: JSON.stringify({sku: SKU})
+                    });
+
+                    if (response.ok) {
+                        let data = await response.json();
+                        console.log("Carrito: " + data.cart);
+                        updateCartTable(data.cart);
+                        getCartCount();
+                        getTotalPay();
+                    } else {
+                        console.error("Error al eliminar producto del carrito");
                     }
                 } catch (error) {
                     console.error("Error en la solicitud:", error);
@@ -261,16 +287,39 @@
                     input.value = valor - 1;
                     updateCart(SKU, 'decrement', input.value);
                 } else {
-                    console.info("El valor no puede ser menor a 1");
+                    alert("El valor no puede ser menor a 1");
                 }
             }
 
-            document.addEventListener("DOMContentLoaded", function () {
-                console.log("DOM cargado. Listo para eventos.");
+            function updateCartTable(cart) {
+                let tableBody = document.querySelector(".table tbody");
+                tableBody.innerHTML = "";
+                console.log(cart);
+                cart.forEach(product => {
+                    tableBody.innerHTML += `
+                    <tr>
+                            <td><img src="readImage?SKUProducto=\${product.SKU}" alt="img" width="100"/></td>
+                        <td>\${product.nombre}</td>
+                        <td>\${product.precio}</td>
+                        <td>
+                            <div class="quantity-control">
+                                <button class="btn-decrement" data-sku="\${product.SKU}">-</button>
+                                <input data-sku="\${product.SKU}" type="number" value="\${product.cantidad}" min="1" readonly />
+                                <button class="btn-increment" data-sku="\${product.SKU}">+</button>
+                            </div>
+                        </td>
+                        <td>
+                            <span data-subtotal="\${product.SKU}">\${product.subtotal}</span>
+                        </td>
+                        <td><button class="btn btn-danger btn-delete" data-sku="\${product.SKU}">Eliminar</button></td>
+                    </tr>
+                `;
+                });
+
                 document.querySelectorAll('.btn-increment').forEach(button => {
                     button.addEventListener('click', function () {
                         var sku = this.getAttribute('data-sku');
-                        console.log("SKU en botón +:", sku); // Verifica el SKU
+                        console.log("SKU increment:", sku); // Verifica el SKU
                         increment(sku);
                     });
                 });
@@ -278,8 +327,43 @@
                 document.querySelectorAll('.btn-decrement').forEach(button => {
                     button.addEventListener('click', function () {
                         var sku = this.getAttribute('data-sku');
-                        console.log("SKU en botón -:", sku); // Verifica el SKU
+                        console.log("SKU decrement:", sku); // Verifica el SKU
                         decrement(sku);
+                    });
+                });
+
+                document.querySelectorAll('.btn-delete').forEach(button => {
+                    button.addEventListener('click', function () {
+                        var sku = this.getAttribute('data-sku');
+                        console.log("SKU delete:", sku);
+                        deleteCart(sku);
+                    });
+                });
+            }
+
+            document.addEventListener("DOMContentLoaded", function () {
+                console.log("DOM cargado. Listo para eventos.");
+                document.querySelectorAll('.btn-increment').forEach(button => {
+                    button.addEventListener('click', function () {
+                        var sku = this.getAttribute('data-sku');
+                        console.log("SKU increment:", sku);
+                        increment(sku);
+                    });
+                });
+
+                document.querySelectorAll('.btn-decrement').forEach(button => {
+                    button.addEventListener('click', function () {
+                        var sku = this.getAttribute('data-sku');
+                        console.log("SKU decrement:", sku);
+                        decrement(sku);
+                    });
+                });
+
+                document.querySelectorAll('.btn-delete').forEach(button => {
+                    button.addEventListener('click', function () {
+                        var sku = this.getAttribute('data-sku');
+                        console.log("SKU delete:", sku);
+                        deleteCart(sku);
                     });
                 });
             });
@@ -297,7 +381,7 @@
                     console.error("Error al obtener cantidad de productos del carrito");
                 }
             }
-            
+
             async function getTotalPay() {
                 let response = await fetch("getTotalPay");
 
@@ -314,6 +398,7 @@
 
             document.addEventListener("DOMContentLoaded", getCartCount);
             document.addEventListener("DOMContentLoaded", getTotalPay);
+
         </script>
     </body>
 </html>
