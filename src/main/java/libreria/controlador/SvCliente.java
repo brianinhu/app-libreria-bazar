@@ -23,11 +23,9 @@ import libreria.modelo.dao.ProductoDAO;
 @WebServlet(name = "SvCliente", urlPatterns
         = {"/SvCliente", "/viewLoginC", "/loginC", "/logoutC", "/viewSignupC", "/signupC",
             "/viewCart", "/getCartCount", "/getTotalPay", "/viewMainC", "/addToCart", "/deleteCart", "/updateCart",
-            "/viewBuySummary", "/buyComplete", "/checkBuyComplete"})
+            "/viewBuySummary", "/buyComplete", "/checkBuyComplete", "/newCart"})
 public class SvCliente extends HttpServlet {
 
-    protected ArrayList<Carrito> listCart = new ArrayList<>();
-    protected int quantity = 1;
     protected DecimalFormat formato = new DecimalFormat("#.##");
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -82,6 +80,9 @@ public class SvCliente extends HttpServlet {
             case "/checkBuyComplete":
                 checkBuyComplete(request, response);
                 break;
+            case "/newCart":
+                newCart(request, response);
+                break;
         }
     }
 
@@ -133,7 +134,7 @@ public class SvCliente extends HttpServlet {
         cliente = new ClienteDAO().read(cliente);
         if (cliente != null) {
             request.getSession().setAttribute("customer", cliente);
-            request.getSession().setAttribute("cart", new ArrayList<>());
+            request.getSession().setAttribute("cart", new ArrayList<Carrito>());
             request.getRequestDispatcher("WEB-INF/customer/mainC.jsp").forward(request, response);
         } else {
             request.setAttribute("msg", "El inicio de sesión de la cuenta fue incorrecto. Vuelva a intentarlo");
@@ -223,7 +224,7 @@ public class SvCliente extends HttpServlet {
                 break;
             }
         }
-        
+
         HashMap<String, ArrayList<Carrito>> responseJson = new HashMap<>();
         responseJson.put("cart", cart);
         String jsonResponse = new Gson().toJson(responseJson);
@@ -262,7 +263,7 @@ public class SvCliente extends HttpServlet {
                 }
             }
         }
-        
+
         HashMap<String, Float> responseJson = new HashMap<>();
         responseJson.put("nuevoSubtotal", nuevoSubtotal);
         String jsonResponse = new Gson().toJson(responseJson);
@@ -307,6 +308,9 @@ public class SvCliente extends HttpServlet {
     }
 
     private void getCartCount(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        if (request.getSession().getAttribute("cart") == null) {
+            request.getSession().setAttribute("cart", new ArrayList<Carrito>());
+        }
         ArrayList<Carrito> cart = (ArrayList<Carrito>) request.getSession().getAttribute("cart");
         int count = cart.size();
 
@@ -328,7 +332,7 @@ public class SvCliente extends HttpServlet {
         }
         fullPayFormat = formato.format(fullPay);
         float fullPayFormatFloat = Float.parseFloat(fullPayFormat);
-        
+
         HashMap<String, Float> responseJson = new HashMap<>();
         responseJson.put("total", fullPayFormatFloat);
         String jsonResponse = new Gson().toJson(responseJson);
@@ -337,5 +341,10 @@ public class SvCliente extends HttpServlet {
         response.setCharacterEncoding("UTF-8");
         response.getWriter().write(jsonResponse);
     }
-   
+
+    private void newCart(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.getSession().removeAttribute("cart");
+        request.getRequestDispatcher("WEB-INF/customer/mainC.jsp").forward(request, response);
+    }
+
 }
