@@ -46,7 +46,7 @@ public class PedidoDAO extends Conexion implements InterfaceCRUD<Pedido> {
             ps.executeUpdate();
 
             String codigo = e.getCodigo();
-            for (Carrito list : e.getListCartBuy()) {
+            for (Carrito list : e.getCart()) {
                 PedidoDetalle pedidodetalle = new PedidoDetalle(list.getCantidad(), list.getSubtotal(), codigo, list.getSKU());
                 new PedidoDetalleDAO().create(pedidodetalle);
             }

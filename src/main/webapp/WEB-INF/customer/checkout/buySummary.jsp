@@ -179,37 +179,37 @@
                     </div>
                     <div class="col-6" id="divder">
                         <p>Resumen de compra</p>
-                        <p>${quantityProductToCart} productos</p>
+                        <p class="countCart"></p>
                         <div class="overflow-auto" style="max-height: 300px;">
                             <div class="card mb-3" style="max-width: 540px;">
                                 <div class="row g-0">
                                     <%
-                                        ArrayList<Carrito> listaCarrito = (ArrayList<Carrito>) request.getAttribute("cart");
-                                        for (Carrito pc : listaCarrito) {
+                                        ArrayList<Carrito> cart = (ArrayList<Carrito>) request.getSession().getAttribute("cart");
+                                        for (Carrito product : cart) {
                                     %>
                                     <div class="col-md-3">
-                                        <img src="readImage?SKUProducto=<%=pc.getSKU()%>" class="img-fluid rounded-start" alt="img" width="100">
+                                        <img src="readImage?SKUProducto=<%=product.getSKU()%>" class="img-fluid rounded-start" alt="img" width="100">
                                     </div>
                                     <div class="col-md-6">
                                         <div class="card-body">
-                                            <p class="m-0 text-start">Nombre: <span><%=pc.getNombre()%></span></p>
-                                            <p class="m-0 text-start">SKU: <span><%=pc.getSKU()%></span></p>
-                                            <p class="m-0 text-start">Precio: <span><%=pc.getPrecio()%></span></p>
-                                            <p class="m-0 text-start">Cantidad: <span></span><%=pc.getCantidad()%></p>
+                                            <p class="m-0 text-start">Nombre: <span><%=product.getNombre()%></span></p>
+                                            <p class="m-0 text-start">SKU: <span><%=product.getSKU()%></span></p>
+                                            <p class="m-0 text-start">Precio: <span><%=product.getPrecio()%></span></p>
+                                            <p class="m-0 text-start">Cantidad: <span></span><%=product.getCantidad()%></p>
                                         </div>
                                     </div>
                                     <div class="col-md-3">
                                         <div class="card-body w-100 h-100 d-flex justify-content-center align-items-center">
-                                            <span>S/. <%=pc.getSubtotal()%></span>
+                                            <span>S/. <%=product.getSubtotal()%></span>
                                         </div>
                                     </div>
                                     <%}%>
                                 </div>
                             </div>
                         </div>
-                        <p>TOTAL: <span>S/. ${fullPay}</span></p>
+                        <p>TOTAL: S/. <input style="border: none; outline: none; background: transparent;" class="totalPay" readonly></input></p>
                         <div class="d-grid">
-                            <input type="hidden" value="${fullPay}" id="totalPay">
+                            <input type="hidden" class="totalPay">
                             <input type="hidden" value="<%=c.getIdcliente()%>" id="idcliente">
                             <button class="btn btn-success btn-lg" id="btn-generarcompra">GENERAR COMPRA</button>
                         </div>
@@ -221,6 +221,7 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" 
         integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
         <script>
+
             let btntienda = document.getElementById("btn-tienda");
             let btndelivery = document.getElementById("btn-delivery");
             let divtienda = document.getElementById("div-tienda");
@@ -296,7 +297,12 @@
 
                 // La variable formattedDate ahora contiene la fecha en formato YYYY-MM-DD
 
-                let totalPay = document.getElementById("totalPay").value;
+                let countElements = document.getElementsByClassName("totalPay");
+                let totalPay = 0;
+                Array.from(countElements).forEach(element => {
+                    totalPay = element.value;
+                });
+
                 let idcliente = document.getElementById("idcliente").value;
 
                 if (identrega === 1) {
@@ -336,10 +342,41 @@
                         window.location.href = "checkBuyComplete?codigo=" + codigo_Pedido;
                     },
                     error: function (error) {
-                        window.location.href = "checkBuyComplete?codigo=" + codigo_Pedido;
+                        alert("Ocurrió un error.");
                     }
                 });
             });
+
+            async function getTotalPay() {
+                let response = await fetch("getTotalPay");
+
+                if (response.ok) {
+                    let data = await response.json();
+                    let countElements = document.getElementsByClassName("totalPay");
+                    Array.from(countElements).forEach(element => {
+                        element.value = data.total;
+                    });
+                } else {
+                    console.error("Error al obtener el pago total del carrito");
+                }
+            }
+
+            async function getCartCount() {
+                let response = await fetch("getCartCount");
+
+                if (response.ok) {
+                    let data = await response.json();
+                    let countElements = document.getElementsByClassName("countCart");
+                    Array.from(countElements).forEach(element => {
+                        element.textContent = data.count + " productos en el carrito";
+                    });
+                } else {
+                    console.error("Error al obtener cantidad de productos del carrito");
+                }
+            }
+
+            document.addEventListener("DOMContentLoaded", getCartCount());
+            document.addEventListener("DOMContentLoaded", getTotalPay);
         </script>
     </body>
 </html>
