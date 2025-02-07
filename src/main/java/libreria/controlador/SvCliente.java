@@ -273,16 +273,6 @@ public class SvCliente extends HttpServlet {
     }
 
     private void viewBuySummary(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        float fullPay = 0;
-        String stringFormat;
-        for (int i = 0; i < listCart.size(); i++) {
-            fullPay = fullPay + listCart.get(i).getSubtotal();
-        }
-        stringFormat = formato.format(fullPay);
-        fullPay = Float.parseFloat(stringFormat);
-        request.setAttribute("fullPay", fullPay);
-        request.setAttribute("quantityProductToCart", listCart.size());
-        request.setAttribute("cart", listCart);
         request.getRequestDispatcher("WEB-INF/customer/checkout/buySummary.jsp").forward(request, response);
     }
 
@@ -296,10 +286,10 @@ public class SvCliente extends HttpServlet {
         int identrega = Integer.parseInt(request.getParameter("identrega"));
         int idpago = Integer.parseInt(request.getParameter("idpago"));
         String direccion = request.getParameter("direccion");
-        ArrayList<Carrito> listCartBuy = listCart;
-        if (listCart.isEmpty() || identrega == 0 || idpago == 0) {
+        ArrayList<Carrito> cart = (ArrayList<Carrito>) request.getSession().getAttribute("cart");
+        if (cart.isEmpty() || identrega == 0 || idpago == 0) {
         } else {
-            Pedido pedido = new Pedido(codigo, fecha, total, idcliente, iddistrito, idtienda, identrega, idpago, direccion, listCartBuy);
+            Pedido pedido = new Pedido(codigo, fecha, total, idcliente, iddistrito, idtienda, identrega, idpago, direccion, cart);
             new PedidoDAO().create(pedido);
         }
     }

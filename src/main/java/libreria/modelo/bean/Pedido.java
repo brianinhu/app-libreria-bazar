@@ -20,5 +20,5 @@ public class Pedido {
     private int identrega;
     private int idpago;
     private String direccion;
-    private ArrayList<Carrito> listCartBuy;
+    private ArrayList<Carrito> cart;
 }
