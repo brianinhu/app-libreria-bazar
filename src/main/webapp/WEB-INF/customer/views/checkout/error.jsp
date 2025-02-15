@@ -21,7 +21,7 @@
                 <p class="card-text">Ha ocurrido un error al procesar tu compra. Por favor, inténtalo de nuevo.
                 </p>
                 <div class="text-center">
-                    <a href="viewMainC" id="home-button">Volver a la página principal</a>
+                    <a href="<%=request.getContextPath()%>" id="home-button">Volver a la página principal</a>
                 </div>
             </div>
         </div>

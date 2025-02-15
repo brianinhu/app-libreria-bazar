@@ -23,7 +23,7 @@
                 <hr>
                 <p class="card-text">Recibirás un correo electrónico de confirmación con los detalles de tu compra.</p>
                 <div class="text-center">
-                    <a href="newCart" id="home-button">Volver a la página principal</a>
+                    <a href="<%= request.getContextPath() + "/cart?action=clear"%>" id="home-button">Volver a la página principal</a>
                 </div>
             </div>
         </div>

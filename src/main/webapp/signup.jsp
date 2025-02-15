@@ -1,9 +1,12 @@
 <%-- 
-    Document   : login
-    Created on : 18 jun. 2023, 12:20:43
+    Document   : signup
+    Created on : 18 jun. 2023, 12:21:06
     Author     : Brian
 --%>
 
+<%@page import="libreria.modelo.dao.GeneroDAO"%>
+<%@page import="libreria.modelo.bean.Genero"%>
+<%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -20,31 +23,38 @@
         <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800;900&display=swap"
               rel="stylesheet">
         <style>
-            /* Cuadro de inicio de sesión */
-            #form-login {
-                width: 500px !important;
+            /* Cuadro de registro*/
+            #form-singup {
+                width: 700px !important;
             }
 
-            #form-login .col {
+            #form-singup .col {
                 padding: 2rem;
                 margin: 1rem;
                 border: 1px solid #e6e6e6;
                 display: flex;
-                justify-content: center;
-                align-items: center;
                 flex-direction: column;
                 border-radius: 15px;
             }
-            /* Cuadro de inicio de sesión */
+
+            #form-singup input {
+                width: 600px;
+            }
+
+            #txtidgenero, #txttelefono {
+                width: 300px !important;
+            }
+
+            #btn-registrar {
+                width: 300px;
+            }
+            /* Cuadro de registro*/
         </style>
     </head>
     <body>
-        <%
-            String mensajeError = (String) request.getAttribute("msg");
-        %>
         <header>
             <header-top>
-              
+                
             </header-top>
 
             <header-button>
@@ -96,30 +106,56 @@
         </nav>
 
         <section>
-            <form id="form-login" class="container" action="loginC" method="post">
+            <form id="form-singup" class="container" action="signup" method="post" accept-charset="UTF-8">
                 <div class="row">
                     <div class="col">
-                        <span style="font-weight: bold; font-size: 2rem;">INICIAR SESIÓN</span>
-                        <div class="mb-3">
-                            <label for="exampleInputEmail1" class="form-label">Email</label>
-                            <input type="email" name="txtemail" class="form-control" id="exampleInputEmail1">
+                        <div style="text-align: left; width: 600px;">
+                            <span style="font-weight: bold; font-size: 2rem;">REGÍSTRESE</span>
                         </div>
-                        <div class="mb-3">
-                            <label for="exampleInputPassword1" class="form-label">Contraseña</label>
-                            <input type="password" name="txtcontrasena" class="form-control" id="exampleInputPassword1">
+                        <input type="hidden" id="txtidcliente" name="txtidcliente">
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="txtnombre" name="txtnombre" required>
+                            <label for="txtnombre">Nombre (*)</label>
                         </div>
-                        <div class="mb-3 form-check">
-                            <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                            <label class="form-check-label" for="exampleCheck1">Recordarme</label>
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="txtapaterno" name="txtapaterno" required>
+                            <label for="txtapaterno">Apellido paterno (*)</label>
                         </div>
-                        <button type="submit" class="btn btn-primary mb-2">Ingresar</button>
-                        <span><%=mensajeError != null ? mensajeError : ""%></span>
-                        <span style="display: block;">No tienes una cuenta? <a href="viewSignupC">Regístrate aquí</a></span>
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="txtamaterno" name="txtamaterno">
+                            <label for="txtamaterno">Apellido materno</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <select class="form-select" name="txtidgenero" id="txtidgenero">
+                                <option value="0"></option>
+                                <%
+                                    ArrayList<Genero> listaGeneros = new GeneroDAO().tolist();
+                                    for (Genero g : listaGeneros) {
+                                %>
+                                <option value = <%=g.getIdgenero()%>><%=g.getGenero()%></option>
+                                <%}%>
+                            </select>
+                            <label for="txtidgenero">Género</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="txttelefono" name="txttelefono">
+                            <label for="txttelefono">Teléfono</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="email" class="form-control" id="txtemail" name="txtemail" required>
+                            <label for="txtemail">Email (*)</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="password" class="form-control" id="txtcontrasena" name="txtcontrasena" required>
+                            <label for="txtcontrasena">Contraseña (*)</label>
+                        </div>
+                        <div class="d-grid gap-2 col-6 mx-auto">
+                            <button id="btn-registrar" class="btn btn-success" type="submit">Registrar</button>
+                        </div>
                     </div>
                 </div>
             </form>
         </section>
-
         <footer class="footer">
             <div class="container">
                 <div class="row">
@@ -154,5 +190,26 @@
                 </div>
             </div>
         </footer>
+        <script>
+            const trunk = "01234567890123456789";
+            codeGenerate = (length) => {
+                let code = "";
+                for (let i = 0; i < length; i++) {
+                    code += trunk.charAt(Math.floor(Math.random() * trunk.length));
+                }
+                return code;
+            };
+
+            var btnregistrar = document.getElementById("btn-registrar");
+            btnregistrar.addEventListener("click", () => {
+                let nombre = document.getElementById("txtnombre").value;
+                let apaterno = document.getElementById("txtapaterno").value;
+
+                let codigo = codeGenerate(3) + nombre.charAt(0).toUpperCase() + apaterno.charAt(0).toUpperCase() + codeGenerate(3);
+
+                var idcliente = document.getElementById("txtidcliente");
+                idcliente.value = codigo;
+            });
+        </script>
     </body>
 </html>

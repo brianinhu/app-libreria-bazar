@@ -58,7 +58,6 @@
     <body>
         <%
             Cliente c = (Cliente) request.getSession().getAttribute("customer");
-            float total = (float) request.getSession().getAttribute("total");
         %>
         <header>
             <header-top>
@@ -68,7 +67,7 @@
                 <div class="container-fluid">
                     <div class="row">
                         <div id="col1" class="col-12">
-                            <a href="viewMainC" class="logo">
+                            <a href="<%= request.getContextPath()%>" class="logo">
                                 <img src="img/tech-office/logo-white-transp.png"
                                      alt="logo-generico">
                             </a>
@@ -78,8 +77,9 @@
                                 <button class="btn btn-success rounded-start-0" type="submit"><i
                                         class="bi bi-search"></i></button>
                             </form>
+                            <% if (c != null) {%>
                             <nav id="nav-secundario">
-                                <a href="viewCart" class="nav-link">
+                                <a href="<%= request.getContextPath()%>/cart" class="nav-link">
                                     <div class="cart-icon">
                                         <i class="bi bi-cart-fill"></i>
                                         <span class="countCart cart-count"></span>
@@ -88,13 +88,28 @@
                                 </a>
                                 <a href="#" class="nav-link">
                                     <i class="bi bi-person-circle"></i>
-                                    <span><%=c.getNombre()%> <%=c.getApaterno()%></span>
+                                    <span>¡Hola, <%=c.getNombre()%>!</span>
                                 </a>
-                                <a href="logoutC" class="nav-link">
+                                <a href="logout" class="nav-link">
                                     <i class="bi bi-box-arrow-left"></i>
                                     <span>Cerrar sesión</span>
                                 </a>
                             </nav>
+                            <% } else {%>
+                            <nav id="nav-secundario">
+                                <a href="<%= request.getContextPath()%>/cart" class="nav-link">
+                                    <div class="cart-icon">
+                                        <i class="bi bi-cart-fill"></i>
+                                        <span class="countCart cart-count"></span>
+                                    </div>
+                                    <span>Carrito</span>
+                                </a>
+                                <a href="login" class="nav-link">
+                                    <i class="bi bi-person-circle"></i>
+                                    <span>Iniciar sesión</span>
+                                </a>
+                            </nav>
+                            <% } %>
                         </div>
                     </div>
                 </div>
@@ -177,8 +192,8 @@
                                 <input type="text" class="totalPay form-control" readonly>
                             </div>
                             <div class="card-footer d-grid gap-2">
-                                <a href="viewMainC" class="btn btn-success">Seguir comprando</a>
-                                <a href="viewBuySummary" class="btn btn-warning">Finalizar compra</a>
+                                <a href="<%= request.getContextPath()%>" class="btn btn-success">Seguir comprando</a>
+                                <a href="<%= request.getContextPath()%>/checkout" class="btn btn-warning">Finalizar compra</a>
                             </div>
                         </div>
                     </div>
@@ -222,12 +237,12 @@
         <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.0/dist/jquery.min.js"></script>
         <script type="text/javascript">
 
-            async function updateCart(SKU, tipo, valor) {
+            async function updateItemQuantity(SKU, tipo) {
                 try {
-                    let response = await fetch("updateCart", {
+                    let response = await fetch("cart?action=update", {
                         method: "POST",
                         headers: {"Content-Type": "application/json"},
-                        body: JSON.stringify({sku: SKU, type: tipo, value: valor})
+                        body: JSON.stringify({sku: SKU, type: tipo})
                     });
 
                     if (response.ok) {
@@ -236,7 +251,7 @@
                         if (subtotalElement) {
                             subtotalElement.textContent = data.nuevoSubtotal;
                         }
-                        getTotalPay();
+                        getCartTotal();
                     } else {
                         console.error("Error al actualizar la cantidad");
                     }
@@ -245,9 +260,9 @@
                 }
             }
 
-            async function deleteCart(SKU) {
+            async function removeItem(SKU) {
                 try {
-                    let response = await fetch("deleteCart", {
+                    let response = await fetch("cart?action=remove", {
                         method: "POST",
                         headers: {"Content-Type": "application/json"},
                         body: JSON.stringify({sku: SKU})
@@ -257,8 +272,8 @@
                         let data = await response.json();
                         console.log("Carrito: " + data.cart);
                         updateCartTable(data.cart);
-                        getCartCount();
-                        getTotalPay();
+                        getTotalItems();
+                        getCartTotal();
                     } else {
                         console.error("Error al eliminar producto del carrito");
                     }
@@ -268,24 +283,18 @@
             }
 
             function increment(SKU) {
-                console.log(SKU);
                 let input = document.querySelector('.quantity-control  input[data-sku="' + SKU + '"]');
-                console.log(SKU);
-                console.log(input);
                 let valor = parseInt(input.value) || 0;
                 input.value = valor + 1;
-                updateCart(SKU, 'increment', input.value);
+                updateItemQuantity(SKU, 'increment');
             }
 
             function decrement(SKU) {
-                console.log(SKU);
                 let input = document.querySelector('.quantity-control  input[data-sku="' + SKU + '"]');
-                console.log(SKU);
-                console.log(input);
                 let valor = parseInt(input.value) || 0;
                 if (valor > 1) {
                     input.value = valor - 1;
-                    updateCart(SKU, 'decrement', input.value);
+                    updateItemQuantity(SKU, 'decrement');
                 } else {
                     alert("El valor no puede ser menor a 1");
                 }
@@ -319,7 +328,6 @@
                 document.querySelectorAll('.btn-increment').forEach(button => {
                     button.addEventListener('click', function () {
                         var sku = this.getAttribute('data-sku');
-                        console.log("SKU increment:", sku); // Verifica el SKU
                         increment(sku);
                     });
                 });
@@ -327,7 +335,6 @@
                 document.querySelectorAll('.btn-decrement').forEach(button => {
                     button.addEventListener('click', function () {
                         var sku = this.getAttribute('data-sku');
-                        console.log("SKU decrement:", sku); // Verifica el SKU
                         decrement(sku);
                     });
                 });
@@ -335,8 +342,7 @@
                 document.querySelectorAll('.btn-delete').forEach(button => {
                     button.addEventListener('click', function () {
                         var sku = this.getAttribute('data-sku');
-                        console.log("SKU delete:", sku);
-                        deleteCart(sku);
+                        removeItem(sku);
                     });
                 });
             }
@@ -346,7 +352,6 @@
                 document.querySelectorAll('.btn-increment').forEach(button => {
                     button.addEventListener('click', function () {
                         var sku = this.getAttribute('data-sku');
-                        console.log("SKU increment:", sku);
                         increment(sku);
                     });
                 });
@@ -354,7 +359,6 @@
                 document.querySelectorAll('.btn-decrement').forEach(button => {
                     button.addEventListener('click', function () {
                         var sku = this.getAttribute('data-sku');
-                        console.log("SKU decrement:", sku);
                         decrement(sku);
                     });
                 });
@@ -362,14 +366,13 @@
                 document.querySelectorAll('.btn-delete').forEach(button => {
                     button.addEventListener('click', function () {
                         var sku = this.getAttribute('data-sku');
-                        console.log("SKU delete:", sku);
-                        deleteCart(sku);
+                        removeItem(sku);
                     });
                 });
             });
 
-            async function getCartCount() {
-                let response = await fetch("getCartCount");
+            async function getTotalItems() {
+                let response = await fetch("cart?action=count");
 
                 if (response.ok) {
                     let data = await response.json();
@@ -382,8 +385,8 @@
                 }
             }
 
-            async function getTotalPay() {
-                let response = await fetch("getTotalPay");
+            async function getCartTotal() {
+                let response = await fetch("cart?action=total");
 
                 if (response.ok) {
                     let data = await response.json();
@@ -396,8 +399,8 @@
                 }
             }
 
-            document.addEventListener("DOMContentLoaded", getCartCount);
-            document.addEventListener("DOMContentLoaded", getTotalPay);
+            document.addEventListener("DOMContentLoaded", getTotalItems);
+            document.addEventListener("DOMContentLoaded", getCartTotal);
 
         </script>
     </body>

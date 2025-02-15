@@ -179,7 +179,7 @@
                     </div>
                     <div class="col-6" id="divder">
                         <p>Resumen de compra</p>
-                        <p class="countCart"></p>
+                        <p><span class="countCart"></span> productos</p>
                         <div class="overflow-auto" style="max-height: 300px;">
                             <div class="card mb-3" style="max-width: 540px;">
                                 <div class="row g-0">
@@ -325,7 +325,7 @@
                 console.log(direccion);
 
                 $.ajax({
-                    url: "buyComplete",
+                    url: "confirmation",
                     type: "POST",
                     data: {
                         codigo: codigo_Pedido,
@@ -339,7 +339,7 @@
                         direccion: direccion
                     },
                     success: function (response) {
-                        window.location.href = "checkBuyComplete?codigo=" + codigo_Pedido;
+                        window.location.href = "invoice?codigo=" + codigo_Pedido;
                     },
                     error: function (error) {
                         alert("Ocurrió un error.");
@@ -347,8 +347,22 @@
                 });
             });
 
-            async function getTotalPay() {
-                let response = await fetch("getTotalPay");
+            async function getTotalItems() {
+                let response = await fetch("cart?action=count");
+
+                if (response.ok) {
+                    let data = await response.json();
+                    let countElements = document.getElementsByClassName("countCart");
+                    Array.from(countElements).forEach(element => {
+                        element.textContent = data.count;
+                    });
+                } else {
+                    console.error("Error al obtener cantidad de productos del carrito");
+                }
+            }
+
+            async function getCartTotal() {
+                let response = await fetch("cart?action=total");
 
                 if (response.ok) {
                     let data = await response.json();
@@ -361,22 +375,8 @@
                 }
             }
 
-            async function getCartCount() {
-                let response = await fetch("getCartCount");
-
-                if (response.ok) {
-                    let data = await response.json();
-                    let countElements = document.getElementsByClassName("countCart");
-                    Array.from(countElements).forEach(element => {
-                        element.textContent = data.count + " productos en el carrito";
-                    });
-                } else {
-                    console.error("Error al obtener cantidad de productos del carrito");
-                }
-            }
-
-            document.addEventListener("DOMContentLoaded", getCartCount());
-            document.addEventListener("DOMContentLoaded", getTotalPay);
+            document.addEventListener("DOMContentLoaded", getTotalItems);
+            document.addEventListener("DOMContentLoaded", getCartTotal);
         </script>
     </body>
 </html>
