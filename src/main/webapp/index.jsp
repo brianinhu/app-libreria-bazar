@@ -4,6 +4,7 @@
     Author     : Brian
 --%>
 
+<%@page import="libreria.modelo.bean.Cliente"%>
 <%@page import="libreria.modelo.dao.MarcaDAO"%>
 <%@page import="libreria.modelo.bean.Marca"%>
 <%@page import="libreria.modelo.dao.ProductoDAO"%>
@@ -30,16 +31,19 @@
     </head>
 
     <body>
+        <%
+            Cliente c = (Cliente) request.getSession().getAttribute("customer");
+        %>
         <header>
             <header-top>
-         
+
             </header-top>
 
             <header-button>
                 <div class="container-fluid">
                     <div class="row">
                         <div id="col1" class="col-12">
-                            <a href="" class="logo">
+                            <a href="<%= request.getContextPath() %>" class="logo">
                                 <img src="img/tech-office/logo-white-transp.png"
                                      alt="logo-generico">
                             </a>
@@ -49,16 +53,39 @@
                                 <button class="btn btn-success rounded-start-0" type="submit"><i
                                         class="bi bi-search"></i></button>
                             </form>
+                            <% if (c != null) {%>
                             <nav id="nav-secundario">
-                                <a href="" class="nav-link">
-                                    <i class="bi bi-cart-fill"></i>
+                                <a href="<%= request.getContextPath() %>/cart" class="nav-link">
+                                    <div class="cart-icon">
+                                        <i class="bi bi-cart-fill"></i>
+                                        <span id="countCart" class="cart-count"></span>
+                                    </div>
                                     <span>Carrito</span>
                                 </a>
-                                <a href="viewLoginC" class="nav-link">
+                                <a href="#" class="nav-link">
+                                    <i class="bi bi-person-circle"></i>
+                                    <span>¡Hola, <%=c.getNombre()%>!</span>
+                                </a>
+                                <a href="logout" class="nav-link">
+                                    <i class="bi bi-box-arrow-left"></i>
+                                    <span>Cerrar sesión</span>
+                                </a>
+                            </nav>
+                            <% } else {%>
+                            <nav id="nav-secundario">
+                                <a href="<%= request.getContextPath() %>/cart" class="nav-link">
+                                    <div class="cart-icon">
+                                        <i class="bi bi-cart-fill"></i>
+                                        <span id="countCart" class="cart-count"></span>
+                                    </div>
+                                    <span>Carrito</span>
+                                </a>
+                                <a href="<%= request.getContextPath() %>/login" class="nav-link">
                                     <i class="bi bi-person-circle"></i>
                                     <span>Iniciar sesión</span>
                                 </a>
                             </nav>
+                            <% } %>
                         </div>
                     </div>
                 </div>
@@ -199,14 +226,14 @@
                                             <span class="text-dark">S/. <%=p.getPrecio()%></span>
                                         </div>
                                         <div>
-                                            <a href="addtoCart?SKU=<%=p.getSKU()%>" class="btn btn-primary btn-sm">
+                                            <button onclick="addItem('<%=p.getSKU()%>')" class="btn btn-primary btn-sm">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
                                                      fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                                      stroke-linejoin="round" class="feather feather-plus">
                                                 <line x1="12" y1="5" x2="12" y2="19"></line>
                                                 <line x1="5" y1="12" x2="19" y2="12"></line>
                                                 </svg> Agregar
-                                            </a>
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
@@ -258,5 +285,34 @@
                 integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
         crossorigin="anonymous"></script>
         <script src="js/customer/layout.js"></script>
+        <script>
+            async function addItem(SKU) {
+                let response = await fetch("cart?action=add", {
+                    method: "POST",
+                    headers: {"Content-Type": "application/json"},
+                    body: JSON.stringify({sku: SKU})
+                });
+
+                if (response.ok) {
+                    getTotalItems();
+                } else {
+                    console.error("Error al agregar producto al carrito");
+                }
+            }
+
+            async function getTotalItems() {
+                let response = await fetch("cart?action=count");
+
+                if (response.ok) {
+                    let data = await response.json();
+                    let element = document.getElementById("countCart");
+                    element.textContent = data.count;
+                } else {
+                    console.error("Error al obtener cantidad de productos del carrito");
+                }
+            }
+
+            document.addEventListener("DOMContentLoaded", getTotalItems);
+        </script>
     </body>
 </html>
