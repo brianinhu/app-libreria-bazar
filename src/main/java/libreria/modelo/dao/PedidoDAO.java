@@ -24,7 +24,7 @@ public class PedidoDAO extends Conexion implements InterfaceCRUD<Pedido> {
             ps = cn.prepareStatement(sentence);
             ps.setString(1, e.getCodigo());
             ps.setDate(2, e.getFecha());
-            ps.setFloat(3, e.getTotal());
+            ps.setBigDecimal(3, e.getTotal());
             ps.setString(4, e.getIdcliente());
             if (e.getIddistrito() == 0) {
                 ps.setNull(5, Types.INTEGER);
@@ -69,7 +69,7 @@ public class PedidoDAO extends Conexion implements InterfaceCRUD<Pedido> {
             ps.setString(1, e.getCodigo());
             rs = ps.executeQuery();
             if (rs.next()) {
-                pedido = new Pedido(rs.getString(1), rs.getDate(2), rs.getFloat(3), rs.getString(4), rs.getInt(5), rs.getInt(6), rs.getInt(7), rs.getInt(8), rs.getString(9), null);
+                pedido = new Pedido(rs.getString(1), rs.getDate(2), rs.getBigDecimal(3), rs.getString(4), rs.getInt(5), rs.getInt(6), rs.getInt(7), rs.getInt(8), rs.getString(9), null);
             }
         } catch (SQLException ex) {
             System.out.println("Error al leer un pedido. \nDetalles: " + ex.getMessage());

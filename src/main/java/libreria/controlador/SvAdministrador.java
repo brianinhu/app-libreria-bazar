@@ -3,6 +3,7 @@ package libreria.controlador;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -169,7 +170,7 @@ public class SvAdministrador extends HttpServlet {
         String nombre = request.getParameter("txtnombre");
         String descripcion = request.getParameter("txtdescripcion");
         int idmarca = Integer.parseInt(request.getParameter("cbxMarca"));
-        float precio = Float.parseFloat(request.getParameter("txtprecio"));
+        BigDecimal precio = new BigDecimal(request.getParameter("txtprecio"));
         int stock = Integer.parseInt(request.getParameter("txtstock"));
         int idcategoria = Integer.parseInt(request.getParameter("cbxCategoria"));
         Part part = request.getPart("fileImagen");
@@ -197,7 +198,7 @@ public class SvAdministrador extends HttpServlet {
         String nombre = request.getParameter("txtnombre");
         String descripcion = request.getParameter("txtdescripcion");
         int idmarca = Integer.parseInt(request.getParameter("cbxMarca"));
-        float precio = Float.parseFloat(request.getParameter("txtprecio"));
+        BigDecimal precio = new BigDecimal(request.getParameter("txtprecio"));
         int stock = Integer.parseInt(request.getParameter("txtstock"));
         int idcategoria = Integer.parseInt(request.getParameter("cbxCategoria"));
         Part part = request.getPart("fileImagen");

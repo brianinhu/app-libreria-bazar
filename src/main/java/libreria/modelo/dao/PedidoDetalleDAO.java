@@ -20,7 +20,7 @@ public class PedidoDetalleDAO extends Conexion implements InterfaceCRUD<PedidoDe
             cn = getConnection();
             ps = cn.prepareStatement(sentence);
             ps.setInt(1, e.getCantidad());
-            ps.setFloat(2, e.getSubtotal());
+            ps.setBigDecimal(2, e.getSubtotal());
             ps.setString(3, e.getCodigo());
             ps.setString(4, e.getSKU());
             ps.executeUpdate();
