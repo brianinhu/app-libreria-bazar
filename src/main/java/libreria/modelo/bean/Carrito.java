@@ -2,6 +2,7 @@
 package libreria.modelo.bean;
 
 import java.io.InputStream;
+import java.math.BigDecimal;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,7 +14,7 @@ public class Carrito {
     private InputStream imagen;
     private String SKU;
     private String nombre;
-    private float precio;
+    private BigDecimal precio;
     private int cantidad;
-    private float subtotal;
+    private BigDecimal subtotal;
 }

@@ -1,5 +1,6 @@
 package libreria.modelo.bean;
 
+import java.math.BigDecimal;
 import java.sql.Date;
 import java.util.ArrayList;
 import lombok.AllArgsConstructor;
@@ -13,7 +14,7 @@ public class Pedido {
 
     private String codigo;
     private Date fecha;
-    private float total;
+    private BigDecimal total;
     private String idcliente;
     private int iddistrito;
     private int idtienda;

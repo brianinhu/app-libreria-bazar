@@ -1,6 +1,7 @@
 package libreria.controlador;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.sql.Date;
 import java.util.ArrayList;
 import javax.servlet.ServletException;
@@ -26,7 +27,7 @@ public class ConfirmationController extends HttpServlet {
             throws ServletException, IOException {
         String codigo = request.getParameter("codigo");
         Date fecha = Date.valueOf(request.getParameter("fecha"));
-        float total = Float.parseFloat(request.getParameter("total"));
+        BigDecimal total = new BigDecimal(request.getParameter("total"));
         String idcliente = request.getParameter("idcliente");
         int iddistrito = Integer.parseInt(request.getParameter("iddistrito"));
         int idtienda = Integer.parseInt(request.getParameter("idtienda"));

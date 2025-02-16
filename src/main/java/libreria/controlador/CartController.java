@@ -3,6 +3,7 @@ package libreria.controlador;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -77,9 +78,8 @@ public class CartController extends HttpServlet {
             for (int i = 0; i < cart.size(); i++) {
                 if (cart.get(i).getSKU().equals(SKU)) {
                     cart.get(i).setCantidad(cart.get(i).getCantidad() + 1);
-                    String subtotalFormat = formato.format(cart.get(i).getCantidad() * cart.get(i).getPrecio());
-                    float subtotalFormatFloat = Float.parseFloat(subtotalFormat);
-                    cart.get(i).setSubtotal(subtotalFormatFloat);
+                    BigDecimal subTotal = cart.get(i).getPrecio().multiply(BigDecimal.valueOf(cart.get(i).getCantidad()));
+                    cart.get(i).setSubtotal(subTotal);
                     flag = true;
                 }
             }
@@ -87,9 +87,8 @@ public class CartController extends HttpServlet {
                 Producto p = new Producto();
                 p.setSKU(SKU);
                 p = new ProductoDAO().read(p);
-                String precioFormat = formato.format(p.getPrecio());
-                float subTotalFormat = Float.parseFloat(precioFormat);
-                Carrito productCart = new Carrito(p.getImagen(), p.getSKU(), p.getNombre(), p.getPrecio(), 1, subTotalFormat);
+                BigDecimal subTotal = p.getPrecio(); 
+                Carrito productCart = new Carrito(p.getImagen(), p.getSKU(), p.getNombre(), p.getPrecio(), 1, subTotal);
                 cart.add(productCart);
             }
         } else {
@@ -126,15 +125,14 @@ public class CartController extends HttpServlet {
         JsonObject json = new Gson().fromJson(request.getReader(), JsonObject.class);
         String SKU = json.get("sku").getAsString();
         String type = json.get("type").getAsString();
-        float nuevoSubtotal = 0;
+        BigDecimal nuevoSubtotal = null;
 
         if (type.equals("increment")) {
             for (int i = 0; i < cart.size(); i++) {
                 if (cart.get(i).getSKU().equals(SKU)) {
                     cart.get(i).setCantidad(cart.get(i).getCantidad() + 1);
-                    String subtotalFormat = formato.format(cart.get(i).getCantidad() * cart.get(i).getPrecio());
-                    float subtotalFormatFloat = Float.parseFloat(subtotalFormat);
-                    cart.get(i).setSubtotal(subtotalFormatFloat);
+                    BigDecimal subTotal = cart.get(i).getPrecio().multiply(BigDecimal.valueOf(cart.get(i).getCantidad()));
+                    cart.get(i).setSubtotal(subTotal);
                     nuevoSubtotal = cart.get(i).getSubtotal();
                 }
             }
@@ -142,15 +140,14 @@ public class CartController extends HttpServlet {
             for (int i = 0; i < cart.size(); i++) {
                 if (cart.get(i).getSKU().equals(SKU)) {
                     cart.get(i).setCantidad(cart.get(i).getCantidad() - 1);
-                    String subtotalFormat = formato.format(cart.get(i).getCantidad() * cart.get(i).getPrecio());
-                    float subtotalFormatFloat = Float.parseFloat(subtotalFormat);
-                    cart.get(i).setSubtotal(subtotalFormatFloat);
+                    BigDecimal subTotal = cart.get(i).getPrecio().multiply(BigDecimal.valueOf(cart.get(i).getCantidad()));
+                    cart.get(i).setSubtotal(subTotal);
                     nuevoSubtotal = cart.get(i).getSubtotal();
                 }
             }
         }
 
-        HashMap<String, Float> responseJson = new HashMap<>();
+        HashMap<String, BigDecimal> responseJson = new HashMap<>();
         responseJson.put("nuevoSubtotal", nuevoSubtotal);
         String jsonResponse = new Gson().toJson(responseJson);
 
@@ -182,16 +179,13 @@ public class CartController extends HttpServlet {
 
     private void getCartTotal(HttpServletRequest request, HttpServletResponse response) throws IOException {
         ArrayList<Carrito> cart = (ArrayList<Carrito>) request.getSession().getAttribute("cart");
-        float fullPay = 0;
-        String fullPayFormat;
+        BigDecimal total = BigDecimal.ZERO;
         for (int i = 0; i < cart.size(); i++) {
-            fullPay = fullPay + cart.get(i).getSubtotal();
+            total = total.add(cart.get(i).getSubtotal());
         }
-        fullPayFormat = formato.format(fullPay);
-        float fullPayFormatFloat = Float.parseFloat(fullPayFormat);
 
-        HashMap<String, Float> responseJson = new HashMap<>();
-        responseJson.put("total", fullPayFormatFloat);
+        HashMap<String, BigDecimal> responseJson = new HashMap<>();
+        responseJson.put("total", total);
         String jsonResponse = new Gson().toJson(responseJson);
 
         response.setContentType("application/json");
