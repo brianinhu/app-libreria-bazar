@@ -9,7 +9,7 @@ import libreria.modelo.bean.Rol;
 public class RolDAO extends Conexion implements InterfaceCRUD<Rol> {
 
     @Override
-    public ArrayList<Rol> tolist() {
+    public ArrayList<Rol> toList() {
         ArrayList<Rol> listarol = new ArrayList<>();
         Rol rol;
         try {

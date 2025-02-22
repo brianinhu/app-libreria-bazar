@@ -9,7 +9,7 @@ import libreria.modelo.bean.Genero;
 public class GeneroDAO extends Conexion implements InterfaceCRUD<Genero> {
 
     @Override
-    public ArrayList<Genero> tolist() {
+    public ArrayList<Genero> toList() {
         String sentence = "select * from genero";
         ArrayList<Genero> listaGeneros = new ArrayList<>();
         Genero genero;

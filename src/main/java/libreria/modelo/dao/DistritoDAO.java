@@ -9,7 +9,7 @@ import libreria.modelo.bean.Distrito;
 public class DistritoDAO extends Conexion implements InterfaceCRUD<Distrito>{
 
     @Override
-    public ArrayList<Distrito> tolist() {
+    public ArrayList<Distrito> toList() {
         ArrayList<Distrito> listaDistrito = new ArrayList<>();
         Distrito distrito;
         String sentence = "select * from distrito";

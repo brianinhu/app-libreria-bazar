@@ -10,7 +10,7 @@ import libreria.modelo.bean.Tienda;
 public class TiendaDAO extends Conexion implements InterfaceCRUD<Tienda>{
 
     @Override
-    public ArrayList<Tienda> tolist() {
+    public ArrayList<Tienda> toList() {
         ArrayList<Tienda> listaTienda = new ArrayList<>();
         Tienda tienda;
         String sentence = "select * from tienda";

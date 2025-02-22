@@ -11,7 +11,7 @@ import libreria.modelo.bean.Administrador;
 public class AdministradorDAO extends Conexion implements InterfaceCRUD<Administrador> {
 
     @Override
-    public ArrayList<Administrador> tolist() {
+    public ArrayList<Administrador> toList() {
         Administrador admin;
         ArrayList<Administrador> listaAdministrador = new ArrayList<>();
         String sentence = "select * from administrador";

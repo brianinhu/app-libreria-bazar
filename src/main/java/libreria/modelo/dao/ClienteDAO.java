@@ -10,7 +10,7 @@ import libreria.modelo.bean.Cliente;
 public class ClienteDAO extends Conexion implements InterfaceCRUD<Cliente> {
 
     @Override
-    public ArrayList<Cliente> tolist() {
+    public ArrayList<Cliente> toList() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
