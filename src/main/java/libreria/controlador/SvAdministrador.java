@@ -234,7 +234,7 @@ public class SvAdministrador extends HttpServlet {
             }
             htmlTabla.append("</table>");
         } else {
-            listaAdmin = new AdministradorDAO().tolist();
+            listaAdmin = new AdministradorDAO().toList();
             htmlTabla.append("<table>");
             htmlTabla.append("<tr><th>Tipo</th><th>Personal</th><th>User</th><th>Password</th><th>Estado</th><th>Acciones</th></tr>");
             for (Administrador a : listaAdmin) {
