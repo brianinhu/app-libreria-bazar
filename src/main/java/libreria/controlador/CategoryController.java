@@ -36,6 +36,6 @@ public class CategoryController extends HttpServlet {
 
         request.setAttribute("categoria", categoria);
         request.setAttribute("productos", productos);
-        request.getRequestDispatcher("/WEB-INF/customer/views/categoria.jsp").forward(request, response);
+        request.getRequestDispatcher("/categoria.jsp").forward(request, response);
     }
 }
