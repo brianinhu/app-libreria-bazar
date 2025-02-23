@@ -10,7 +10,9 @@
 <%@page import="libreria.modelo.dao.ProductoDAO"%>
 <%@page import="libreria.modelo.bean.Producto"%>
 <%@page import="java.util.ArrayList"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page language="java" contentType="text/html" pageEncoding="UTF-8" isELIgnored="false"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -77,21 +79,13 @@
         </header>
 
         <nav id="nav-principal">
-            <a href="">BOLÍGRAFOS Y LÁPICES</a>
-            <span></span>
-            <a href="">PAPEL Y SOBRES</a>
-            <span></span>
-            <a href="">CUADERNOS Y LIBRETAS</a>
-            <span></span>
-            <a href="">MANUALIDADES</a>
-            <span></span>
-            <a href="">DIBUJO Y ARTE</a>
-            <span></span>
-            <a href="">ESCOLAR</a>
-            <span></span>
-            <a href="">OFICINA</a>
-            <span></span>
-            <a href="">LIBROS</a>
+            <ul>
+                <c:forEach var="categoria" items="${categorias}">
+                    <li><a href="${pageContext.request.contextPath}/categoria/${categoria.slug}">
+                            ${categoria.categoria}
+                        </a></li>
+                    </c:forEach>
+            </ul>
         </nav>
 
         <section>
@@ -102,7 +96,7 @@
                 <div class="container-fluid p-5">
                     <div class="row g-4 row-cols-sm-2 row-cols-md-3 row-cols-lg-4">
                         <%
-                            ArrayList<Producto> listaProducto = new ProductoDAO().tolist();
+                            ArrayList<Producto> listaProducto = new ProductoDAO().toList();
                             for (Producto p : listaProducto) {
                         %>
                         <div class="col">
@@ -195,33 +189,33 @@
                 integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
         crossorigin="anonymous"></script>
         <script>
-            async function addItem(SKU) {
-                let response = await fetch("cart?action=add", {
-                    method: "POST",
-                    headers: {"Content-Type": "application/json"},
-                    body: JSON.stringify({sku: SKU})
-                });
+                                                async function addItem(SKU) {
+                                                    let response = await fetch("cart?action=add", {
+                                                        method: "POST",
+                                                        headers: {"Content-Type": "application/json"},
+                                                        body: JSON.stringify({sku: SKU})
+                                                    });
 
-                if (response.ok) {
-                    getTotalItems();
-                } else {
-                    console.error("Error al agregar producto al carrito");
-                }
-            }
+                                                    if (response.ok) {
+                                                        getTotalItems();
+                                                    } else {
+                                                        console.error("Error al agregar producto al carrito");
+                                                    }
+                                                }
 
-            async function getTotalItems() {
-                let response = await fetch("cart?action=count");
+                                                async function getTotalItems() {
+                                                    let response = await fetch("cart?action=count");
 
-                if (response.ok) {
-                    let data = await response.json();
-                    let element = document.getElementById("countCart");
-                    element.textContent = data.count;
-                } else {
-                    console.error("Error al obtener cantidad de productos del carrito");
-                }
-            }
+                                                    if (response.ok) {
+                                                        let data = await response.json();
+                                                        let element = document.getElementById("countCart");
+                                                        element.textContent = data.count;
+                                                    } else {
+                                                        console.error("Error al obtener cantidad de productos del carrito");
+                                                    }
+                                                }
 
-            document.addEventListener("DOMContentLoaded", getTotalItems);
+                                                document.addEventListener("DOMContentLoaded", getTotalItems);
         </script>
     </body>
 </html>

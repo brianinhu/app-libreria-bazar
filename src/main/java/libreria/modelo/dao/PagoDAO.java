@@ -10,7 +10,7 @@ import libreria.modelo.bean.Pago;
 public class PagoDAO extends Conexion implements InterfaceCRUD<Pago>{
 
     @Override
-    public ArrayList<Pago> tolist() {
+    public ArrayList<Pago> toList() {
         ArrayList<Pago> listaPago = new ArrayList<>();
         Pago pago;
         String sentence = "select * from pago";

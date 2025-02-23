@@ -9,7 +9,7 @@ import libreria.modelo.bean.Personal;
 public class PersonalDAO extends Conexion implements InterfaceCRUD<Personal>{
 
     @Override
-    public ArrayList<Personal> tolist() {
+    public ArrayList<Personal> toList() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 

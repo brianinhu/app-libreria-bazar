@@ -9,7 +9,7 @@ import libreria.modelo.bean.Marca;
 public class MarcaDAO extends Conexion implements InterfaceCRUD<Marca> {
 
     @Override
-    public ArrayList<Marca> tolist() {
+    public ArrayList<Marca> toList() {
         ArrayList<Marca> listaMarcas = new ArrayList<>();
         Marca marca;
         String sentence = "select * from marca";

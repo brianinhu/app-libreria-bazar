@@ -10,7 +10,7 @@ import libreria.modelo.bean.Entrega;
 public class EntregaDAO extends Conexion implements InterfaceCRUD<Entrega>{
 
     @Override
-    public ArrayList<Entrega> tolist() {
+    public ArrayList<Entrega> toList() {
         ArrayList<Entrega> listaEntrega = new ArrayList<>();
         Entrega entrega;
         String sentence = "select * from entrega";

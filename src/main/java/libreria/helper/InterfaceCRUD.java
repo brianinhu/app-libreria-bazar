@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 public interface InterfaceCRUD<E> {
 
-    public ArrayList<E> tolist();
+    public ArrayList<E> toList();
     
     public void create(E e);
 

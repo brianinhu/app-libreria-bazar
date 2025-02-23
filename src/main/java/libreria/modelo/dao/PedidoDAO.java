@@ -12,7 +12,7 @@ import libreria.modelo.bean.PedidoDetalle;
 public class PedidoDAO extends Conexion implements InterfaceCRUD<Pedido> {
 
     @Override
-    public ArrayList<Pedido> tolist() {
+    public ArrayList<Pedido> toList() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 

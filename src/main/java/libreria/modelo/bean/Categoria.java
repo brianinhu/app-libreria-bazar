@@ -10,4 +10,5 @@ import lombok.NoArgsConstructor;
 public class Categoria {
     private int idcategoria;
     private String categoria;
+    private String slug;
 }

@@ -16,7 +16,7 @@ import libreria.modelo.bean.Producto;
 public class ProductoDAO extends Conexion implements InterfaceCRUD<Producto> {
 
     @Override
-    public ArrayList<Producto> tolist() {
+    public ArrayList<Producto> toList() {
         ArrayList<Producto> listaProductos = new ArrayList<>();
         Producto producto;
         String sentence = "select * from producto";
@@ -165,6 +165,27 @@ public class ProductoDAO extends Conexion implements InterfaceCRUD<Producto> {
             close(ps);
             close(rs);
         }
+    }
+
+    public ArrayList<Producto> getProductosByCategoria(int idCategoria) {
+        ArrayList<Producto> productos = new ArrayList<>();
+        String sentence = "SELECT * FROM producto WHERE idcategoria = ?";
+        Producto producto;
+        try {
+            cn = getConnection();
+            ps = cn.prepareStatement(sentence);
+            ps.setInt(1, idCategoria);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                producto = new Producto(rs.getString(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getBigDecimal(5), rs.getInt(6), rs.getBinaryStream(7), rs.getInt(8));
+                productos.add(producto);
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error al obtener los productos por categoría. \nDetalles: " + ex.getMessage());
+        } finally {
+            close(cn);
+        }
+        return productos;
     }
 
     private void closeSilently(Closeable closeable) {
