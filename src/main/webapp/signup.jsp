@@ -129,7 +129,7 @@
                             <select class="form-select" name="txtidgenero" id="txtidgenero">
                                 <option value="0"></option>
                                 <%
-                                    ArrayList<Genero> listaGeneros = new GeneroDAO().tolist();
+                                    ArrayList<Genero> listaGeneros = new GeneroDAO().toList();
                                     for (Genero g : listaGeneros) {
                                 %>
                                 <option value = <%=g.getIdgenero()%>><%=g.getGenero()%></option>

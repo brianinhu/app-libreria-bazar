@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -70,7 +71,7 @@ public class CartController extends HttpServlet {
     }
 
     private void addItem(HttpServletRequest request, HttpServletResponse response) throws IOException {
-                ArrayList<Carrito> cart = (ArrayList<Carrito>) request.getSession().getAttribute("cart");
+        ArrayList<Carrito> cart = (ArrayList<Carrito>) request.getSession().getAttribute("cart");
         boolean flag = false;
         JsonObject json = new Gson().fromJson(request.getReader(), JsonObject.class);
         String SKU = json.get("sku").getAsString();
@@ -87,7 +88,7 @@ public class CartController extends HttpServlet {
                 Producto p = new Producto();
                 p.setSKU(SKU);
                 p = new ProductoDAO().read(p);
-                BigDecimal subTotal = p.getPrecio(); 
+                BigDecimal subTotal = p.getPrecio();
                 Carrito productCart = new Carrito(p.getImagen(), p.getSKU(), p.getNombre(), p.getPrecio(), 1, subTotal);
                 cart.add(productCart);
             }
@@ -125,7 +126,7 @@ public class CartController extends HttpServlet {
         JsonObject json = new Gson().fromJson(request.getReader(), JsonObject.class);
         String SKU = json.get("sku").getAsString();
         String type = json.get("type").getAsString();
-        BigDecimal nuevoSubtotal = null;
+        BigDecimal nuevoSubtotal = BigDecimal.ZERO;
 
         if (type.equals("increment")) {
             for (int i = 0; i < cart.size(); i++) {
@@ -146,9 +147,9 @@ public class CartController extends HttpServlet {
                 }
             }
         }
-
-        HashMap<String, BigDecimal> responseJson = new HashMap<>();
-        responseJson.put("nuevoSubtotal", nuevoSubtotal);
+         
+        HashMap<String, String> responseJson = new HashMap<>();
+        responseJson.put("nuevoSubtotal", nuevoSubtotal.setScale(2, RoundingMode.HALF_UP).toString());
         String jsonResponse = new Gson().toJson(responseJson);
 
         response.setContentType("application/json");
@@ -184,8 +185,8 @@ public class CartController extends HttpServlet {
             total = total.add(cart.get(i).getSubtotal());
         }
 
-        HashMap<String, BigDecimal> responseJson = new HashMap<>();
-        responseJson.put("total", total);
+        HashMap<String, String> responseJson = new HashMap<>();
+        responseJson.put("total", total.setScale(2, RoundingMode.HALF_UP).toString());
         String jsonResponse = new Gson().toJson(responseJson);
 
         response.setContentType("application/json");

@@ -132,7 +132,7 @@
                                     <select id="cbxDistrito" name="cbxDistrito">
                                         <option value="" selected></option>
                                         <%
-                                            ArrayList<Distrito> listaDistrito = new DistritoDAO().tolist();
+                                            ArrayList<Distrito> listaDistrito = new DistritoDAO().toList();
                                             for (Distrito d : listaDistrito) {
                                         %>
                                         <option value="<%=d.getIddistrito()%>"><%=d.getDistrito()%></option>
@@ -150,7 +150,7 @@
                                     <select id="cbxTienda" name="cbxTienda">
                                         <option value="" selected></option>
                                         <%
-                                            ArrayList<Tienda> listaTienda = new TiendaDAO().tolist();
+                                            ArrayList<Tienda> listaTienda = new TiendaDAO().toList();
                                             for (Tienda t : listaTienda) {
                                         %>
                                         <option value="<%=t.getIdtienda()%>"><%=t.getTienda()%></option>
@@ -166,7 +166,7 @@
                                 <select id="cbxPago" name="cbxPago">
                                     <option value="" selected></option>
                                     <%
-                                        ArrayList<Pago> listaPago = new PagoDAO().tolist();
+                                        ArrayList<Pago> listaPago = new PagoDAO().toList();
                                         for (Pago p : listaPago) {
                                     %>
                                     <option value="<%=p.getIdpago()%>"><%=p.getPago()%></option>
