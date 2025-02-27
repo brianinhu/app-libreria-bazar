@@ -14,7 +14,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import libreria.modelo.bean.Carrito;
+import libreria.modelo.bean.Categoria;
 import libreria.modelo.bean.Producto;
+import libreria.modelo.dao.CategoriaDAO;
 import libreria.modelo.dao.ProductoDAO;
 
 @WebServlet("/cart")
@@ -28,6 +30,8 @@ public class CartController extends HttpServlet {
         String action = request.getParameter("action");
 
         if (action == null) {
+            ArrayList<Categoria> categorias = new CategoriaDAO().toList();
+            request.setAttribute("categorias", categorias);
             request.getRequestDispatcher("cart.jsp").forward(request, response);
             return;
         }
@@ -147,7 +151,7 @@ public class CartController extends HttpServlet {
                 }
             }
         }
-         
+
         HashMap<String, String> responseJson = new HashMap<>();
         responseJson.put("nuevoSubtotal", nuevoSubtotal.setScale(2, RoundingMode.HALF_UP).toString());
         String jsonResponse = new Gson().toJson(responseJson);
