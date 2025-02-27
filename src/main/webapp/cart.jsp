@@ -1,15 +1,11 @@
-<%-- 
-    Document   : cartC
-    Created on : 3 jul. 2023, 18:01:59
-    Author     : Brian
---%>
-
 <%@page import="libreria.modelo.bean.Carrito"%>
 <%@page import="libreria.modelo.dao.ProductoDAO"%>
 <%@page import="libreria.modelo.bean.Producto"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="libreria.modelo.bean.Cliente"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page language="java" contentType="text/html" pageEncoding="UTF-8" isELIgnored="false"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -22,8 +18,8 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800;900&display=swap"
-              rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
+
         <style>
             /*Estilo de la tabla*/
             .table tr {
@@ -61,77 +57,57 @@
         %>
         <header>
             <header-top>
-
             </header-top>
             <header-button>
-                <div class="container-fluid">
-                    <div class="row">
-                        <div id="col1" class="col-12">
-                            <a href="<%= request.getContextPath()%>" class="logo">
-                                <img src="img/tech-office/logo-white-transp.png"
-                                     alt="logo-generico">
-                            </a>
-                            <form class="d-flex" role="search">
-                                <input class="form-control rounded-end-0 shadow-none" type="search"
-                                       placeholder="¿Qué desea buscar?">
-                                <button class="btn btn-success rounded-start-0" type="submit"><i
-                                        class="bi bi-search"></i></button>
-                            </form>
-                            <% if (c != null) {%>
-                            <nav id="nav-secundario">
-                                <a href="<%= request.getContextPath()%>/cart" class="nav-link">
-                                    <div class="cart-icon">
-                                        <i class="bi bi-cart-fill"></i>
-                                        <span class="countCart cart-count"></span>
-                                    </div>
-                                    <span>Carrito</span>
-                                </a>
-                                <a href="#" class="nav-link">
-                                    <i class="bi bi-person-circle"></i>
-                                    <span>¡Hola, <%=c.getNombre()%>!</span>
-                                </a>
-                                <a href="logout" class="nav-link">
-                                    <i class="bi bi-box-arrow-left"></i>
-                                    <span>Cerrar sesión</span>
-                                </a>
-                            </nav>
-                            <% } else {%>
-                            <nav id="nav-secundario">
-                                <a href="<%= request.getContextPath()%>/cart" class="nav-link">
-                                    <div class="cart-icon">
-                                        <i class="bi bi-cart-fill"></i>
-                                        <span class="countCart cart-count"></span>
-                                    </div>
-                                    <span>Carrito</span>
-                                </a>
-                                <a href="login" class="nav-link">
-                                    <i class="bi bi-person-circle"></i>
-                                    <span>Iniciar sesión</span>
-                                </a>
-                            </nav>
-                            <% } %>
-                        </div>
+                <div id="col1">
+                    <a href="<%= request.getContextPath()%>" class="logo">
+                        <img src="img/tech-office/logo-white-transp.png"
+                             alt="logo-generico">
+                    </a>
+                    <% if (c != null) {%>
+                    <div id="group-links">
+                        <a href="<%= request.getContextPath()%>/cart" class="nav-link">
+                            <div class="cart-icon">
+                                <i class="bi bi-cart-fill"></i>
+                                <span class="countCart cart-count"></span>
+                            </div>
+                            <span>Carrito</span>
+                        </a>
+                        <a href="#" class="nav-link">
+                            <i class="bi bi-person-circle"></i>
+                            <span>¡Hola, <%=c.getNombre()%>!</span>
+                        </a>
+                        <a href="logout" class="nav-link">
+                            <i class="bi bi-box-arrow-left"></i>
+                            <span>Cerrar sesión</span>
+                        </a>
                     </div>
+                    <% } else {%>
+                    <div id="group-links">
+                        <a href="<%= request.getContextPath()%>/cart">
+                            <div class="cart-icon">
+                                <i class="bi bi-cart-fill"></i>
+                                <span class="countCart cart-count"></span>
+                            </div>
+                            <span>Carrito</span>
+                        </a>
+                        <a href="<%= request.getContextPath()%>/login">
+                            <i class="bi bi-person-circle"></i>
+                            <span>Iniciar sesión</span>
+                        </a>
+                    </div>
+                    <% } %>
                 </div>
             </header-button>
         </header>
 
         <nav id="nav-principal">
-            <div class="container-fluid">
-                <div class="row">
-                    <div id="col1">
-                        <a href="#row1">OFERTAS</a>
-                    </div>
-                    <span></span>
-                    <div id="col2">
-                        <a href="#row2">CATEGORÍAS</a>
-                    </div>
-                    <span></span>
-                    <div id="col3">
-                        <a href="#row3">LO MÁS VENDIDO</a>
-                    </div>
-                </div>
-            </div>
+            <c:forEach var="categoria" items="${categorias}">
+                <a href="${pageContext.request.contextPath}/categoria/${categoria.slug}">
+                    ${categoria.categoria}
+                </a>
+                <span></span>
+            </c:forEach>
         </nav>
 
         <section>
@@ -196,44 +172,12 @@
                                 <a href="<%= request.getContextPath()%>/checkout" class="btn btn-warning">Finalizar compra</a>
                             </div>
                         </div>
+                        <p class="small text-center m-0">${message}</p>
                     </div>
                 </div>
             </div>
         </section>
-        <footer class="footer">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-4">
-                        <h5>Enlaces</h5>
-                        <ul class="list-unstyled">
-                            <li><a href="#">Inicio</a></li>
-                            <li><a href="#">Productos</a></li>
-                            <li><a href="#">Servicios</a></li>
-                            <li><a href="#">Contacto</a></li>
-                        </ul>
-                    </div>
-                    <div class="col-md-4">
-                        <h5>Contacto</h5>
-                        <p>Dirección: Calle Principal, Ciudad</p>
-                        <p>Teléfono: 123-456-7890</p>
-                        <p>Email: info@example.com</p>
-                    </div>
-                    <div class="col-md-4">
-                        <h5>Síguenos en redes sociales</h5>
-                        <ul class="list-inline">
-                            <li class="list-inline-item"><a href="#"><i class="fab fa-facebook"></i></a></li>
-                            <li class="list-inline-item"><a href="#"><i class="fab fa-twitter"></i></a></li>
-                            <li class="list-inline-item"><a href="#"><i class="fab fa-instagram"></i></a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12 text-center">
-                        <p>&copy; 2023 Todos los derechos reservados</p>
-                    </div>
-                </div>
-            </div>
-        </footer>
+
         <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.0/dist/jquery.min.js"></script>
         <script type="text/javascript">
 
@@ -270,7 +214,6 @@
 
                     if (response.ok) {
                         let data = await response.json();
-                        console.log("Carrito: " + data.cart);
                         updateCartTable(data.cart);
                         getTotalItems();
                         getCartTotal();
@@ -324,6 +267,8 @@
                     </tr>
                 `;
                 });
+                
+                console.log("DOM cargado al actualizar el carrito.");
 
                 document.querySelectorAll('.btn-increment').forEach(button => {
                     button.addEventListener('click', function () {

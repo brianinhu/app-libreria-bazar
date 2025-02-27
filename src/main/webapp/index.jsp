@@ -1,9 +1,3 @@
-<%-- 
-    Document   : index
-    Created on : 18 jun. 2023, 11:11:41
-    Author     : Brian
---%>
-
 <%@page import="libreria.modelo.bean.Cliente"%>
 <%@page import="libreria.modelo.dao.MarcaDAO"%>
 <%@page import="libreria.modelo.bean.Marca"%>
@@ -79,143 +73,107 @@
         </header>
 
         <nav id="nav-principal">
-            <ul>
-                <c:forEach var="categoria" items="${categorias}">
-                    <li><a href="${pageContext.request.contextPath}/categoria/${categoria.slug}">
-                            ${categoria.categoria}
-                        </a></li>
-                    </c:forEach>
-            </ul>
+            <c:forEach var="categoria" items="${categorias}">
+                <a href="${pageContext.request.contextPath}/categoria/${categoria.slug}">
+                    ${categoria.categoria}
+                </a>
+                <span></span>
+            </c:forEach>
         </nav>
 
         <section>
-            <article id="article-3">
-                <div class="title-3 pt-5">
-                    <span>LO MÁS VENDIDO</span>
-                </div>
-                <div class="container-fluid p-5">
-                    <div class="row g-4 row-cols-sm-2 row-cols-md-3 row-cols-lg-4">
-                        <%
-                            ArrayList<Producto> listaProducto = new ProductoDAO().toList();
-                            for (Producto p : listaProducto) {
-                        %>
-                        <div class="col">
-                            <div class="card card-product">
-                                <div class="card-body">
-                                    <div class="text-center position-relative ">
-                                        <div class=" position-absolute top-0 start-0">
-                                            <span class="badge bg-success">Stock</span>
+            <article id="article-3 container">
+                <div class="row m-0">
+                    <div class="col-3">
+
+                    </div>
+                    <div class="col-9 container p-5">
+                        <div class="row row-cols-sm-2 row-cols-md-3 row-cols-lg-4">
+                            <%
+                                ArrayList<Producto> listaProducto = new ProductoDAO().toList();
+                                for (Producto p : listaProducto) {
+                            %>
+                            <div class="col p-0 product-col">
+                                <div class="card card-product rounded-0 border-0">
+                                    <div class="card-body p-2">
+                                        <div class="text-center position-relative div-img">
+                                            <div class=" position-absolute top-0 start-0">
+                                                <span class="badge bg-success">Stock</span>
+                                            </div>
+                                            <a href="#">
+                                                <img src="readImage?SKUProducto=<%=p.getSKU()%>" loading="lazy" width="100">
+                                            </a>
                                         </div>
-                                        <a href="#">
-                                            <img src="readImage?SKUProducto=<%=p.getSKU()%>" class="mb-3" width="150" height="180">
-                                        </a>
-                                    </div>
-                                    <div class="text-small mb-1">
-                                        <a href="#" class="text-decoration-none text-muted">
-                                            <%
-                                                Marca m = new Marca();
-                                                m.setIdmarca(p.getIdmarca());
-                                                m = new MarcaDAO().read(m);
-                                            %>
-                                            <small><%=m.getMarca()%></small>
-                                        </a>
-                                    </div>
-                                    <h2 class="fs-6">
-                                        <a href="#" class="text-inherit text-decoration-none"><%=p.getNombre()%></a>
-                                    </h2>
-                                    <div class="text-truncate" style="max-width: 600px;">
-                                        <%=p.getDescripcion()%>
-                                    </div>
-                                    <div class="d-flex justify-content-between align-items-center mt-3">
-                                        <div>
-                                            <span class="text-dark">S/. <%=p.getPrecio()%></span>
+                                        <div class="mb-1">
+                                            <a href="#" class="text-decoration-none text-muted">
+                                                <%
+                                                    Marca m = new Marca();
+                                                    m.setIdmarca(p.getIdmarca());
+                                                    m = new MarcaDAO().read(m);
+                                                %>
+                                                <small><%=m.getMarca()%></small>
+                                            </a>
                                         </div>
-                                        <div>
-                                            <button onclick="addItem('<%=p.getSKU()%>')" class="btn btn-primary btn-sm">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
-                                                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                                     stroke-linejoin="round" class="feather feather-plus">
-                                                <line x1="12" y1="5" x2="12" y2="19"></line>
-                                                <line x1="5" y1="12" x2="19" y2="12"></line>
-                                                </svg> Agregar
-                                            </button>
+                                        <small class="product-name">
+                                            <a href="#" class="text-decoration-none text-dark text-uppercase"><%=p.getNombre()%></a>
+                                        </small>
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <div>
+                                                <span class="text-dark product-price">S/ <%=p.getPrecio()%></span>
+                                            </div>
+                                            <div>
+                                                <button onclick="addItem('<%=p.getSKU()%>')" class="btn btn-primary btn-sm product-button-add">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+                                                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                                         stroke-linejoin="round" class="feather feather-plus">
+                                                    <line x1="12" y1="5" x2="12" y2="19"></line>
+                                                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                                                    </svg> Agregar
+                                                </button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                            <%}%>
                         </div>
-                        <%}%>
                     </div>
                 </div>
             </article>
         </section>
-
-        <footer class="footer">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-4">
-                        <h5>Enlaces</h5>
-                        <ul class="list-unstyled">
-                            <li><a href="#">Inicio</a></li>
-                            <li><a href="#">Productos</a></li>
-                            <li><a href="#">Contacto</a></li>
-                        </ul>
-                    </div>
-                    <div class="col-md-4">
-                        <h5>Contacto</h5>
-                        <p>Dirección: Av. Los Héroes 115, Lima, Perú</p>
-                        <p>Teléfono: +51 987 654 321</p>
-                        <p>Email: techoffice@gmail.com</p>
-                    </div>
-                    <div class="col-md-4">
-                        <h5>Síguenos en redes sociales</h5>
-                        <ul class="list-inline">
-                            <li class="list-inline-item"><a href="#"><a href="#" class="fa fa-facebook"></a></li>
-                            <li class="list-inline-item"><a href="#"><a href="#" class="fa fa-twitter"></a></li>
-                            <li class="list-inline-item"><a href="#"><a href="#" class="fa fa-instagram"></a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12 text-center">
-                        <p>&copy; 2023 Todos los derechos reservados</p>
-                    </div>
-                </div>
-            </div>
-        </footer>
 
         <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.0/dist/jquery.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
                 integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
         crossorigin="anonymous"></script>
         <script>
-                                                async function addItem(SKU) {
-                                                    let response = await fetch("cart?action=add", {
-                                                        method: "POST",
-                                                        headers: {"Content-Type": "application/json"},
-                                                        body: JSON.stringify({sku: SKU})
-                                                    });
+                                                    async function addItem(SKU) {
+                                                        let response = await fetch("cart?action=add", {
+                                                            method: "POST",
+                                                            headers: {"Content-Type": "application/json"},
+                                                            body: JSON.stringify({sku: SKU})
+                                                        });
 
-                                                    if (response.ok) {
-                                                        getTotalItems();
-                                                    } else {
-                                                        console.error("Error al agregar producto al carrito");
+                                                        if (response.ok) {
+                                                            getTotalItems();
+                                                        } else {
+                                                            console.error("Error al agregar producto al carrito");
+                                                        }
                                                     }
-                                                }
 
-                                                async function getTotalItems() {
-                                                    let response = await fetch("cart?action=count");
+                                                    async function getTotalItems() {
+                                                        let response = await fetch("cart?action=count");
 
-                                                    if (response.ok) {
-                                                        let data = await response.json();
-                                                        let element = document.getElementById("countCart");
-                                                        element.textContent = data.count;
-                                                    } else {
-                                                        console.error("Error al obtener cantidad de productos del carrito");
+                                                        if (response.ok) {
+                                                            let data = await response.json();
+                                                            let element = document.getElementById("countCart");
+                                                            element.textContent = data.count;
+                                                        } else {
+                                                            console.error("Error al obtener cantidad de productos del carrito");
+                                                        }
                                                     }
-                                                }
 
-                                                document.addEventListener("DOMContentLoaded", getTotalItems);
+                                                    document.addEventListener("DOMContentLoaded", getTotalItems);
         </script>
     </body>
 </html>

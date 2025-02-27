@@ -104,6 +104,7 @@ header-button #group-links i {
     font-weight: 500;
     font-size: 12px;
     padding: 4px 8px;
+    text-transform: uppercase;
 }
 
 #nav-principal a:hover {
@@ -123,6 +124,32 @@ header-button #group-links i {
     background-color: #000;
 }
 /* Nav principal*/
+
+/* Product */
+
+.div-img {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 250px !important;
+}
+
+.product-name {
+    display: block;
+    font-size: 13px;
+    min-height: 40px !important;
+}
+
+.product-price {
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.product-button-add {
+    font-size: 10px !important;
+    text-transform: uppercase;
+    font-weight: 700 !important;
+}
 
 /* Footer */
 .footer {
