@@ -107,7 +107,7 @@
         </nav>
 
         <section>
-            <form id="form-singup" class="container" action="signup" method="post" accept-charset="UTF-8">
+            <form id="form-singup" autocomplete="off" class="container" action="signup" method="post" accept-charset="UTF-8">
                 <div class="row">
                     <div class="col">
                         <div style="text-align: left; width: 600px;">
@@ -147,7 +147,7 @@
                             <label for="txtemail">Email (*)</label>
                         </div>
                         <div class="form-floating mb-3">
-                            <input type="password" class="form-control" id="txtcontrasena" name="txtcontrasena" required>
+                            <input type="password" class="form-control" id="txtcontrasena" name="txtcontrasena" autocomplete="new-password" required>
                             <label for="txtcontrasena">Contraseña (*)</label>
                         </div>
                         <div class="d-grid gap-2 col-6 mx-auto">
