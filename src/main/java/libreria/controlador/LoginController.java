@@ -8,13 +8,18 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import libreria.modelo.bean.Carrito;
+import libreria.modelo.bean.Categoria;
 import libreria.modelo.bean.Cliente;
+import libreria.modelo.dao.CategoriaDAO;
 import libreria.modelo.dao.ClienteDAO;
 
 @WebServlet("/login")
 public class LoginController extends HttpServlet {
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        ArrayList<Categoria> categorias = new CategoriaDAO().toList();
+        request.setAttribute("categorias", categorias);
         request.getRequestDispatcher("login.jsp").forward(request, response);
     }
 
@@ -36,4 +41,3 @@ public class LoginController extends HttpServlet {
         }
     }
 }
-
