@@ -101,7 +101,7 @@
                                                 <span class="badge bg-success">Stock</span>
                                             </div>
                                             <a href="#">
-                                                <img src="readImage?SKUProducto=<%=p.getSKU()%>" loading="lazy" width="100">
+                                                <img src="<%=p.getImagen()%>" loading="lazy">
                                             </a>
                                         </div>
                                         <div class="mb-1">
@@ -111,7 +111,7 @@
                                                     m.setIdmarca(p.getIdmarca());
                                                     m = new MarcaDAO().read(m);
                                                 %>
-                                                <small><%=m.getMarca()%></small>
+                                                <small class="text-uppercase"><%=m.getMarca()%></small>
                                             </a>
                                         </div>
                                         <small class="product-name">

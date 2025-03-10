@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Carrito {
-    private InputStream imagen;
+    private String imagen;
     private String SKU;
     private String nombre;
     private BigDecimal precio;

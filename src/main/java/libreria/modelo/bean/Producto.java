@@ -1,6 +1,5 @@
 package libreria.modelo.bean;
 
-import java.io.InputStream;
 import java.math.BigDecimal;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -17,6 +16,6 @@ public class Producto {
     private int idmarca;
     private BigDecimal precio;
     private int stock;
-    private InputStream imagen;
+    private String imagen;
     private int idcategoria;
 }

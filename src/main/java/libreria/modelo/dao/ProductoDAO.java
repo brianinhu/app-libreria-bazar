@@ -25,7 +25,7 @@ public class ProductoDAO extends Conexion implements InterfaceCRUD<Producto> {
             ps = cn.prepareStatement(sentence);
             rs = ps.executeQuery();
             while (rs.next()) {
-                producto = new Producto(rs.getString(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getBigDecimal(5), rs.getInt(6), rs.getBinaryStream(7), rs.getInt(8));
+                producto = new Producto(rs.getString(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getBigDecimal(5), rs.getInt(6), rs.getString(7), rs.getInt(8));
                 listaProductos.add(producto);
             }
         } catch (SQLException ex) {
@@ -50,7 +50,7 @@ public class ProductoDAO extends Conexion implements InterfaceCRUD<Producto> {
             ps.setInt(4, e.getIdmarca());
             ps.setBigDecimal(5, e.getPrecio());
             ps.setInt(6, e.getStock());
-            ps.setBlob(7, e.getImagen());
+            ps.setString(7, e.getImagen());
             ps.setInt(8, e.getIdcategoria());
             ps.executeUpdate();
         } catch (SQLException ex) {
@@ -72,7 +72,7 @@ public class ProductoDAO extends Conexion implements InterfaceCRUD<Producto> {
             ps.setString(1, e.getSKU());
             rs = ps.executeQuery();
             while (rs.next()) {
-                producto = new Producto(rs.getString(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getBigDecimal(5), rs.getInt(6), rs.getBinaryStream(7), rs.getInt(8));
+                producto = new Producto(rs.getString(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getBigDecimal(5), rs.getInt(6), rs.getString(7), rs.getInt(8));
             }
         } catch (SQLException ex) {
             System.out.println("Error al leer un producto. \nDetalles: " + ex.getMessage());
@@ -95,7 +95,7 @@ public class ProductoDAO extends Conexion implements InterfaceCRUD<Producto> {
             ps.setInt(3, e.getIdmarca());
             ps.setBigDecimal(4, e.getPrecio());
             ps.setInt(5, e.getStock());
-            ps.setBlob(6, e.getImagen());
+            ps.setString(6, e.getImagen());
             ps.setInt(7, e.getIdcategoria());
             ps.setString(8, e.getSKU());
             ps.executeUpdate();
@@ -177,7 +177,7 @@ public class ProductoDAO extends Conexion implements InterfaceCRUD<Producto> {
             ps.setInt(1, idCategoria);
             rs = ps.executeQuery();
             while (rs.next()) {
-                producto = new Producto(rs.getString(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getBigDecimal(5), rs.getInt(6), rs.getBinaryStream(7), rs.getInt(8));
+                producto = new Producto(rs.getString(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getBigDecimal(5), rs.getInt(6), rs.getString(7), rs.getInt(8));
                 productos.add(producto);
             }
         } catch (SQLException ex) {

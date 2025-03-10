@@ -135,7 +135,7 @@
                                     for (Carrito product : listaCarrito) {
                                 %>
                                 <tr>
-                                    <td><img src="readImage?SKUProducto=<%=product.getSKU()%>" alt="img" width="100"/></td>
+                                    <td><img src="<%=product.getImagen()%>" alt="img" width="100"/></td>
                                     <td><%=product.getNombre()%></td>
                                     <td><%=product.getPrecio()%></td>
                                     <td>

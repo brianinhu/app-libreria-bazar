@@ -52,7 +52,7 @@ header-button #group-links a {
 
 header-button #group-links a span {
     font-size: 0.8rem;
-    font-weight: 600; 
+    font-weight: 600;
 }
 
 header-button #group-links a:hover>i,
@@ -131,7 +131,14 @@ header-button #group-links i {
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 250px !important;
+    min-height: 240px !important;
+    padding-bottom: 25%;
+
+}
+
+.div-img img {
+    max-width: 100%;
+    height: auto;
 }
 
 .product-name {
