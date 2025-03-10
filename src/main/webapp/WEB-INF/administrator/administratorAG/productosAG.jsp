@@ -221,7 +221,7 @@
                             </thead>
                             <tbody>
                                 <%
-                                    ArrayList<Producto> listaProductos = new ProductoDAO().tolist();
+                                    ArrayList<Producto> listaProductos = new ProductoDAO().toList();
                                     for (Producto producto : listaProductos) {
                                 %>
                                 <tr style="min-height: 150px;">
@@ -243,9 +243,9 @@
                                     <td><%=marca.getMarca()%></td>
                                     <td><%=producto.getPrecio()%></td>
                                     <td><%=producto.getStock()%></td>
-                                    <td><img style="width: 90px;" src="readImage?SKUProducto=<%=producto.getSKU()%>" alt="img"/></td>
+                                    <td><img style="width: 90px;" src="<%=producto.getImagen()%>" alt="img"/></td>
                                         <%
-                                            Categoria categoria = new Categoria(producto.getIdcategoria(), "");
+                                            Categoria categoria = new Categoria(producto.getIdcategoria(), "", "");
                                             categoria = new CategoriaDAO().read(categoria);
                                         %>
                                     <td><%=categoria.getCategoria()%></td>
@@ -298,7 +298,7 @@
                                         <select name="cbxCategoria" class="form-select" required>
                                             <option selected hidden>Seleccione</option>
                                             <%
-                                                ArrayList<Categoria> listaCategorias = new CategoriaDAO().tolist();
+                                                ArrayList<Categoria> listaCategorias = new CategoriaDAO().toList();
                                                 for (Categoria c : listaCategorias) {
                                             %>
                                             <option value="<%=c.getIdcategoria()%>"><%=c.getCategoria()%></option>
@@ -324,7 +324,7 @@
                                         <select name="cbxMarca" class="form-select" required>
                                             <option selected hidden>Seleccione</option>
                                             <%
-                                                ArrayList<Marca> listaMarcas = new MarcaDAO().tolist();
+                                                ArrayList<Marca> listaMarcas = new MarcaDAO().toList();
                                                 for (Marca m : listaMarcas) {
                                             %>
                                             <option value="<%=m.getIdmarca()%>"><%=m.getMarca()%></option>
