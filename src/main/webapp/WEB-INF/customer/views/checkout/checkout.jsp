@@ -188,7 +188,7 @@
                                         for (Carrito product : cart) {
                                     %>
                                     <div class="col-md-3">
-                                        <img src="readImage?SKUProducto=<%=product.getSKU()%>" class="img-fluid rounded-start" alt="img" width="100">
+                                        <img src="<%=product.getImagen()%>" class="img-fluid rounded-start" alt="img" width="100">
                                     </div>
                                     <div class="col-md-6">
                                         <div class="card-body">

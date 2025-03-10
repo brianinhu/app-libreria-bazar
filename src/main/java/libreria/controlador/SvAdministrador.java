@@ -1,7 +1,6 @@
 package libreria.controlador;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.PrintWriter;
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -11,7 +10,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.Part;
 import libreria.modelo.bean.Administrador;
 import libreria.modelo.bean.Personal;
 import libreria.modelo.bean.Producto;
@@ -151,11 +149,11 @@ public class SvAdministrador extends HttpServlet {
                 }
             } else {
                 request.setAttribute("messageError", "Su cuenta ha sido desactivada. \nContacte con el administrador general para más información");
-                request.getRequestDispatcher("loginA.jsp").forward(request, response);
+                request.getRequestDispatcher("jsp-1444-admin.jsp").forward(request, response);
             }
         } else {
             request.setAttribute("messageError", "Credenciales incorrectas. \nInténtelo nuevamente");
-            request.getRequestDispatcher("loginA.jsp").forward(request, response);
+            request.getRequestDispatcher("jsp-1444-admin.jsp").forward(request, response);
         }
 
     }
@@ -173,9 +171,7 @@ public class SvAdministrador extends HttpServlet {
         BigDecimal precio = new BigDecimal(request.getParameter("txtprecio"));
         int stock = Integer.parseInt(request.getParameter("txtstock"));
         int idcategoria = Integer.parseInt(request.getParameter("cbxCategoria"));
-        Part part = request.getPart("fileImagen");
-        InputStream inputStream = part.getInputStream();
-        Producto p = new Producto(SKU, nombre, descripcion, idmarca, precio, stock, inputStream, idcategoria);
+        Producto p = new Producto(SKU, nombre, descripcion, idmarca, precio, stock, "", idcategoria);
         new ProductoDAO().create(p);
         request.getRequestDispatcher("WEB-INF/administrator/administratorAG/productosAG.jsp").forward(request, response);
     }
@@ -201,9 +197,7 @@ public class SvAdministrador extends HttpServlet {
         BigDecimal precio = new BigDecimal(request.getParameter("txtprecio"));
         int stock = Integer.parseInt(request.getParameter("txtstock"));
         int idcategoria = Integer.parseInt(request.getParameter("cbxCategoria"));
-        Part part = request.getPart("fileImagen");
-        InputStream inputStream = part.getInputStream();
-        Producto p = new Producto(SKU, nombre, descripcion, idmarca, precio, stock, inputStream, idcategoria);
+        Producto p = new Producto(SKU, nombre, descripcion, idmarca, precio, stock, "", idcategoria);
         new ProductoDAO().update(p);
         request.getRequestDispatcher("WEB-INF/administrator/administratorAG/productosAG.jsp").forward(request, response);
     }
