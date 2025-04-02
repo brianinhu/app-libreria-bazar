@@ -1,20 +1,16 @@
 package libreria.modelo.dao;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
 import java.io.Closeable;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import javax.servlet.http.HttpServletResponse;
 import libreria.conexion.Conexion;
 import libreria.helper.InterfaceCRUD;
+import libreria.modelo.bean.Marca;
 import libreria.modelo.bean.Producto;
 
 public class ProductoDAO extends Conexion implements InterfaceCRUD<Producto> {
-
+    
     @Override
     public ArrayList<Producto> toList() {
         ArrayList<Producto> listaProductos = new ArrayList<>();
@@ -25,7 +21,7 @@ public class ProductoDAO extends Conexion implements InterfaceCRUD<Producto> {
             ps = cn.prepareStatement(sentence);
             rs = ps.executeQuery();
             while (rs.next()) {
-                producto = new Producto(rs.getString(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getBigDecimal(5), rs.getInt(6), rs.getString(7), rs.getInt(8));
+                producto = new Producto(rs.getString(1), rs.getString(2), rs.getString(3), null, rs.getBigDecimal(5), rs.getInt(6), rs.getString(7), rs.getInt(8));
                 listaProductos.add(producto);
             }
         } catch (SQLException ex) {
@@ -37,7 +33,7 @@ public class ProductoDAO extends Conexion implements InterfaceCRUD<Producto> {
         }
         return listaProductos;
     }
-
+    
     @Override
     public void create(Producto e) {
         String sentence = "insert into producto(SKU, nombre, descripcion, idmarca, precio, stock, imagen, idcategoria) values (?,?,?,?,?,?,?,?)";
@@ -47,7 +43,6 @@ public class ProductoDAO extends Conexion implements InterfaceCRUD<Producto> {
             ps.setString(1, e.getSKU());
             ps.setString(2, e.getNombre());
             ps.setString(3, e.getDescripcion());
-            ps.setInt(4, e.getIdmarca());
             ps.setBigDecimal(5, e.getPrecio());
             ps.setInt(6, e.getStock());
             ps.setString(7, e.getImagen());
@@ -61,7 +56,7 @@ public class ProductoDAO extends Conexion implements InterfaceCRUD<Producto> {
             close(rs);
         }
     }
-
+    
     @Override
     public Producto read(Producto e) {
         Producto producto = null;
@@ -72,7 +67,7 @@ public class ProductoDAO extends Conexion implements InterfaceCRUD<Producto> {
             ps.setString(1, e.getSKU());
             rs = ps.executeQuery();
             while (rs.next()) {
-                producto = new Producto(rs.getString(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getBigDecimal(5), rs.getInt(6), rs.getString(7), rs.getInt(8));
+                producto = new Producto(rs.getString(1), rs.getString(2), rs.getString(3), null, rs.getBigDecimal(5), rs.getInt(6), rs.getString(7), rs.getInt(8));
             }
         } catch (SQLException ex) {
             System.out.println("Error al leer un producto. \nDetalles: " + ex.getMessage());
@@ -83,7 +78,7 @@ public class ProductoDAO extends Conexion implements InterfaceCRUD<Producto> {
         }
         return producto;
     }
-
+    
     @Override
     public void update(Producto e) {
         String sentence = "update producto set nombre = ?, descripcion = ?, idmarca = ?, precio = ?, stock = ?, imagen = ?, idcategoria = ? where SKU = ?";
@@ -92,7 +87,6 @@ public class ProductoDAO extends Conexion implements InterfaceCRUD<Producto> {
             ps = cn.prepareStatement(sentence);
             ps.setString(1, e.getNombre());
             ps.setString(2, e.getDescripcion());
-            ps.setInt(3, e.getIdmarca());
             ps.setBigDecimal(4, e.getPrecio());
             ps.setInt(5, e.getStock());
             ps.setString(6, e.getImagen());
@@ -107,7 +101,7 @@ public class ProductoDAO extends Conexion implements InterfaceCRUD<Producto> {
             close(rs);
         }
     }
-
+    
     @Override
     public void delete(Producto e) {
         String sentence = "delete from producto where SKU = ?";
@@ -124,52 +118,10 @@ public class ProductoDAO extends Conexion implements InterfaceCRUD<Producto> {
             close(rs);
         }
     }
-
-    public void readImage(String SKU, HttpServletResponse response) {
-        String sentence = "select * from producto where SKU = ?";
-        InputStream inputStream = null;
-        OutputStream outputStream = null;
-        BufferedInputStream bufferedInputStream = null;
-        BufferedOutputStream bufferedOutputStream = null;
-        try {
-            response.setContentType("image/png");
-
-            outputStream = response.getOutputStream();
-
-            cn = getConnection();
-            ps = cn.prepareStatement(sentence);
-            ps.setString(1, SKU);
-            rs = ps.executeQuery();
-
-            if (rs.next()) {
-                inputStream = rs.getBinaryStream(7);
-            }
-
-            bufferedInputStream = new BufferedInputStream(inputStream);
-            bufferedOutputStream = new BufferedOutputStream(outputStream);
-
-            byte[] buffer = new byte[8192];
-            int bytesRead;
-
-            while ((bytesRead = bufferedInputStream.read(buffer)) != -1) {
-                bufferedOutputStream.write(buffer, 0, bytesRead);
-            }
-        } catch (SQLException | IOException ex) {
-            System.out.println("Error al cargar la imagen del producto. \nDetalles: " + ex.getMessage());
-        } finally {
-            closeSilently(bufferedOutputStream);
-            closeSilently(bufferedInputStream);
-            closeSilently(outputStream);
-            closeSilently(inputStream);
-            close(cn);
-            close(ps);
-            close(rs);
-        }
-    }
-
+    
     public ArrayList<Producto> getProductosByCategoria(int idCategoria) {
         ArrayList<Producto> productos = new ArrayList<>();
-        String sentence = "SELECT * FROM producto WHERE idcategoria = ?";
+        String sentence = "SELECT p.*, m.marca AS nombre_marca FROM producto p INNER JOIN marca m ON p.idmarca = m.idmarca WHERE p.idcategoria = ?";
         Producto producto;
         try {
             cn = getConnection();
@@ -177,7 +129,16 @@ public class ProductoDAO extends Conexion implements InterfaceCRUD<Producto> {
             ps.setInt(1, idCategoria);
             rs = ps.executeQuery();
             while (rs.next()) {
-                producto = new Producto(rs.getString(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getBigDecimal(5), rs.getInt(6), rs.getString(7), rs.getInt(8));
+                producto = new Producto();
+                producto.setSKU(rs.getString("SKU"));
+                producto.setNombre(rs.getString("nombre"));
+                producto.setPrecio(rs.getBigDecimal("precio"));
+                producto.setImagen(rs.getString("imagen"));
+                Marca marca = new Marca();
+                marca.setIdmarca(rs.getInt("idmarca"));
+                marca.setMarca(rs.getString("nombre_marca"));
+                producto.setMarca(marca);
+                
                 productos.add(producto);
             }
         } catch (SQLException ex) {
@@ -187,14 +148,14 @@ public class ProductoDAO extends Conexion implements InterfaceCRUD<Producto> {
         }
         return productos;
     }
-
+    
     private void closeSilently(Closeable closeable) {
         try {
             if (closeable != null) {
                 closeable.close();
             }
         } catch (IOException ex) {
-
+            
         }
     }
 }

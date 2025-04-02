@@ -13,7 +13,7 @@ public class Producto {
     private String SKU;
     private String nombre;
     private String descripcion;
-    private int idmarca;
+    private Marca marca;
     private BigDecimal precio;
     private int stock;
     private String imagen;

@@ -18,7 +18,7 @@ public class HomeController extends HttpServlet {
             throws ServletException, IOException {
         
         ArrayList<Categoria> categorias = new CategoriaDAO().toList();
-        request.setAttribute("categorias", categorias);
+        request.getSession().setAttribute("categorias", categorias);
 
         request.getRequestDispatcher("index.jsp").forward(request, response);
     }
