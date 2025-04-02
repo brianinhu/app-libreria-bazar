@@ -167,18 +167,15 @@ public class SvAdministrador extends HttpServlet {
         String SKU = request.getParameter("txtSKUCreate");
         String nombre = request.getParameter("txtnombre");
         String descripcion = request.getParameter("txtdescripcion");
-        int idmarca = Integer.parseInt(request.getParameter("cbxMarca"));
         BigDecimal precio = new BigDecimal(request.getParameter("txtprecio"));
         int stock = Integer.parseInt(request.getParameter("txtstock"));
         int idcategoria = Integer.parseInt(request.getParameter("cbxCategoria"));
-        Producto p = new Producto(SKU, nombre, descripcion, idmarca, precio, stock, "", idcategoria);
+        Producto p = new Producto(SKU, nombre, descripcion, null, precio, stock, "", idcategoria);
         new ProductoDAO().create(p);
         request.getRequestDispatcher("WEB-INF/administrator/administratorAG/productosAG.jsp").forward(request, response);
     }
 
     private void readImage(HttpServletRequest request, HttpServletResponse response) {
-        String SKU = request.getParameter("SKUProducto");
-        new ProductoDAO().readImage(SKU, response);
     }
 
     private void deleteProducto(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
@@ -197,7 +194,7 @@ public class SvAdministrador extends HttpServlet {
         BigDecimal precio = new BigDecimal(request.getParameter("txtprecio"));
         int stock = Integer.parseInt(request.getParameter("txtstock"));
         int idcategoria = Integer.parseInt(request.getParameter("cbxCategoria"));
-        Producto p = new Producto(SKU, nombre, descripcion, idmarca, precio, stock, "", idcategoria);
+        Producto p = new Producto(SKU, nombre, descripcion, null, precio, stock, "", idcategoria);
         new ProductoDAO().update(p);
         request.getRequestDispatcher("WEB-INF/administrator/administratorAG/productosAG.jsp").forward(request, response);
     }
