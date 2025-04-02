@@ -1,19 +1,18 @@
-/* Estilos universales*/
+/* Estilos universales */
 body {
     box-sizing: border-box;
     font-family: 'Manrope', sans-serif !important;
 }
-/* Estilos universales*/
+/* Estilos universales */
 
-
+/* Header */
 header {
     position: sticky;
     top: 0;
     z-index: 1000;
     box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
 }
-
-/* Header button*/
+/* Header Button*/
 header-button #col1 {
     background-color: #4F2CF8;
     height: 10vh;
@@ -69,6 +68,7 @@ header-button #group-links span {
 header-button #group-links i {
     font-size: 1.5rem;
 }
+/* Header Button*/
 /*Icono del carrito*/
 .cart-icon {
     position: relative;
@@ -88,8 +88,7 @@ header-button #group-links i {
     border-radius: 50%;
 }
 /*Icono del carrito*/
-/* Header button*/
-
+/* Header Button */
 
 /* Nav principal*/
 #nav-principal {
@@ -125,71 +124,17 @@ header-button #group-links i {
 }
 /* Nav principal*/
 
-/* Product */
-
-.div-img {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 240px !important;
-    padding-bottom: 25%;
-
+/* Main */
+main #index-section-1 {
+    background-color: beige;
+    height: 50vh;
 }
-
-.div-img img {
-    max-width: 100%;
-    height: auto;
-}
-
-.product-name {
-    display: block;
-    font-size: 13px;
-    min-height: 40px !important;
-}
-
-.product-price {
-    font-size: 18px;
-    font-weight: 500;
-}
-
-.product-button-add {
-    font-size: 10px !important;
-    text-transform: uppercase;
-    font-weight: 700 !important;
-}
+/* Main */
 
 /* Footer */
-.footer {
-    background-color: #f8f9fa;
-    padding: 40px 0;
+
+footer {
+    background-color: #f2f2f2;
 }
 
-.footer h5 {
-    font-size: 18px;
-    font-weight: bold;
-}
-
-.footer p {
-    font-size: 14px;
-    line-height: 1.5;
-    margin-bottom: 10px;
-}
-
-.footer a {
-    color: #333;
-    text-decoration: none;
-}
-
-.footer ul.list-unstyled li {
-    margin-bottom: 10px;
-}
-
-.footer ul.list-inline li {
-    margin-right: 10px;
-}
-
-.footer p.copyright {
-    margin-top: 20px;
-    font-size: 12px;
-}
 /* Footer */
