@@ -1,4 +1,4 @@
-package libreria.controlador;
+package libreria.controlador.customer;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;

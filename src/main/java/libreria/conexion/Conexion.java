@@ -8,7 +8,7 @@ import java.sql.SQLException;
 
 public class Conexion {
 
-    protected final String URL = "jdbc:mysql://localhost/";
+    protected final String URL = "jdbc:mysql://localhost/dblibreria";
     protected final String USER = "root";
     protected final String PASS = "12345"; /*Contraseña de su gestor MYSQL*/
     protected Connection cn;

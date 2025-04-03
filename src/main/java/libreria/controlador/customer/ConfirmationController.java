@@ -1,4 +1,4 @@
-package libreria.controlador;
+package libreria.controlador.customer;
 
 import java.io.IOException;
 import java.math.BigDecimal;
