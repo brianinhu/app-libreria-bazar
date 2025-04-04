@@ -103,7 +103,6 @@ CREATE TABLE `cliente` (
 
 LOCK TABLES `cliente` WRITE;
 /*!40000 ALTER TABLE `cliente` DISABLE KEYS */;
-INSERT INTO `cliente` VALUES ('026ZI044','ZacarÃ­as','Inca','Quispe','912345678','zacarias@gmail.com','zacarias123!',1);
 /*!40000 ALTER TABLE `cliente` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -214,7 +213,7 @@ CREATE TABLE `pago` (
   `idpago` int NOT NULL AUTO_INCREMENT,
   `pago` varchar(60) NOT NULL,
   PRIMARY KEY (`idpago`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -223,7 +222,7 @@ CREATE TABLE `pago` (
 
 LOCK TABLES `pago` WRITE;
 /*!40000 ALTER TABLE `pago` DISABLE KEYS */;
-INSERT INTO `pago` VALUES (1,'Tarjeta de crédito/débito'),(2,'Transferencia bancaria');
+INSERT INTO `pago` VALUES (1,'Tarjeta de crédito/débito'),(2,'Transferencia bancaria'),(3,'Yape'),(4,'Plin');
 /*!40000 ALTER TABLE `pago` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -264,7 +263,6 @@ CREATE TABLE `pedido` (
 
 LOCK TABLES `pedido` WRITE;
 /*!40000 ALTER TABLE `pedido` DISABLE KEYS */;
-INSERT INTO `pedido` VALUES ('FLBB817','2025-03-04',174.3,'026ZI044',NULL,2,1,1,NULL);
 /*!40000 ALTER TABLE `pedido` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -295,7 +293,6 @@ CREATE TABLE `pedido_detalle` (
 
 LOCK TABLES `pedido_detalle` WRITE;
 /*!40000 ALTER TABLE `pedido_detalle` DISABLE KEYS */;
-INSERT INTO `pedido_detalle` VALUES (1,1,174.3,'FLBB817','DIW56LGQ55');
 /*!40000 ALTER TABLE `pedido_detalle` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -419,4 +416,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-03-16 19:40:21
+-- Dump completed on 2025-04-04 15:57:04
