@@ -45,7 +45,7 @@
                             <i class="bi bi-person-circle"></i>
                             <span>¡Hola, <%=c.getNombre()%>!</span>
                         </a>
-                        <a href="logout" class="nav-link">
+                        <a href="<%= request.getContextPath()%>/logout" class="nav-link">
                             <i class="bi bi-box-arrow-left"></i>
                             <span>Cerrar sesión</span>
                         </a>
