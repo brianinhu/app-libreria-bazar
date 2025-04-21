@@ -12,6 +12,7 @@ public class Producto {
 
     private String SKU;
     private String nombre;
+    private String slug;
     private String descripcion;
     private Marca marca;
     private BigDecimal precio;

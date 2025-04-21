@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import libreria.conexion.Conexion;
 import libreria.helper.InterfaceCRUD;
 import libreria.modelo.bean.Categoria;
-import libreria.modelo.bean.Producto;
 
 public class CategoriaDAO extends Conexion implements InterfaceCRUD<Categoria> {
 
@@ -71,21 +70,21 @@ public class CategoriaDAO extends Conexion implements InterfaceCRUD<Categoria> {
     
     public Categoria getBySlug(String slug) {
         String sentence = "SELECT * FROM categoria WHERE categoria.slug = ?";
-        Categoria slugCategoria = null;
+        Categoria categoria = null;
         try {
             cn = getConnection();
             ps = cn.prepareStatement(sentence);
             ps.setString(1, slug);
             rs = ps.executeQuery();
             if (rs.next()) {
-                slugCategoria = new Categoria(rs.getInt(1), rs.getString(2), rs.getString(3));
+                categoria = new Categoria(rs.getInt(1), rs.getString(2), rs.getString(3));
             }
         } catch (SQLException ex) {
             System.out.println("Error al obtener el slug de la categoría. \nDetalles: " + ex.getMessage());
         } finally {
             close(cn);
         }
-        return slugCategoria;
+        return categoria;
     }
 
 }
