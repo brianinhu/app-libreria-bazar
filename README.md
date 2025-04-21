@@ -1,45 +1,42 @@
-# Librería TechOffice
+# Library TechOffice
 
-## Introducción
-Proyecto de una tienda online con temática de papelería. 
+## Introduction
+Online store project with stationery theme.
 
-## Diagrama de base de datos
-El diagrama Entidad-Relación de la tienda web consta de 14 tablas, de las cuales, 3 tablas pertenecen al área administrativa y 11 al área del cliente.
+## Database diagram
+The Entity-Relationship diagram of the web store consists of 14 tables. Of these, 3 tables belong to the administrative area and 11 tables belong to the customer area.
 
 <p align="center">
   <img src="http://raw.githubusercontent.com/brianinhu/app-libreria-bazar/master/database/graphic/dblibreriabazar.png" width="700" alt="Descripción de la imagen">
 </p>
 
-## Tecnologías
+## Technologies
 - HTML
 - CSS
 - JavaScript
 - Java
 - JSP (Java Server Pages)
 
-## Librerías/Frameworks
+## Libraries/Frameworks
 - JQuery
 - Bootstrap 5.3.0
 - SweetAlert
 - Maven Repository
 - Google Fonts
 
-## Requisitos previos
+## Prerequisites
 - Java EE 7 Web
 - Java JDK 17
 - Apache Tomcat 9 (9.0.83)
 - MySQL 8 (8.0.35)
-- Apache NetBeans 17 o superior
-- Git (2.43.0) (Opcional)
+- Apache NetBeans 17 or above
+- Git (2.43.0) (Optional)
 
-## Instalación
-1. Clonar o descargar el repositorio
-2. Crear la base de datos con el nombre dblibreriabazar en MySQL.
-3. Importar el archivo dblibreriabazar_backup.sql que se encuentra en la carpeta database > backup
-4. Abrir el proyecto app-libreria-bazar en Apache NetBeans
-5. Configurar el archivo Conexion.java que se encuentra en el paquete java > tienda > conexion con los datos de su base de datos MySQL
-6. Darle click a la opción "Clean and build project" para corregir cualquier problema de lectura de archivos js y css, si hubiera.
-7. Ejecutar el proyecto y esperar hasta que abra la página automáticamente o abrir su browser e insertar la URL http://localhost:8080/appLibreriaBazar/
-
-## Notas
-El proyecto aún se encuentra en construcción. Cualquier apoyo será bienvenido!
+## Installation
+1. Clone or download the repository
+2. Crete the database with the name *dblibreria* in MySQL.
+3. Import in MySQL the database file *dblibreriabazar_backup.sql* located in *database > backup* folder
+4. Open the app-libreria-bazar project in Apache NetBeans
+5. Configure the *Conexion.java* file, located in the *java > tienda > conexion* package, with data from your MySQL database.
+6. Click on the "Clean and build project" option in Apache to fix problem reading js or css files, if any.
+7. Run the project and wait for the page to open automatically or open your browser and enter the url http://localhost:8080/appLibreriaBazar/
