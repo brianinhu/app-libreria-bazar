@@ -94,7 +94,7 @@
                                             <div class=" position-absolute top-0 start-0">
                                                 <span class="badge bg-success">Stock</span>
                                             </div>
-                                            <a href="#">
+                                            <a href="${pageContext.request.contextPath}/producto/${producto.slug}">
                                                 <img src="${pageContext.request.contextPath}/${producto.imagen}" loading="lazy">
                                             </a>
                                         </div>
