@@ -10,7 +10,7 @@ import libreria.modelo.bean.Marca;
 import libreria.modelo.bean.Producto;
 
 public class ProductoDAO extends Conexion implements InterfaceCRUD<Producto> {
-    
+
     @Override
     public ArrayList<Producto> toList() {
         ArrayList<Producto> listaProductos = new ArrayList<>();
@@ -21,7 +21,7 @@ public class ProductoDAO extends Conexion implements InterfaceCRUD<Producto> {
             ps = cn.prepareStatement(sentence);
             rs = ps.executeQuery();
             while (rs.next()) {
-                producto = new Producto(rs.getString(1), rs.getString(2), rs.getString(3), null, rs.getBigDecimal(5), rs.getInt(6), rs.getString(7), rs.getInt(8));
+                producto = new Producto(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), null, rs.getBigDecimal(6), rs.getInt(7), rs.getString(8), rs.getInt(9));
                 listaProductos.add(producto);
             }
         } catch (SQLException ex) {
@@ -33,7 +33,7 @@ public class ProductoDAO extends Conexion implements InterfaceCRUD<Producto> {
         }
         return listaProductos;
     }
-    
+
     @Override
     public void create(Producto e) {
         String sentence = "insert into producto(SKU, nombre, descripcion, idmarca, precio, stock, imagen, idcategoria) values (?,?,?,?,?,?,?,?)";
@@ -56,7 +56,7 @@ public class ProductoDAO extends Conexion implements InterfaceCRUD<Producto> {
             close(rs);
         }
     }
-    
+
     @Override
     public Producto read(Producto e) {
         Producto producto = null;
@@ -67,7 +67,7 @@ public class ProductoDAO extends Conexion implements InterfaceCRUD<Producto> {
             ps.setString(1, e.getSKU());
             rs = ps.executeQuery();
             while (rs.next()) {
-                producto = new Producto(rs.getString(1), rs.getString(2), rs.getString(3), null, rs.getBigDecimal(5), rs.getInt(6), rs.getString(7), rs.getInt(8));
+                producto = new Producto(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), null, rs.getBigDecimal(6), rs.getInt(7), rs.getString(8), rs.getInt(9));
             }
         } catch (SQLException ex) {
             System.out.println("Error al leer un producto. \nDetalles: " + ex.getMessage());
@@ -78,7 +78,7 @@ public class ProductoDAO extends Conexion implements InterfaceCRUD<Producto> {
         }
         return producto;
     }
-    
+
     @Override
     public void update(Producto e) {
         String sentence = "update producto set nombre = ?, descripcion = ?, idmarca = ?, precio = ?, stock = ?, imagen = ?, idcategoria = ? where SKU = ?";
@@ -101,7 +101,7 @@ public class ProductoDAO extends Conexion implements InterfaceCRUD<Producto> {
             close(rs);
         }
     }
-    
+
     @Override
     public void delete(Producto e) {
         String sentence = "delete from producto where SKU = ?";
@@ -118,7 +118,7 @@ public class ProductoDAO extends Conexion implements InterfaceCRUD<Producto> {
             close(rs);
         }
     }
-    
+
     public ArrayList<Producto> getProductosByCategoria(int idCategoria) {
         ArrayList<Producto> productos = new ArrayList<>();
         String sentence = "SELECT p.*, m.marca AS nombre_marca FROM producto p INNER JOIN marca m ON p.idmarca = m.idmarca WHERE p.idcategoria = ?";
@@ -132,13 +132,14 @@ public class ProductoDAO extends Conexion implements InterfaceCRUD<Producto> {
                 producto = new Producto();
                 producto.setSKU(rs.getString("SKU"));
                 producto.setNombre(rs.getString("nombre"));
+                producto.setSlug(rs.getString("slug"));
                 producto.setPrecio(rs.getBigDecimal("precio"));
                 producto.setImagen(rs.getString("imagen"));
                 Marca marca = new Marca();
                 marca.setIdmarca(rs.getInt("idmarca"));
                 marca.setMarca(rs.getString("nombre_marca"));
                 producto.setMarca(marca);
-                
+
                 productos.add(producto);
             }
         } catch (SQLException ex) {
@@ -148,14 +149,44 @@ public class ProductoDAO extends Conexion implements InterfaceCRUD<Producto> {
         }
         return productos;
     }
-    
+
+    public Producto getBySlug(String slug) {
+        String sentence = "SELECT p.*, m.marca AS nombre_marca FROM producto p INNER JOIN marca m ON p.idmarca = m.idmarca WHERE p.slug = ?";
+        Producto producto = null;
+        try {
+            cn = getConnection();
+            ps = cn.prepareStatement(sentence);
+            ps.setString(1, slug);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                producto = new Producto();
+                producto.setSKU(rs.getString("SKU"));
+                producto.setNombre(rs.getString("nombre"));
+                producto.setSlug(rs.getString("slug"));
+                producto.setDescripcion(rs.getString("descripcion"));
+                producto.setPrecio(rs.getBigDecimal("precio"));
+                Marca marca = new Marca();
+                marca.setIdmarca(rs.getInt("idmarca"));
+                marca.setMarca(rs.getString("nombre_marca"));
+                producto.setMarca(marca);
+                producto.setStock(rs.getInt("stock"));
+                producto.setImagen(rs.getString("imagen"));
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error al obtener el producto por slug. \nDetalles: " + ex.getMessage());
+        } finally {
+            close(cn);
+        }
+        return producto;
+    }
+
     private void closeSilently(Closeable closeable) {
         try {
             if (closeable != null) {
                 closeable.close();
             }
         } catch (IOException ex) {
-            
+
         }
     }
 }
