@@ -170,9 +170,6 @@ public class SvAdministrador extends HttpServlet {
         BigDecimal precio = new BigDecimal(request.getParameter("txtprecio"));
         int stock = Integer.parseInt(request.getParameter("txtstock"));
         int idcategoria = Integer.parseInt(request.getParameter("cbxCategoria"));
-        Producto p = new Producto(SKU, nombre, descripcion, null, precio, stock, "", idcategoria);
-        new ProductoDAO().create(p);
-        request.getRequestDispatcher("WEB-INF/administrator/administratorAG/productosAG.jsp").forward(request, response);
     }
 
     private void readImage(HttpServletRequest request, HttpServletResponse response) {
@@ -194,8 +191,6 @@ public class SvAdministrador extends HttpServlet {
         BigDecimal precio = new BigDecimal(request.getParameter("txtprecio"));
         int stock = Integer.parseInt(request.getParameter("txtstock"));
         int idcategoria = Integer.parseInt(request.getParameter("cbxCategoria"));
-        Producto p = new Producto(SKU, nombre, descripcion, null, precio, stock, "", idcategoria);
-        new ProductoDAO().update(p);
         request.getRequestDispatcher("WEB-INF/administrator/administratorAG/productosAG.jsp").forward(request, response);
     }
 
