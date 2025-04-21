@@ -146,6 +146,8 @@ public class ProductoDAO extends Conexion implements InterfaceCRUD<Producto> {
             System.out.println("Error al obtener los productos por categoría. \nDetalles: " + ex.getMessage());
         } finally {
             close(cn);
+            close(ps);
+            close(rs);
         }
         return productos;
     }
@@ -176,6 +178,8 @@ public class ProductoDAO extends Conexion implements InterfaceCRUD<Producto> {
             System.out.println("Error al obtener el producto por slug. \nDetalles: " + ex.getMessage());
         } finally {
             close(cn);
+            close(ps);
+            close(rs);
         }
         return producto;
     }
