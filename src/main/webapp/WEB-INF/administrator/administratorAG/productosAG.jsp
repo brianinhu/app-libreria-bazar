@@ -1,4 +1,8 @@
-<!-- No formatear el archivo -->
+<%-- 
+    Document   : buySummary
+    Created on : 5 jul. 2023, 18:03:50
+    Author     : Brian
+--%>
 
 <%@page import="libreria.modelo.dao.ProductoDAO"%>
 <%@page import="libreria.modelo.bean.Producto"%>
@@ -235,9 +239,10 @@
                                             <i class="bi bi-eye-slash-fill"></i>
                                             <i class="bi bi-eye-fill" style="display: none;"></i>
                                         </button>
+                                        
                                     </td>
                                     <%
-                                        Marca marca = new Marca(producto.getIdmarca(), "");
+                                        Marca marca = new Marca(producto.getMarca().getIdmarca(), "");
                                         marca = new MarcaDAO().read(marca);
                                     %>
                                     <td><%=marca.getMarca()%></td>
@@ -251,7 +256,7 @@
                                     <td><%=categoria.getCategoria()%></td>
                                     <td>
                                         <button class="btn btn-info" data-bs-toggle="modal" data-bs-target="#staticBackdrop2" 
-                                                onclick="abrirModal('<%=producto.getSKU()%>', '<%=producto.getNombre()%>', '<%=producto.getDescripcion()%>', '<%=producto.getIdmarca()%>', '<%=producto.getPrecio()%>', '<%=producto.getStock()%>', '<%=producto.getIdcategoria()%>')">
+                                                onclick="abrirModal('<%=producto.getSKU()%>', '<%=producto.getNombre()%>', '<%=producto.getDescripcion()%>', '<%=producto.getMarca().getIdmarca()%>', '<%=producto.getPrecio()%>', '<%=producto.getStock()%>', '<%=producto.getIdcategoria()%>')">
                                             <i class="bi bi-pencil-square"></i>
                                         </button>
                                         <button onclick="deleteProduct('<%=producto.getSKU()%>')" class="btn btn-danger">

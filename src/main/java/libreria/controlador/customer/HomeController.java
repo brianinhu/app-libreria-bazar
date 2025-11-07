@@ -19,6 +19,7 @@ public class HomeController extends HttpServlet {
         
         ArrayList<Categoria> categorias = new CategoriaDAO().toList();
         request.getSession().setAttribute("categorias", categorias);
+        request.getSession().setAttribute("baseURLServlet", request.getContextPath());
 
         request.getRequestDispatcher("index.jsp").forward(request, response);
     }

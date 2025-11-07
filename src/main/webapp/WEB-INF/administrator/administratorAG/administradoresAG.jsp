@@ -1,4 +1,8 @@
-<!-- No formatear el archivo -->
+<%-- 
+    Document   : buySummary
+    Created on : 5 jul. 2023, 18:03:50
+    Author     : Brian
+--%>
 
 <%@page import="libreria.modelo.dao.AdministradorDAO"%>
 <%@page import="java.util.ArrayList"%>
@@ -179,7 +183,7 @@
                                                     <th>Acciones</th>
                                                 </tr>
                                                 <%
-                                                    ArrayList<Administrador> listaAdmin = new AdministradorDAO().tolist();
+                                                    ArrayList<Administrador> listaAdmin = new AdministradorDAO().toList();
                                                     for (Administrador admin : listaAdmin) {
                                                         p.setIdpersonal(admin.getIdpersonal());
                                                         p = new PersonalDAO().read(p);
@@ -280,7 +284,7 @@
                                     <select id="cbxRol" name="cbxRol" class="form-select" required>
                                         <option selected hidden>Seleccione</option>
                                         <%
-                                            ArrayList<Rol> listarol = new RolDAO().tolist();
+                                            ArrayList<Rol> listarol = new RolDAO().toList();
                                             for (Rol rol : listarol) {
                                         %>
                                         <option value="<%=rol.getIdrol()%>"><%=rol.getRol()%></option>

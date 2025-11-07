@@ -83,6 +83,8 @@
         <main>
             <section id="index-section-1">
                 EN MANTENIMIENTO
+                <br>
+                Hola: ${baseURLServlet}
             </section>
         </main>
 
@@ -93,10 +95,8 @@
                 integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
         crossorigin="anonymous"></script>
         <script>
-            const baseUrl = "<%= request.getContextPath()%>";
-
             async function addItem(SKU) {
-                let response = await fetch(`\${baseUrl}/cart?action=add`, {
+                let response = await fetch(`${baseURLServlet}/cart?action=add`, {
                     method: "POST",
                     headers: {"Content-Type": "application/json"},
                     body: JSON.stringify({sku: SKU})
@@ -110,7 +110,7 @@
             }
 
             async function getTotalItems() {
-                let response = await fetch(`\${baseUrl}/cart?action=count`);
+                let response = await fetch(`${baseURLServlet}/cart?action=count`);
 
                 if (response.ok) {
                     let data = await response.json();
