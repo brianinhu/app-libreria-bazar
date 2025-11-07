@@ -86,6 +86,8 @@
                 <br>
                 Hola: ${baseURLServlet}
             </section>
+
+            <p> Contenido creado para la rama test-2</p>
         </main>
 
         <footer>FOOTER</footer>
